@@ -3,11 +3,11 @@ debliwui_menu.innerHTML = `
     <style>
         .container{
             position:fixed;
-            width:fit-content;
+            width:100%;
             left: 0;
             top:0;
             height:fit-content;
-            z-index: 9999999999;
+            z-index: 9;
             padding:0;
             font-size:12pt;
         }
@@ -51,16 +51,16 @@ debliwui_menu.innerHTML = `
         }
         
         ul li:hover {
-            background: #961A1A;
+            background: #640564;
             color:white;
         }
         
         ul li {
             width: 100%;
-            padding: 5px 5px 10px 5px;
+            padding: 2.5px 2.5px 5px 2.5px;
             display: flex;
             align-items:center;
-            margin: 7px 0;
+            margin: 9px 0;
             border-bottom:1px solid #00000010;
         }
         
@@ -71,19 +71,18 @@ debliwui_menu.innerHTML = `
 
         .aciona-menu{
             width:25px;
-            margin: 18px 0 0 15px;
+            margin: 18px 15px 0 0;
             cursor:pointer;
             z-index:11111;
+            float: right;
         }
         .user{
-            background-color:#9f0600;
-            width:90%;
-            height:25vh;
+            background-color:#640564;
+            width:100%;
             display:flex;
             align-items:baseline;
             flex-direction:column;
             justify-content: flex-end;
-            padding: 0 0 3vh 10%;
             color:white;
             position:relative;
 
@@ -106,7 +105,11 @@ debliwui_menu.innerHTML = `
             cursor:pointer;
         }
 
-        .sair{position:absolute;bottom:10pt;right:10pt;color:#9f0600;cursor:pointer;}
+        .animar {
+            transform: width;
+            transition-property: transform;
+            transition-duration: 2s;
+        }
         @media screen and (max-width:700px) {
             .conteudo{
                 display:none;
@@ -115,30 +118,40 @@ debliwui_menu.innerHTML = `
     </style>
 
     <div class="container">
-        <img src="assets/barras-menu.svg" class="aciona-menu">
+        <img src="assets/menu-abrir.svg" class="aciona-menu">
         
         <div class="conteudo" style="display:none">
             <div class="backdrop"></div>
             <div class="relativa">
-                <span class="sair">Sair</span>
                 <div class="user">
-                    <a href="/definicoes" class="go-definicoes"><img class="definicoes-user" src="assets/gear.svg" style="z-index:2"></a>
-                    <img src="pub.png" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-0;text-shadow:0px 0px 2px 4px #000000;">
-                    <p style="z-index:2;font-weight:bold;text-shadow:0px 0px 2px 4px #000000">Nome do cliente <br> MESA 2</p>
+                    <img src="assets/img-menu.svg" style="width:100%;">
+                    
                 </div>
                 <ul>
                     <a href="/home" class="home">
-                        <li> <img src="assets/home.svg"> <span>Início</span></li>
+                        <li> <img src="assets/inicio-menu.svg"> <span>Início</span></li>
                     </a>
                     <div class="linha-divisoria"></div>
                     <a href="/conta" class="conta">
-                        <li> <img src="assets/money-menu.svg"> <span>Conta</span></li>
+                        <li> <img src="assets/pendente-menu.svg"> <span>Pendentes</span></li>
                     </a>
                     <a href="/privacidade" class="privacidade">
-                        <li> <img src="assets/handshake-menu.svg"> <span>Políticas de privacidade</span></li>
+                        <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
                     <a href="/reclamacao" class="reclamacao">
-                        <li> <img src="assets/location-menu.svg"> <span>Livro de reclamações</span></li>
+                        <li> <img src="assets/carregar-menu.svg"> <span>Carregar & Saque</span></li>
+                    </a>
+                    <a href="/reclamacao" class="reclamacao">
+                        <li> <img src="assets/configurar-menu.svg"> <span>Configurações</span></li>
+                    </a>
+                    <a href="/reclamacao" class="reclamacao">
+                        <li> <img src="assets/privacidade-menu.svg"> <span>Privacidade e termos</span></li>
+                    </a>
+                    <a href="/reclamacao" class="reclamacao">
+                        <li> <img src="assets/perguntas-menu.svg"> <span>Perguntas frequentes</span></li>
+                    </a>
+                    <a href="/reclamacao" class="reclamacao">
+                        <li> <img src="assets/apoio-menu.svg"> <span>Apoio ao cliente</span></li>
                     </a>
                 </ul>
             </div>
@@ -243,7 +256,9 @@ handleLocation = async () => {
     }
     abrir() {
         let container = this.shadowRoot.querySelector('.container');
+        let conteudo = this.shadowRoot.querySelector('.conteudo');
         container.style.display = "block";
+        conteudo.classList.add('animar');
     }
     connectedCallback() {
         var esse = this;
@@ -304,26 +319,7 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.go-definicoes').addEventListener("click", function (event) {
-            let container = esse.shadowRoot.querySelector('.conteudo');
-
-            if (container.style.display == "none") {
-                container.style.display = "block";
-            } else {
-                container.style.display = "none";
-            }
-
-            event = event || window.event;
-            event.preventDefault();
-            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
-            esse.handleLocation(esse.routes);
-        });
-
-
-        this.shadowRoot.querySelector('.sair').addEventListener("click", function (event) {
-            localStorage.clear();
-            location.href = ".";
-        });
+        
     }
 
 }

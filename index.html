@@ -1,33 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>FETA</title>
         <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap/check.purple.css">
+        <link rel="stylesheet" href="assets/bootstrap/hover-min.css">
         <link rel="stylesheet" href="assets/geral.css">
         <script src="assets/bootstrap/jquery.js"></script>
-        <script src="assets/localforage.js"></script>
         <script src="components/slideImg/lightSlider.js"></script>
+        <script src="assets/bootstrap/pooper.js"></script>
         <script src="assets/bootstrap/bootstrap.min.js"></script>
+        <script src="assets/bootstrap/icheck.min.js"></script>
         <script src="components/notificacao/notificacao.js"></script>
         <script src="components/loader/loader.js"></script>
         <script src="components/slideImg/slideImg.js"></script>
         <script src="components/menu/menu.js"></script>
         <script>
-
-            const api = 'http://127.0.0.1/FASTFLOW';
-
-            var tabelaCarrinho = localforage.createInstance({
-                name: "Carrinho"
-            });
-
-            var tabelaPedidos = localforage.createInstance({
-                name: "Pedidos"
-            });
-            var tabelaProdutos = localforage.createInstance({
-                name: "Produtos"
-            });
+            const api = 'http://127.0.0.1/FETA';
         </script>
     </head>
     <style>
@@ -36,49 +27,8 @@
     <body>
         <div class="corpo">
 
-
-
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="pedidos" tabindex="-1"
-            aria-labelledby="pedidosLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content modal-lg" style="border-radius: 0;">
-                    <div class="modal-header">
-                        <p class="modal-title" id="pedidosLabel"
-                            style="text-align: center;font-weight: bold;">
-                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CONFIRME O
-                            PEDIDO AQUI</p>
-                        <button type="button" class="btn-close"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <!-- QWERTY AZERTY-->
-
-                        <section class="section">
-
-
-
-
-
-
-
-
-                        </section>
-
-                        <!-- QWERTY AZERTY-->
-
-                    </div>
-                    <div class="modal-footer">
-                        <h5><span style="font-weight: lighter;">TOTAL:</span> <span class="carrinhoTotal"></span> <span style="font-weight: lighter;">AOA</span></h5>
-                        <button type="button" class="btn btn-info form-control carrinhoPedir"
-                            style="border-radius: 0;" onclick="Requests.pedir()">Pedir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="background-image"><img src="assets/fundo.png" alt=""></div>
     </body>
     <script>
     var loader = new debliwuiloader();
@@ -92,12 +42,7 @@
     //-------------------------------------------------
     
 </script>
-        <script src="js/Funcoes.js"></script>
-        <script src="js/Requests.js"></script>
     <script src="router.js"></script>
     <script>
-    Requests.verProdutos();
-    Requests.pullingConta();
-    Requests.pullingPedidos();
 </script>
 </html>

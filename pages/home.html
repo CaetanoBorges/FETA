@@ -1,15 +1,59 @@
 <div id="render">
 
-    <button class="btn btn-success btn-lg form-control botaocard" onclick='vaiTela("/categoria#dia")'>PRATO DO DIA</button>
-    <button class="btn btn-info btn-lg form-control botaocard" onclick='vaiTela("/categoria#abertura")'>ABERTURA</button>
-    <button class="btn btn-info btn-lg form-control botaocard" onclick='vaiTela("/categoria#bebida")'>BEBIDA</button>
-    <button class="btn btn-info btn-lg form-control botaocard" onclick='vaiTela("/categoria#almoco")'>ALMOÇO</button>
-    <button class="btn btn-info btn-lg form-control botaocard" onclick='vaiTela("/categoria#sobremesa")'>SOBREMESA</button>
-    <button class="btn btn-info btn-lg form-control botaocard" onclick='vaiTela("/categoria#guarnicoes")'>GUARNIÇÕES</button>
+    <div class="top-notification">
+        <img src="assets/notificacao-icon.svg" class="notification-icon">
+        <p class="label">Olá<br><span>Super Junior</span></p>
+        <img src="assets/user.svg" class="user-icon">
+    </div>
 
-<br><br><br><br>
-        
+    <div class="saldo-info">
+        <img src="assets/fundo-saldo.svg" alt>
+        <p>
+            SALDO <br><span>15 000,00</span>
+        </p>
+        <span class="moeda">AOA</span>
+    </div>
+
+    <div class="botoes">
+        <img src="assets/btn/BTN-ENVIAR.svg" class="hvr-bounce-out">
+        <img src="assets/btn/BTN-RECEBER.svg" class="hvr-bounce-out">
+        <img src="assets/btn/BTN-PAGAMENTOS.svg" class="hvr-bounce-out">
+        <img src="assets/btn/BTN-ESTATISTICA.svg" class="hvr-bounce-out">
+    </div>
+
+    <div class="transacoes">
+        <p class="ver-todas">Ver todas</p>
+        <p>Transações</p>
+        <div class="schrol-transacoes">
+            <div class="render-transacoes">
+                <div class="transacao entrada">
+                    <p class="valor">+ 5 000,00</p>
+                    <p class="data">05-08-2024</p>
+                    <p class="descricao">Descricao aqui resumida...</p>
+                </div>
+                <div class="transacao entrada">
+                    <p class="valor">+ 5 000,00</p>
+                    <p class="data">05-08-2024</p>
+                    <p class="descricao">Descricao aqui resumida...</p>
+                </div>
+                <div class="transacao saida">
+                    <p class="valor">- 5 000,00</p>
+                    <p class="data">05-08-2024</p>
+                    <p class="descricao">Descricao aqui resumida...</p>
+                </div>
+                <div class="transacao entrada">
+                    <p class="valor">+ 5 000,00</p>
+                    <p class="data">05-08-2024</p>
+                    <p class="descricao">Descricao aqui resumida...</p>
+                </div>
+                <div class="transacao saida">
+                    <p class="valor">- 5 000,00</p>
+                    <p class="data">05-08-2024</p>
+                    <p class="descricao">Descricao aqui resumida...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-<button class="form-control btn btn-danger botao"  data-bs-toggle="modal" data-bs-target="#pedidos" onclick="Funcoes.carrinho()">PEDIDO</button>
+<link rel="stylesheet" href="home.css">

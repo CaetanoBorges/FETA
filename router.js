@@ -36,18 +36,10 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                var conta = localStorage.getItem("mesa");
-                 
-                if(conta){
-                    vaiTela("home");
-                }
-                loader.abrir();
-                menu.fechar();
-                var slide = new debliwuislideimg($, ['<img src="pub.png" alt="">'], mostrarquantos = 1, pager = false, speed = 800, pause = 2000)
-                document.querySelector(".corpo").prepend(slide);   
+                vaiTela("home");
+                
                 setTimeout(function () {
-                    Requests.entrar();
-                    loader.fechar();
+                    loader.abrir();
                 }, 1000);
             }
             if (path == "/reclamacao") {
@@ -70,11 +62,8 @@ const handleLocation = async () => {
                 }
 
             if (path == "/home") {
-                Requests.verProdutos();
                 loader.abrir();
-                menu.abrir();
-                var slide = new debliwuislideimg($, ['<img src="pub.png" alt="">'], mostrarquantos = 1, pager = false, speed = 800, pause = 2000)
-                document.querySelector(".corpo").prepend(slide);   
+                menu.abrir(); 
                 setTimeout(function () {
 
                     
