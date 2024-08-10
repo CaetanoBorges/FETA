@@ -132,7 +132,7 @@ debliwui_menu.innerHTML = `
                         <li> <img src="assets/inicio-menu.svg"> <span>Início</span></li>
                     </a>
                     <div class="linha-divisoria"></div>
-                    <a href="/conta" class="conta">
+                    <a href="/pendentes" class="pendentes">
                         <li> <img src="assets/pendente-menu.svg"> <span>Pendentes</span></li>
                     </a>
                     <a href="/privacidade" class="privacidade">
@@ -186,7 +186,7 @@ class debliwuimenu extends HTMLElement {
     routes = {
     404: "/pages/404.html",
     "/": "/pages/inicio.html",
-    "/home": "/pages/home.html",
+    "/pendentes": "/pages/pendentes.html",
     "/reclamacao": "/pages/reclamacao.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
@@ -225,8 +225,6 @@ handleLocation = async () => {
             if (path == "/home") {
                 loader.abrir();
                 
-                var slide = new debliwuislideimg($, ['<img src="pub.png" alt="">'], mostrarquantos = 1, pager = false, speed = 800, pause = 2000)
-                document.querySelector(".corpo").prepend(slide);   
                 setTimeout(function () {
 
                     
@@ -234,14 +232,21 @@ handleLocation = async () => {
                     loader.fechar();
                 }, 1000);
             }
-            if (path == "/conta") {
+            if (path == "/enviar") {
                 loader.abrir();
                 
                 setTimeout(function () {
 
-                    Requests.verConta();
+                    
 
                     loader.fechar();
+                }, 1000);
+            }
+            if (path == "/pendentes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    PendentesRequests.pendentes();
+
                 }, 1000);
             }
         })
@@ -301,7 +306,7 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.conta').addEventListener("click", function (event) {
+        this.shadowRoot.querySelector('.pendentes').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);

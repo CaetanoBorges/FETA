@@ -15,7 +15,11 @@ const routes = {
     404: "/pages/404.html",
     "/": "/pages/inicio.html",
     "/home": "/pages/home.html",
-    "/reclamacao": "/pages/reclamacao.html",
+    "/enviar": "/pages/enviar.html",
+    "/receber": "/pages/receber.html",
+    "/pagamentos": "/pages/pagamentos.html",
+    "/estatistica": "/pages/estatistica.html",
+    "/pendentes": "/pages/pendentes.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
     "/definicoes": "/pages/definicoes.html",
@@ -36,31 +40,20 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("home");
+                vaiTela("enviar");
                 
                 setTimeout(function () {
                     loader.abrir();
                 }, 1000);
             }
-            if (path == "/reclamacao") {
+            if (path == "/pendentes") {
                 loader.abrir();
                 
                 setTimeout(function () {
+                    PendentesRequests.pendentes();
 
-                    Funcoes.reclamou();
-
-                    loader.fechar();
                 }, 1000);
             }
-
-        
-                if (hash == "") {
-                    
-                }
-                if (hash == "#categoria") {
-                    
-                }
-
             if (path == "/home") {
                 loader.abrir();
                 menu.abrir(); 
@@ -71,16 +64,50 @@ const handleLocation = async () => {
                     loader.fechar();
                 }, 1000);
             }
-            if (path == "/conta") {
+            if (path == "/enviar") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    new SlimSelect({
+                    select: '#select-parcelado',
+                    settings: {
+                        showSearch: false
+                    }
+                    })
+                    new SlimSelect({
+                    select: '#select-recorrente',
+                    settings: {
+                        showSearch: false
+                    }
+                    })
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/receber") {
                 loader.abrir();
                 
                 setTimeout(function () {
 
-                    Requests.verConta();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/pagamentos") {
+                loader.abrir();
+                
+                setTimeout(function () {
 
                     loader.fechar();
                 }, 1000);
             }
+            if (path == "/estatisticas") {
+                loader.abrir();
+                
+                setTimeout(function () {
+
+                    loader.fechar();
+                }, 1000);
+            }
+
             if (path == "/categoria") {
                 loader.abrir();
                 setTimeout(function () {

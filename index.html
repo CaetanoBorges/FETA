@@ -5,18 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FETA</title>
         <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/bootstrap/check.purple.css">
         <link rel="stylesheet" href="assets/bootstrap/hover-min.css">
+        <link rel="stylesheet" href="assets/bootstrap/slinselect.css">
         <link rel="stylesheet" href="assets/geral.css">
         <script src="assets/bootstrap/jquery.js"></script>
         <script src="components/slideImg/lightSlider.js"></script>
-        <script src="assets/bootstrap/pooper.js"></script>
         <script src="assets/bootstrap/bootstrap.min.js"></script>
-        <script src="assets/bootstrap/icheck.min.js"></script>
+        <script src="assets/bootstrap/slinselec.js"></script>
         <script src="components/notificacao/notificacao.js"></script>
         <script src="components/loader/loader.js"></script>
         <script src="components/slideImg/slideImg.js"></script>
         <script src="components/menu/menu.js"></script>
+        <script src="components/saldo/saldo.js"></script>
+        <script src="components/transacao/transacao.js"></script>
+        <script src="components/header/header.js"></script>
+        <script src="components/voltar/voltar.js"></script>
         <script>
             const api = 'http://127.0.0.1/FETA';
         </script>
@@ -28,8 +31,9 @@
         <div class="corpo">
 
         </div>
-        <div class="background-image"><img src="assets/fundo.png" alt=""></div>
+        <div class="background-image"><img src="assets/fundo.png" alt></div>
     </body>
+    <script src="requests/Pendentes.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao();
@@ -39,10 +43,13 @@
     document.querySelector("body").append(notificacao);
     document.querySelector("body").append(menu);
 
+    const PendentesRequests = new PendentesReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>
     <script src="router.js"></script>
     <script>
+    
 </script>
+
 </html>
