@@ -68,18 +68,8 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-                    new SlimSelect({
-                    select: '#select-parcelado',
-                    settings: {
-                        showSearch: false
-                    }
-                    })
-                    new SlimSelect({
-                    select: '#select-recorrente',
-                    settings: {
-                        showSearch: false
-                    }
-                    })
+                    
+                    EnviarRequests.init()
                     loader.fechar();
                 }, 1000);
             }

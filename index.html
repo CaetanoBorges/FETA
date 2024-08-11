@@ -34,6 +34,7 @@
         <div class="background-image"><img src="assets/fundo.png" alt></div>
     </body>
     <script src="requests/Pendentes.js"></script>
+    <script src="requests/Enviar.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao();
@@ -44,6 +45,7 @@
     document.querySelector("body").append(menu);
 
     const PendentesRequests = new PendentesReq($,api,loader,notificacao);
+    const EnviarRequests = new EnviarReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>

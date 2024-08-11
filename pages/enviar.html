@@ -15,128 +15,216 @@
         </div>
         <div class="mb-4">
             <label class="form-label">Para quem?</label>
-            <input type="text" class="form-control" placeholder="">
+            <input type="text" class="form-control" placeholder>
         </div>
         <div class="mb-4">
             <label class="form-label">Descrição</label>
-            <input type="text" class="form-control" placeholder="detalhes da operação">
+            <input type="text" class="form-control"
+                placeholder="detalhes da operação">
         </div>
     </div>
 
-    
     <div class="container-div">
-        <h1 class="opcoes-operacao" data-bs-toggle="collapse" data-bs-target="#opcoes-operacao">OPÇÕES AVANÇADAS</h1>
-       
+        <h1 class="opcoes-operacao" data-bs-toggle="collapse"
+            data-bs-target="#opcoes-operacao">OPÇÕES AVANÇADAS</h1>
+
         <div class="collapse" id="opcoes-operacao">
-        <div style="width: 100%;border-top:1px solid rgba(0, 0, 0, 0.27);margin-top: 10px;padding: 10px 0;">
-            <div class="opcoes" id="opcao-parcelado">
-                <p>Pagar parcelado ?</p>
-                <div class="container">
-                <div class="row">
-                    <div class="col">
-                    <div >
-                        <input type="radio"  name="radio-parcelado" id="flexRadioDefault1" value="sim" class="radio">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Sim
-                        </label>
+            <div
+                style="width: 100%;border-top:1px solid rgba(0, 0, 0, 0.27);margin-top: 10px;padding: 10px 0;">
+                <div class="opcoes" id="opcao-parcelado">
+                    <p>Pagar parcelado ?</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div>
+                                    <div>
+                                        <input type="radio"
+                                            name="radio-parcelado"
+                                            id="flexRadioDefault1" value="sim"
+                                            class="radio">
+                                        <label class="form-check-label"
+                                            for="flexRadioDefault1">
+                                            Sim
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"
+                                            name="radio-parcelado"
+                                            id="flexRadioDefault2" value="nao"
+                                            checked class="radio">
+                                        <label class="form-check-label"
+                                            for="flexRadioDefault2">
+                                            Não
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div> <br>
+                                    <p style="font-size: 14px;">Serão pagos
+                                        <br><b>000 000,00</b>, <br> x vezes</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <label class="form-check-label"
+                                        for="select-parcelado">
+                                        Periodicidade
+                                    </label>
+                                    <select id="select-parcelado" disabled>
+                                        <option>Semanal</option>
+                                        <option>Mensal</option>
+                                        <option>Trimestral</option>
+                                        <option>Semestral</option>
+                                        <option>Anual</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label class="form-check-label"
+                                        for="select-parcela">
+                                        Parcelas
+                                    </label>
+                                    <select id="select-parcela" disabled>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div >
-                        <input type="radio" name="radio-parcelado" id="flexRadioDefault2" value="nao" checked class="radio">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Não
-                        </label>
+
+                </div>
+
+                <br>
+                <div class="opcoes" id="opcao-recorrente">
+                    <p>Pagamento recorrente ?</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div>
+                                    <input type="radio" name="radio-recorrente"
+                                        id="flexRadioDefault1" value="sim"
+                                        class="radio">
+                                    <label class="form-check-label"
+                                        for="flexRadioDefault1">
+                                        Sim
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="radio-recorrente"
+                                        id="flexRadioDefault2" value="nao"
+                                        checked class="radio">
+                                    <label class="form-check-label"
+                                        for="flexRadioDefault2">
+                                        Não
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-check-label"
+                                    for="select-recorrente">
+                                    Periodicidade
+                                </label>
+                                <select id="select-recorrente" disabled>
+                                    <option>Semanal</option>
+                                    <option>Mensal</option>
+                                    <option>Trimestral</option>
+                                    <option>Semestral</option>
+                                    <option>Anual</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <p class="obs">
+                    O pagamento recorrente pode ser cancelado ou alterado a
+                    qualquer momento. Acessando o menu: <span>Operações
+                        recorrentes</span>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <img src="assets/btn/btn-enviar-lg.svg" alt
+        class="btn-lg-svg hvr-bounce-out"
+        onclick="EnviarRequests.modalConfirmar()">
+    <br>
+    <!-- MODAL CONFIRMAR NORMAL -->
+    <div class="modal fade" id="confirmar-modal" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="exampleModalToggleLabel">CONFIRMAR ENVIO</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detalhes-transacao">
+                        <p>Quanto: 44 000,00</p>
+                        <p>Onde: Aplicativo</p>
+                        <p>Para: Caetano Borges</p>
+                        <p>Tipo: 12 parcelas de <b>2 000,00</b> pagos mensal </p>
+                        <p>Descrição: Descrica do pagamento</p>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-primary form-control btn-lg hvr-bounce-out"
+                        onclick="EnviarRequests.modalConfirmarSMS()">Confirmar</button>
+                    <button
+                        class="btn btn-danger form-control btn-lg hvr-bounce-out"
+                        data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL CONFIRMAR NUMERO DA MENSAGEM -->
+    
+    <div class="modal fade" id="confirmar-sms" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detalhes-transacao">
+                        <h1>Confirme o código que recebeu por mensagem</h1>
                         
+                        <input type="text" class="form-control" placeholder="Digite aqui">
+                        <br>
+                        <p>Não recebeu o código?
+                            <br> <span style="color:#640564;font-weight: 500;cursor:pointer;">Click aqui...</span> </p>
                     </div>
-                    </div>
-                    <div class="col">
-                    <label class="form-check-label" for="select-parcelado">
-                        Periodicidade
-                    </label>
-                    <select id="select-parcelado" disabled>
-                        <option>Semanal</option>
-                        <option>Mensal</option>
-                        <option>Trimestral</option>
-                        <option>Semestral</option>
-                        <option>Anual</option>
-                    </select>
-                    </div>
+                    <br>
                 </div>
+                <div class="modal-footer">
+                    <img src="assets/btn/btn-enviar-lg-confirmar.svg" alt
+                    class="btn-lg-svg hvr-bounce-out"
+                    onclick="EnviarRequests.confirmarSMS()">
                 </div>
-                    
             </div>
-
-            <br>
-    <div class="opcoes" id="opcao-recorrente">
-                <p>Pagamento recorrente ?</p>
-                <div class="container">
-                <div class="row">
-                    <div class="col">
-                    <div >
-                        <input type="radio"  name="radio-recorrente" id="flexRadioDefault1" value="sim" class="radio">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Sim
-                        </label>
-                    </div>
-                    <div >
-                        <input type="radio" name="radio-recorrente" id="flexRadioDefault2" value="nao" checked class="radio">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Não
-                        </label>
-                    </div>
-                    </div>
-                    <div class="col">
-                    <label class="form-check-label" for="select-recorrente">
-                        Periodicidade
-                    </label>
-                    <select id="select-recorrente" disabled>
-                        <option>Semanal</option>
-                        <option>Mensal</option>
-                        <option>Trimestral</option>
-                        <option>Semestral</option>
-                        <option>Anual</option>
-                    </select>
-                    </div>
-                </div>
-                </div>
-                    
-            </div>
-
-            <br>
-            <p class="obs">
-                O pagamento recorrente pode ser cancelado ou alterado a qualquer momento. Acessando o menu: <span>Operações recorrentes</span>.
-            </p>
-        </div>
         </div>
     </div>
-    <br>
-    <img src="assets/btn/btn-enviar-lg.svg" alt="" class="btn-lg-svg hvr-bounce-out">
-    <br>
-
-
-
-<div class="modal fade" id="confirmar-modal" aria-hidden="true"  tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalToggleLabel">CONFIRMAR ENVIO</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Show a second modal and hide this one with the button below.
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 </div>
 <style>
-    .container-div{display: block;width:96%;background: #fff;position: relative;padding:6%;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
--moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);border-radius: 5px;
-margin: 20px auto 0 auto;font-size: 15px;}
+
 .opcoes-operacao{text-align: center;width: 100%;font-weight: lighter;margin: 0;}
 .btn-lg-svg{display: block;width: 99%;margin: 0 auto;}
 
@@ -162,36 +250,9 @@ margin: 20px auto 0 auto;font-size: 15px;}
 .opcoes{font-size: 20px;}
 .opcoes p{margin:5px 0}
 .obs span{color: #019DC9}
-
+.detalhes-transacao p{margin: 0;line-height: 25px;font-size: 15px;}
 
 </style>
 <script>
-    function checks(){
-        $('[name="radio-parcelado"]').change(function(){
-            var parcelar = $('[name="radio-parcelado"]:checked').val();
-            if(parcelar=="sim"){
-                $("#select-parcelado").removeAttr("disabled");
-                $("#opcao-recorrente").hide();
-            }
-            if(parcelar=="nao"){
-                $("#select-parcelado")[0].setAttribute("disabled","disabled");
-                $("#opcao-recorrente").show();
-            }
-        })
 
-        
-        $('[name="radio-recorrente"]').change(function(){
-            var parcelar = $('[name="radio-recorrente"]:checked').val();
-            if(parcelar=="sim"){
-                $("#select-recorrente").removeAttr("disabled");
-                $("#opcao-parcelado").hide();
-            }
-            if(parcelar=="nao"){
-                $("#select-recorrente")[0].setAttribute("disabled","disabled");
-                $("#opcao-parcelado").show();
-            }
-        })
-    }
-    var myModal = new bootstrap.Modal(document.getElementById('confirmar-modal'))
-    myModal.toggle()
 </script>
