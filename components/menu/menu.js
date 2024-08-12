@@ -4,7 +4,7 @@ debliwui_menu.innerHTML = `
         .container{
             position:fixed;
             width:100%;
-            left: 0;
+            left: -100%;
             top:0;
             height:fit-content;
             z-index: 9;
@@ -31,7 +31,7 @@ debliwui_menu.innerHTML = `
             height:100%;
             position:fixed;
             width:100%;
-            left: 0;
+            left: -100%;
             top:0;
             height:100vh;
             background: #00000074;
@@ -71,10 +71,11 @@ debliwui_menu.innerHTML = `
 
         .aciona-menu{
             width:25px;
-            margin: 18px 15px 0 0;
+            margin: 18px -96% 0 0;
             cursor:pointer;
             z-index:11111;
             float: right;
+
         }
         .user{
             background-color:#640564;
@@ -167,20 +168,24 @@ debliwui_menu.innerHTML = `
 
 class debliwuimenu extends HTMLElement {
 
-    constructor(route) {
+    constructor(route,jquery) {
         super(route);
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(debliwui_menu.content.cloneNode(true));
         this.route = route;
+        this.jquery = jquery;
     }
 
     fechar(esse) {
+        var $ = esse.jquery;
         let container = esse.shadowRoot.querySelector('.container');
 
         if (container.style.display == "none") {
-            container.style.display = "block";
+            $(container).show("slow");
+            //container.style.display = "block";
         } else {
-            container.style.display = "none";
+            $(container).hide("slow");
+            //container.style.display = "none";
         }
     }
     routes = {
@@ -256,46 +261,74 @@ handleLocation = async () => {
 }
 
     fechar() {
+        var $ = this.jquery;
         let container = this.shadowRoot.querySelector('.container');
-        container.style.display = "none";
+        $(container).hide("slow");
+        //container.style.display = "none";
     }
     abrir() {
+        var $ = this.jquery;
         let container = this.shadowRoot.querySelector('.container');
-        let conteudo = this.shadowRoot.querySelector('.conteudo');
-        container.style.display = "block";
-        conteudo.classList.add('animar');
+        $(container).show("slow");
+        //container.style.display = "block";
     }
     connectedCallback() {
+        var $ = this.jquery;
         var esse = this;
 
         var route = this.getAttribute('route');
         this.shadowRoot.querySelector('.aciona-menu').addEventListener("click", function () {
             let container = esse.shadowRoot.querySelector('.conteudo');
+            let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                container.style.display = "block";
+                $(container).animate({"left":"100%"},"slow");
+                setTimeout(function(){
+                    $(backdrop).animate({"left":"0"},"fast");
+                },300);
+                $(container).show();
+                //container.style.display = "block";
             } else {
-                container.style.display = "none";
+                $(container).animate({"left":"-100%"},"slow");
+                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).hide();
+                //container.style.display = "none";
             }
         });
         this.shadowRoot.querySelector('.backdrop').addEventListener("click", function () {
             let container = esse.shadowRoot.querySelector('.conteudo');
+            let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                container.style.display = "block";
+                $(container).animate({"left":"100%"},"slow");
+                setTimeout(function(){
+                    $(backdrop).animate({"left":"0"},"fast");
+                },300);
+                $(container).show("slow");
+                //container.style.display = "block";
             } else {
-                container.style.display = "none";
+                $(container).animate({"left":"-100%"},"slow");
+                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).hide("slow");
+                //container.style.display = "none";
             }
         });
         let lis = this.shadowRoot.querySelectorAll('li');
         lis.forEach(element => {
             element.addEventListener("click", function () {
                 let container = esse.shadowRoot.querySelector('.conteudo');
+                let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
                 if (container.style.display == "none") {
-                    container.style.display = "block";
+                     $(container).animate({"left":"100%"},"slow");
+                    setTimeout(function(){
+                        $(backdrop).animate({"left":"0"},"fast");
+                    },300);
+                    $(container).show("slow");
                 } else {
-                    container.style.display = "none";
+                    $(container).animate({"left":"-100%"},"slow");
+                    $(backdrop).animate({"left":"-100%"},"fast");
+                    $(container).hide("slow");
                 }
             });
         });

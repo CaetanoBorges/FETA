@@ -11,16 +11,16 @@
     <div class="container-div">
         <div class="mb-4">
             <label class="form-label">Quanto?</label>
-            <input type="number" class="form-control" placeholder="0">
+            <input type="number" class="form-control" placeholder="0" id="quanto">
         </div>
         <div class="mb-4">
             <label class="form-label">Para quem?</label>
-            <input type="text" class="form-control" placeholder>
+            <input type="text" class="form-control" placeholder id="para">
         </div>
         <div class="mb-4">
-            <label class="form-label">Descrição</label>
+            <label class="form-label">Descrição <span style="font-weight: 100;">(Opçional)</span></label>
             <input type="text" class="form-control"
-                placeholder="detalhes da operação">
+                placeholder="detalhes da operação" id="descricao">
         </div>
     </div>
 
@@ -159,7 +159,7 @@
     <br>
     <img src="assets/btn/btn-enviar-lg.svg" alt
         class="btn-lg-svg hvr-bounce-out"
-        onclick="EnviarRequests.modalConfirmar()">
+        onclick="EnviarRequests.pegaDadosOperacao()">
     <br>
     <!-- MODAL CONFIRMAR NORMAL -->
     <div class="modal fade" id="confirmar-modal" aria-hidden="true"

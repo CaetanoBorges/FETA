@@ -11,12 +11,12 @@ class EnviarReq {
             if (parcelar == "sim") {
                 $("#select-parcelado").removeAttr("disabled");
                 $("#select-parcela").removeAttr("disabled");
-                $("#opcao-recorrente").hide();
+                $("#opcao-recorrente").hide("slow");
             }
             if (parcelar == "nao") {
                 $("#select-parcelado")[0].setAttribute("disabled", "disabled");
                 $("#select-parcela")[0].setAttribute("disabled", "disabled");
-                $("#opcao-recorrente").show();
+                $("#opcao-recorrente").show("slow");
             }
         })
 
@@ -25,13 +25,13 @@ class EnviarReq {
             var parcelar = $('[name="radio-recorrente"]:checked').val();
             if (parcelar == "sim") {
                 $("#select-recorrente").removeAttr("disabled");
-                $("#opcao-parcelado").hide();
-                $("#opcao-parcela").hide();
+                $("#opcao-parcelado").hide("slow");
+                $("#opcao-parcela").hide("slow");
             }
             if (parcelar == "nao") {
                 $("#select-recorrente")[0].setAttribute("disabled", "disabled");
-                $("#opcao-parcelado").show();
-                $("#opcao-parcela").show();
+                $("#opcao-parcelado").show("slow");
+                $("#opcao-parcela").show("slow");
             }
         })
 
@@ -62,5 +62,45 @@ class EnviarReq {
     modalConfirmarSMS() {
         var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
         myModal.toggle()
+    }
+
+    pegaDadosOperacao(){
+        var dadosOperacao = {};
+        var quanto = $("#quanto").val();
+        var para = $("#para").val();
+        var descricao = $("#descricao").val();
+        var tipo = "Normal";
+        var onde = "App";
+
+        var parcelado = $('[name="radio-parcelado"]:checked').val();
+        var parceladoPeriodicidade;
+        var parceladoParcelas;
+
+        var recorrente=$('[name="radio-recorrente"]:checked').val();
+        var recorrentePeriodicidade;
+
+        if(parcelado == "sim"){
+            tipo = "Parcelado";
+            parceladoPeriodicidade = $("#select-parcelado").val();
+            parceladoParcelas = $("#select-parcela").val();
+            dadosOperacao.periodicidade = parceladoPeriodicidade;
+            dadosOperacao.parcelas = parceladoParcelas;
+        }
+
+        if(recorrente == "sim"){
+            tipo = "Recorrente";
+            recorrentePeriodicidade = $("#select-recorrente").val();
+            dadosOperacao.periodicidade = recorrentePeriodicidade;
+        }
+
+
+        dadosOperacao.quanto = quanto;
+        dadosOperacao.para = para;
+        dadosOperacao.tipo = tipo;
+        dadosOperacao.onde = onde;
+        dadosOperacao.descricao = descricao;
+
+        this.modalConfirmar();
+        console.log(dadosOperacao);
     }
 }
