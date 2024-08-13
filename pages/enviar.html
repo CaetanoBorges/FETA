@@ -11,16 +11,16 @@
     <div class="container-div">
         <div class="mb-4">
             <label class="form-label">Quanto?</label>
-            <input type="number" class="form-control" placeholder="0" id="quanto">
+            <input type="number" class="form-control" placeholder="0" id="quanto" autocomplete="off">
         </div>
         <div class="mb-4">
             <label class="form-label">Para quem?</label>
-            <input type="text" class="form-control" placeholder id="para">
+            <input type="text" class="form-control" placeholder id="para" autocomplete="off">
         </div>
         <div class="mb-4">
             <label class="form-label">Descrição <span style="font-weight: 100;">(Opçional)</span></label>
             <input type="text" class="form-control"
-                placeholder="detalhes da operação" id="descricao">
+                placeholder="detalhes da operação" id="descricao" autocomplete="off">
         </div>
     </div>
 
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div> <br>
-                                    <p style="font-size: 14px;">Serão pagos
+                                    <p style="font-size: 14px;" class="valorParcela">Serão pagos
                                         <br><b>000 000,00</b>, <br> x vezes</p>
                                 </div>
                             </div>
@@ -71,11 +71,11 @@
                                         Periodicidade
                                     </label>
                                     <select id="select-parcelado" disabled>
-                                        <option>Semanal</option>
-                                        <option>Mensal</option>
-                                        <option>Trimestral</option>
-                                        <option>Semestral</option>
-                                        <option>Anual</option>
+                                        <option value="Semanal">Semanal</option>
+                                        <option value="Mensal">Mensal</option>
+                                        <option value="Trimestral">Trimestral</option>
+                                        <option value="Semestral">Semestral</option>
+                                        <option value="Anual">Anual</option>
                                     </select>
                                 </div>
                                 <br>
@@ -149,7 +149,7 @@
 
                 <br>
                 <p class="obs">
-                    O pagamento recorrente pode ser cancelado ou alterado a
+                    O pagamento recorrente pode ser cancelado a
                     qualquer momento. Acessando o menu: <span>Operações
                         recorrentes</span>.
                 </p>
@@ -173,12 +173,8 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="detalhes-transacao">
-                        <p>Quanto: 44 000,00</p>
-                        <p>Onde: Aplicativo</p>
-                        <p>Para: Caetano Borges</p>
-                        <p>Tipo: 12 parcelas de <b>2 000,00</b> pagos mensal </p>
-                        <p>Descrição: Descrica do pagamento</p>
+                    <div class="detalhes-transacao" id="detalhes-transacao">
+                        
                     </div>
                     
                 </div>
