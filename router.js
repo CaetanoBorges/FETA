@@ -18,6 +18,8 @@ const routes = {
     "/enviar": "/pages/enviar.html",
     "/receber": "/pages/receber.html",
     "/pagamentos": "/pages/pagamentos.html",
+    "/servico": "/pages/servico.html",
+    "/entidade": "/pages/entidade.html",
     "/estatistica": "/pages/estatistica.html",
     "/pendentes": "/pages/pendentes.html",
     "/privacidade": "/pages/privacidade.html",
@@ -40,7 +42,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("enviar");
+                vaiTela("pagamentos");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -77,7 +79,7 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-
+                    ReceberRequests.init()
                     loader.fechar();
                 }, 1000);
             }
@@ -86,6 +88,14 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
 
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/servico") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    PagamentosRequests.verServico();
                     loader.fechar();
                 }, 1000);
             }

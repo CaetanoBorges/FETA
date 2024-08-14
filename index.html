@@ -35,6 +35,8 @@
     </body>
     <script src="requests/Pendentes.js"></script>
     <script src="requests/Enviar.js"></script>
+    <script src="requests/Receber.js"></script>
+    <script src="requests/Pagamentos.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao($);
@@ -46,6 +48,8 @@
 
     const PendentesRequests = new PendentesReq($,api,loader,notificacao);
     const EnviarRequests = new EnviarReq($,api,loader,notificacao);
+    const ReceberRequests = new ReceberReq($,api,loader,notificacao);
+    const PagamentosRequests = new PagamentosReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>

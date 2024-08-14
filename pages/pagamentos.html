@@ -1,45 +1,37 @@
 <div id="render">
 
-    <debliwui-top></debliwui-top>
-
+    <debliwui-voltar></debliwui-voltar>
+    <br><br>
     <debliwui-saldo></debliwui-saldo>
 
-    <div class="botoes">
-        <img src="assets/btn/BTN-ENVIAR.svg" class="hvr-bounce-out">
-        <img src="assets/btn/BTN-RECEBER.svg" class="hvr-bounce-out">
-        <img src="assets/btn/BTN-PAGAMENTOS.svg" class="hvr-bounce-out">
-        <img src="assets/btn/BTN-ESTATISTICA.svg" class="hvr-bounce-out">
+    <div class="titulo">
+        <h1>SELECIONE O SERVIÇO</h1>
     </div>
 
-    <div class="transacoes">
-        <p class="ver-todas">Ver todas</p>
-        <p>Transações</p>
-        <div class="schrol-transacoes">
-            <div class="render-transacoes">
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-                <debliwui-transacao></debliwui-transacao>
-            </div>
-        </div>
+    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Recargas")'>
+        <span class="label-btn"> Recargas </span>
+        <img src="assets/flexa.svg" class="icon-btn-flexa">
+    </div>
+    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("TV")'>
+        <span class="label-btn"> Televisão </span>
+        <img src="assets/flexa.svg" class="icon-btn-flexa">
+    </div>
+    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Estado")'>
+        <span class="label-btn"> Pagamentos ao estado </span>
+        <img src="assets/flexa.svg" class="icon-btn-flexa">
+    </div>
+    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Outros")'>
+        <span class="label-btn"> Outras entidades </span>
+        <img src="assets/flexa.svg" class="icon-btn-flexa">
     </div>
 
-</div>
-<style>
+   
+    <br>
     
-.botoes{display: flex; width: 100%;margin-top: 10px;position: relative;justify-content: space-between;flex-direction: row;}
-.botoes img{width: 24%;}
+<style>
 
-.transacoes{width:100%;display: block;padding:20px 20px 5px 20px;height:250px;border-radius: 20px 20px 0 0;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
--moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
-position:fixed;bottom: 0vh;left: 0;}
-.schrol-transacoes{display:block;width:100%;height:190px;overflow-y: scroll;}
-.render-transacoes{height:fit-content;}
-.ver-todas{font-weight: 300;float: right;}
 
 </style>
+<script>
+
+</script>

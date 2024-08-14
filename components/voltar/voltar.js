@@ -4,7 +4,7 @@ debliwui_voltar.innerHTML = `
         .voltar{position: fixed;top: 2vh;left: 2%;width: 35px;z-index: 99;}
         .voltar image{width: 100%;}
     </style>
-    <div class="voltar" onclick="history.back()">
+    <div class="voltar">
         <img src="assets/voltar.svg">
     </div>
 `;
@@ -28,8 +28,17 @@ class debliwuivoltar extends HTMLElement {
 
     connectedCallback() {
         var esse = this;
-        var fechar = this.fechar;
+        this.shadowRoot.querySelector('.voltar').addEventListener("click",function(){
+            var voltar = esse.shadowRoot.querySelector('.voltar');
+            voltar.style.opacity = ".3";
+            setTimeout(function(){
+                voltar.style.opacity = "1";
+            },1000);
+            
+            history.back();
+        })
         
+
     }
 
 }

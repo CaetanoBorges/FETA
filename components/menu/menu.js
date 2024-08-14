@@ -278,6 +278,10 @@ handleLocation = async () => {
 
         var route = this.getAttribute('route');
         this.shadowRoot.querySelector('.aciona-menu').addEventListener("click", function () {
+            let acionamenu = esse.shadowRoot.querySelector('.aciona-menu');
+            $(acionamenu).animate({"opacity":"0"},"fast");
+            $(acionamenu).animate({"opacity":"1"},"fast");
+
             let container = esse.shadowRoot.querySelector('.conteudo');
             let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
