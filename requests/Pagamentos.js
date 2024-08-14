@@ -8,7 +8,7 @@ class PagamentosReq {
 
     entidades = {
         Unitel: {
-            Produtos: ["SALDO_VOZ", "NET_ATE_15_GB", "SALDO_NET_CASA_4G", "PLANO_MAIS_30_DIAS", "PLANO_MAIS_VOZ", "PLANO_MAIS_DADOS", "REDES_SOCIAIS_PLUS", "NET_ACIMA_15_GB"],
+            Produtos: [{id:"SALDO_VOZ",label:"SALDO VOZ"}, {id:"NET_ATE_15_GB",label:"NET ATÉ 15 GB"}, {id:"SALDO_NET_CASA_4G",label:"SALDO NET CASA 4G"}, {id:"PLANO_MAIS_30_DIAS",label:"PLANO MAIS 30 DIAS"}, {id:"PLANO_MAIS_VOZ",label:"PLANO MAIS VOZ"}, {id:"PLANO_MAIS_DADOS",label:"PLANO MAIS DADOS"}, {id:"REDES_SOCIAIS_PLUS",label:"REDES SOCIAIS PLUS"}, {id:"NET ACIMA 15 GB",label:"NET ACIMA 15 GB"}],
             OpcaoProduto: {
                 SALDO_VOZ: [],
                 NET_ATE_15_GB: [3]
