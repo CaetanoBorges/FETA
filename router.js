@@ -42,7 +42,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("pagamentos");
+                vaiTela("entidade");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -96,6 +96,14 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     PagamentosRequests.verServico();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/entidade") {
+                
+                
+                setTimeout(function () {
+                    PagamentosRequests.verEntidade();
                     loader.fechar();
                 }, 1000);
             }
