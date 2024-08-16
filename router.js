@@ -42,7 +42,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("entidade");
+                vaiTela("estatistica");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -107,7 +107,7 @@ const handleLocation = async () => {
                     loader.fechar();
                 }, 1000);
             }
-            if (path == "/estatisticas") {
+            if (path == "/estatistica") {
                 loader.abrir();
                 
                 setTimeout(function () {
