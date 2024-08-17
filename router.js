@@ -21,6 +21,7 @@ const routes = {
     "/servico": "/pages/servico.html",
     "/entidade": "/pages/entidade.html",
     "/estatistica": "/pages/estatistica.html",
+    "/transacoes": "/pages/transacoes.html",
     "/pendentes": "/pages/pendentes.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
@@ -42,7 +43,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("estatistica");
+                vaiTela("transacoes");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -111,7 +112,16 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-
+                    EstatisticaRequests.init()
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/transacoes") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    TransacoesRequests.init();
+                    TransacoesRequests.transacoes();
                     loader.fechar();
                 }, 1000);
             }

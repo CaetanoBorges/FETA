@@ -37,6 +37,8 @@
     <script src="requests/Enviar.js"></script>
     <script src="requests/Receber.js"></script>
     <script src="requests/Pagamentos.js"></script>
+    <script src="requests/Estatistica.js"></script>
+    <script src="requests/Transacoes.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao($);
@@ -50,6 +52,8 @@
     const EnviarRequests = new EnviarReq($,api,loader,notificacao);
     const ReceberRequests = new ReceberReq($,api,loader,notificacao);
     const PagamentosRequests = new PagamentosReq($,api,loader,notificacao);
+    const EstatisticaRequests = new EstatisticaReq($,api,loader,notificacao);
+    const TransacoesRequests = new TransacoesReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>

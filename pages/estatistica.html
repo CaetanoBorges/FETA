@@ -7,59 +7,88 @@
     <div class="titulo">
         <h1>SELECIONE A DATA</h1>
     </div>
-    <br>
+    <div class="limpar"></div>
+    <div class="limpar"></div>
     <div class="container">
         <div class="row">
             <div class="col order-first" style="padding: 1%;">
-                <span style="text-align:left;">Mês</span>
-                <select name="" id="" class="form-control">
-                    <option value="">Janeiro</option>
+                <span style="text-align:left;">Ano</span>
+                <select name="" id="ano" class="form-control">
+                    <option value="">2024</option>
                 </select>
             </div>
             <div class="col">
 
             </div>
             <div class="col order-last" style="padding: 1%;">
-                <span style="text-align:right;display:block;width: 100%;">Ano</span>
-                <select name="" id="" class="form-control">
-                    <option value="">2024</option>
+                <span style="text-align:right;display:block;width: 100%;">Mês</span>
+                <select name="" id="mes" class="form-control">
+                    <option value="">Janeiro</option>
                 </select>
             </div>
         </div>
     </div>
-    <br>
     <div class="conteudo">
         <div class="schrol-conteudo">
             <div class="render-conteudo">
                 <div class="container">
                     <div class="row">
+                        <style>
+                            .entrada-left{text-align:left;display:block;width:100%;font-size: 10pt;color: #00BF00;}
+                            .saida-left{text-align:left;display:block;width:100%;font-size: 10pt;color: #BF0000;}
+                            .entrada-right{text-align:right;display:block;width:100%;font-size: 10pt;color: #00BF00;}
+                            .saida-right{text-align:right;display:block;width:100%;font-size: 10pt;color: #BF0000;}
+                        </style>
                         <div class="col order-first" style="padding: 1%;">
-                            <span style="text-align:left;display:block;width:
-                                100%;font-size: 10pt;">37 ENTRADAS</span>
-                            <span style="text-align:left;display:block;width:
-                                100%;font-size: 10pt;">20 SAIDAS</span>
+                            <span class="entrada-left"><!-- 37 ENTRADAS--></span>
+                            <span class="saida-left"><!--20 SAIDAS--></span>
                         </div>
                         <div class="col">
 
                         </div>
                         <div class="col order-last" style="padding: 1%;">
-                            <span style="text-align:right;display:block;width:
-                                100%;font-size: 10pt;">700 000,00</span>
-                            <span style="text-align:right;display:block;width:
-                                100%;font-size: 10pt;">302 986,98</span>
+                            <span class="entrada-right"><!--700 000,00--></span>
+                            <span class="saida-right"><!--302 986,98--></span>
                         </div>
                     </div>
                 </div>
+                <div class="limpar"></div>
+                <div class="limpar"></div>
+                <div class="limpar"></div>
                 <div class="schrol-grafico">
                     <div class="render-grafico">
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
-                        <div class="teste"></div>
+                        <!--
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        <div class="barra"><div class="barra-grafico"><div class="saida"></div><div class="entrada"></div></div> <div class="limpar"></div> <p>1</p></div>
+                        -->
                     </div>
                 </div>
             </div>
@@ -68,18 +97,23 @@
 
 </div>
 <style>
-    .teste{display: inline-block;width: 50px;margin:10px; background: brown;}
+.barra{display: inline-block;width: 15px;height:150px; background: #D9D9D9;border-radius: 10px;margin-right: 10px;}
+.barra .barra-grafico{display: block;height: 100%;}
+.limpar{display:block;width: 100%;height: 5px;clear: both;}
+.barra p{display: block;text-align: center;}
+
+.barra .barra-grafico .entrada{display:block;width: 100%;height:30%;background-color: #00BF00;border-radius: 10px;}
+.barra .barra-grafico .saida{display:block;width: 100%;height:70%;background-color: #BF0000;border-radius: 10px;}
 .botoes{display: flex; width: 100%;margin-top: 10px;position: relative;justify-content: space-between;flex-direction: row;}
 .botoes img{width: 24%;}
 
-.conteudo{width:100%;display: block;padding:20px 20px 5px 20px;height:250px;border-radius: 20px 20px 0 0;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
+.conteudo{width:100%;display: block;padding:20px 20px 5px 20px;height:280px;border-radius: 20px 20px 0 0;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
 -moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
 box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
 position:fixed;bottom: 0vh;left: 0;}
-.schrol-conteudo{display:block;width:100%;height:190px;overflow-y: scroll;}
+.schrol-conteudo{display:block;width:100%;height:250px;overflow-y: scroll;}
 .render-conteudo{height:fit-content;}
 
 .schrol-grafico{display:block;width:100%;overflow-x: scroll;}
-.render-grafico{width: fit-content;}
-
+.render-grafico{width: 910px;}
 </style>
