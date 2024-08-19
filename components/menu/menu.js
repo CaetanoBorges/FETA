@@ -139,7 +139,7 @@ debliwui_menu.innerHTML = `
                     <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
-                    <a href="/reclamacao" class="reclamacao">
+                    <a href="/depositarlevantar" class="depositarlevantar">
                         <li> <img src="assets/carregar-menu.svg"> <span>Carregar & Saque</span></li>
                     </a>
                     <a href="/reclamacao" class="reclamacao">
@@ -193,6 +193,7 @@ class debliwuimenu extends HTMLElement {
     "/": "/pages/inicio.html",
     "/pendentes": "/pages/pendentes.html",
     "/recorrentes": "/pages/recorrentes.html",
+    "/depositarlevantar": "/pages/depositarlevantar.html",
     "/reclamacao": "/pages/reclamacao.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
@@ -259,8 +260,16 @@ handleLocation = async () => {
                 loader.abrir();                
                 setTimeout(function () {
                     RecorrentesRequests.recorrentes();
+                     
                 }, 1000);
-            }
+            } 
+            if (path == "/depositarlevantar") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
         })
     })
     
@@ -362,7 +371,7 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.privacidade').addEventListener("click", function (event) {
+        this.shadowRoot.querySelector('.depositarlevantar').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);

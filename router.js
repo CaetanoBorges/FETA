@@ -24,6 +24,7 @@ const routes = {
     "/transacoes": "/pages/transacoes.html",
     "/pendentes": "/pages/pendentes.html",
     "/recorrentes": "/pages/recorrentes.html",
+    "/depositarlevantar": "/pages/depositarlevantar.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
     "/definicoes": "/pages/definicoes.html",
@@ -44,7 +45,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("recorrentes");
+                vaiTela("depositarlevantar");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -63,6 +64,14 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     RecorrentesRequests.recorrentes();
+                }, 1000);
+            }
+            if (path == "/depositarlevantar") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();
                 }, 1000);
             }
             if (path == "/home") {
