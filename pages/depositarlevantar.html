@@ -8,14 +8,16 @@
         <h1>DEPOSITAR E LEVANTAR</h1>
     </div>
 
-    <div class="btn-flexa hvr-bounce-out"  data-bs-toggle="modal" data-bs-target="#depositar-modal">
+    <div class="btn-flexa hvr-bounce-out" data-bs-toggle="modal"
+        data-bs-target="#depositar-modal">
         <span class="label-btn"> Depositar </span>
         <img src="assets/cetaverde-cima.svg" class="icon-btn-flexa">
     </div>
-    <div class="btn-flexa hvr-bounce-out" data-bs-toggle="modal" data-bs-target="#levantar-modal">
+    <div class="btn-flexa hvr-bounce-out" data-bs-toggle="modal"
+        data-bs-target="#levantar-modal">
         <span class="label-btn"> Levantar </span>
         <img src="assets/cetavermelha-baixo.svg" class="icon-btn-flexa">
-    </div>   
+    </div>
     <br>
     <!-- MODAL DEPOSITAR -->
     <div class="modal fade" id="depositar-modal" aria-hidden="true"
@@ -29,18 +31,17 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="detalhes-transacao" id="detalhes-transacao">
-                        
-                    </div>
-                    
+                    <p>Receberá por mensagem a referência para usar no
+                        multicaixa e fazer o carregamento da sua carteira
+                        digital.
+                        <br><br>
+                        -Essa referência é válida por 24h.</p>
+                    <br>
+                    <input type="number" class="form-control" placeholder="0">
+
                 </div>
                 <div class="modal-footer">
-                    <button
-                        class="btn btn-primary form-control btn-lg hvr-bounce-out"
-                        onclick="EnviarRequests.modalConfirmarSMS()">Confirmar</button>
-                    <button
-                        class="btn btn-danger form-control btn-lg hvr-bounce-out"
-                        data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success form-control btn-lg hvr-bounce-out">Receber referência</button>
                 </div>
             </div>
         </div>
@@ -57,26 +58,61 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="detalhes-transacao" id="detalhes-transacao">
-                        
+                    <p>Receberá na sua conta o valor que especificar. <br> 
+                    -Essa transferência pode demorar até 24h.</p>
+                    <br>
+                    <div class="mb-3">
+                        <label for="valor-receber" class="form-label">Valor a receber</label>
+                        <input type="number" class="form-control" id="valor-receber" placeholder="0">
                     </div>
-                    
+                    <div class="mb-3">
+                        <label for="iban-receber" class="form-label">Escolha o seu IBAN</label>
+                        <select name="" id="iban-receber" class="form-control">
+                            <option value="BAI">BAI</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        class="btn btn-primary form-control btn-lg hvr-bounce-out"
-                        onclick="EnviarRequests.modalConfirmarSMS()">Confirmar</button>
-                    <button
-                        class="btn btn-danger form-control btn-lg hvr-bounce-out"
-                        data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-danger form-control btn-lg hvr-bounce-out"
+                        onclick='DepositarLevantarRequests.pegaDadosOperacao()'>Receber o dinheiro</button>
                 </div>
             </div>
         </div>
     </div>
-<style>
+
+
+
+    <!-- MODAL CONFIRMAR NUMERO DA MENSAGEM -->
+    
+    <div class="modal fade" id="confirmar-sms" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="min-height: 50vh;">
+                    <div class="detalhes-transacao">
+                        <h1>Confirme o código que recebeu por mensagem</h1>
+                        
+                        <input type="text" class="form-control" placeholder="Digite aqui">
+                        <br>
+                        <p>Não recebeu o código?
+                            <br> <span style="color:#640564;font-weight: 500;cursor:pointer;">Click aqui...</span> </p>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger form-control" onclick="DepositarLevantarRequests.confirmarSMS()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
 
 
 </style>
-<script>
+    <script>
 
 </script>

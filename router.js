@@ -22,6 +22,7 @@ const routes = {
     "/entidade": "/pages/entidade.html",
     "/estatistica": "/pages/estatistica.html",
     "/transacoes": "/pages/transacoes.html",
+    "/iban": "/pages/iban.html",
     "/pendentes": "/pages/pendentes.html",
     "/recorrentes": "/pages/recorrentes.html",
     "/depositarlevantar": "/pages/depositarlevantar.html",
@@ -46,7 +47,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("configuracoes");
+                vaiTela("iban");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -60,6 +61,14 @@ const handleLocation = async () => {
 
                 }, 1000);
             }
+            if (path == "/iban") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    IbanRequests.init();
+                    loader.fechar();
+                }, 1000);
+            }
             if (path == "/recorrentes") {
                 loader.abrir();
                 
@@ -71,7 +80,7 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
+                    DepositarLevantarRequests.init();
                     loader.fechar();
                 }, 1000);
             }

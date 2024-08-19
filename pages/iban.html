@@ -1,0 +1,161 @@
+<div id="render">
+
+    <debliwui-voltar></debliwui-voltar>
+    <br><br>
+    <debliwui-saldo></debliwui-saldo>
+
+    <div class="titulo">
+        <h1>MINHAS CONTAS</h1>
+    </div>
+    <br>
+    <div style="padding: 10px;">
+        <img src="assets/pluspurple-icon.svg" alt="" style="float: right;width: 40px;" class=" hvr-bounce-out">
+        <p>3 contas</p>
+    </div>
+    <div class="btn-flexa" data-bs-toggle="collapse"
+        data-bs-target="#collapseExample">
+        <span class="label-btn"> BAI </span>
+        <img src="assets/flexabaixo-icon.svg" class="icon-btn-flexabaixo">
+    </div>
+    <div class="collapse conte" id="collapseExample">
+        <div class="mb-3">
+            <label for="valor-receber" class="form-label">Iban</label>
+            <input type="number" class="form-control" id="valor-receber"
+                placeholder="0">
+        </div>
+        <div class="mb-3">
+            <label for="iban-receber" class="form-label">Conta</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary form-control">Alterar</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-danger form-control">Apagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-flexa">
+        <span class="label-btn"> BCI </span>
+        <img src="assets/flexabaixo-icon.svg" class="icon-btn-flexabaixo">
+    </div>
+    <div class="btn-flexa">
+        <span class="label-btn"> BFA </span>
+        <img src="assets/flexabaixo-icon.svg" class="icon-btn-flexabaixo">
+    </div>
+
+    <br>
+    <!-- MODAL DEPOSITAR -->
+    <div class="modal fade" id="depositar-modal" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="exampleModalToggleLabel">DEPOSITAR DINHEIRO</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Receberá por mensagem a referência para usar no
+                        multicaixa e fazer o carregamento da sua carteira
+                        digital.
+                        <br><br>
+                        -Essa referência é válida por 24h.</p>
+                    <br>
+                    <input type="number" class="form-control" placeholder="0">
+
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-success form-control btn-lg hvr-bounce-out">Receber
+                        referência</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL LEVANTAR -->
+    <div class="modal fade" id="levantar-modal" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="exampleModalToggleLabel">LEVANTAR DINHEIRO</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Receberá na sua conta o valor que especificar. <br>
+                        -Essa transferência pode demorar até 24h.</p>
+                    <br>
+                    <div class="mb-3">
+                        <label for="valor-receber" class="form-label">Valor a
+                            receber</label>
+                        <input type="number" class="form-control"
+                            id="valor-receber" placeholder="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="iban-receber" class="form-label">Escolha o
+                            seu IBAN</label>
+                        <select name id="iban-receber" class="form-control">
+                            <option value="BAI">BAI</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-danger form-control btn-lg hvr-bounce-out"
+                        onclick='DepositarLevantarRequests.pegaDadosOperacao()'>Receber
+                        o dinheiro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR NUMERO DA MENSAGEM -->
+
+    <div class="modal fade" id="confirmar-sms" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="min-height: 50vh;">
+                    <div class="detalhes-transacao">
+                        <h1>Confirme o código que recebeu por mensagem</h1>
+
+                        <input type="text" class="form-control"
+                            placeholder="Digite aqui">
+                        <br>
+                        <p>Não recebeu o código?
+                            <br> <span
+                                style="color:#640564;font-weight: 500;cursor:pointer;">Click
+                                aqui...</span> </p>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger form-control"
+                        onclick="DepositarLevantarRequests.confirmarSMS()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+.conte{display: block;width:96%;background: #fff;position: relative;padding:5% 5%;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
+-moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
+box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);border-radius:0 0 5px 5px;
+background: #fff;
+margin: 0 auto 0 auto;}
+
+</style>
+    <script>
+
+</script>
