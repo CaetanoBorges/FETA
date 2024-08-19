@@ -22,6 +22,7 @@
         font-family: fonte;
         src: url(font.ttf);
     }
+    
     .corpo{width: 100%;display: block;padding: 2%;font-family: "fonte" ;height: 100vh;position: relative;overflow-y: auto;}
     .background-image{position: fixed;top:0;left:0;width: 100%;height: 100vh;z-index: -1;}
     .background-image img{display: block;width: 100%;height: 100vh;}
@@ -40,6 +41,7 @@ box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);border-radius: 5px;
 margin: 20px auto 0 auto;font-size: 15px;}
 .icon-btn-flexa{position: absolute;top:25%;height:50%;right:3%;opacity: .5;}
 .label-btn{font-weight: 200;margin: 0;font-size: 20pt;}
+
     @media screen and (max-width:400px) {
         
     }

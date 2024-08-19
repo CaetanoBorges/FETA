@@ -34,6 +34,7 @@
         <div class="background-image"><img src="assets/fundo.png" alt></div>
     </body>
     <script src="requests/Pendentes.js"></script>
+    <script src="requests/Recorrentes.js"></script>
     <script src="requests/Enviar.js"></script>
     <script src="requests/Receber.js"></script>
     <script src="requests/Pagamentos.js"></script>
@@ -49,6 +50,7 @@
     document.querySelector("body").append(menu);
 
     const PendentesRequests = new PendentesReq($,api,loader,notificacao);
+    const RecorrentesRequests = new RecorrentesReq($,api,loader,notificacao);
     const EnviarRequests = new EnviarReq($,api,loader,notificacao);
     const ReceberRequests = new ReceberReq($,api,loader,notificacao);
     const PagamentosRequests = new PagamentosReq($,api,loader,notificacao);

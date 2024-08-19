@@ -136,7 +136,7 @@ debliwui_menu.innerHTML = `
                     <a href="/pendentes" class="pendentes">
                         <li> <img src="assets/pendente-menu.svg"> <span>Pendentes</span></li>
                     </a>
-                    <a href="/privacidade" class="privacidade">
+                    <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
                     <a href="/reclamacao" class="reclamacao">
@@ -192,6 +192,7 @@ class debliwuimenu extends HTMLElement {
     404: "/pages/404.html",
     "/": "/pages/inicio.html",
     "/pendentes": "/pages/pendentes.html",
+    "/recorrentes": "/pages/recorrentes.html",
     "/reclamacao": "/pages/reclamacao.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
@@ -252,6 +253,12 @@ handleLocation = async () => {
                 setTimeout(function () {
                     PendentesRequests.pendentes();
 
+                }, 1000);
+            }
+            if (path == "/recorrentes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    RecorrentesRequests.recorrentes();
                 }, 1000);
             }
         })
@@ -344,6 +351,12 @@ handleLocation = async () => {
             esse.handleLocation(esse.routes);
         });
         this.shadowRoot.querySelector('.pendentes').addEventListener("click", function (event) {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
+            esse.handleLocation(esse.routes);
+        });
+        this.shadowRoot.querySelector('.recorrentes').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);

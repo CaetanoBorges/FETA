@@ -1,0 +1,42 @@
+<div id="render">
+
+    <debliwui-voltar></debliwui-voltar>
+    <br><br>
+    <debliwui-saldo></debliwui-saldo>
+
+    <div class="titulo">
+        <h1>RECORRENTES</h1>
+    </div>
+    <p id="qtd-recorrentes" style="margin-top: 20px;text-indent: 15px;"></p>
+    <div id="render-recorrentes">
+
+    </div>
+
+    <br><br>
+</div>
+<link rel="stylesheet" href="agora.css">
+
+<style>
+.recorrente{display: block;width:96%;background: #fff;position: relative;padding:2% 5%;-webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
+-moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);
+box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.25);border-radius: 5px;
+background: rgba(209, 0, 133, 0.15);
+margin: 20px auto 0 auto;}
+.recorrente p{margin: 0;}
+.recorrente img{position: absolute;top:25px;right: 15px;width:30pt}
+.recorrente .acao{color: #dc3545;}
+.recorrente .valor{font-weight: 500;}
+.recorrente .data{font-weight: 200;}
+.detalhes-transacao p{margin: 0;line-height: 25px;font-size: 15px;}
+.id-transacao{display: block;width: 100%;text-align: center;font-weight: 300;}
+.id-transacao p{margin: 0;line-height: 19px;font-size: 14px;}
+.pendente-valor{color: #dc3545;text-align: center;font-size: 20pt;}
+
+.transacao{display: block;width: 100%;position: relative;margin-bottom: 10px;}
+.transacao p{margin:0}
+.transacao .valor{font-weight: bold;float: right;}
+.transacao.entrada{border-bottom: 1px solid #00ff0040;}
+.transacao.entrada .valor{color: green;}
+.transacao.saida{border-bottom: 1px solid #dc354540;}
+.transacao.saida .valor{color:#dc3545;}
+</style>

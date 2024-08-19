@@ -22,15 +22,15 @@ class PendentesReq {
                 var titulo = "";
                 var sinal = "";
                 if (element.enviar) {
-                    icon = "assets/pagamentos-icon.svg";
-                    fechar = "assets/fechar-pagamento-icon.svg";
-                    cor = "#D82B99";
+                    icon = "assets/enviar-icon.svg";
+                    fechar = "assets/fechar-enviar-icon.svg";
+                    cor = "#dc3545";
                     titulo = "ENVIAR";
                     sinal = "-";
                 } else {
                     icon = "assets/receber-icon.svg";
                     fechar = "assets/fechar-receber-icon.svg";
-                    cor = "#EB9900";
+                    cor = "#00BF00";
                     titulo = "RECEBER";
                     sinal = "+";
                 }
