@@ -136,6 +136,9 @@ debliwui_menu.innerHTML = `
                     <a href="/pendentes" class="pendentes">
                         <li> <img src="assets/pendente-menu.svg"> <span>Pendentes</span></li>
                     </a>
+                    <a href="/iban" class="iban">
+                        <li> <img src="assets/iban-menu.svg"> <span>Iban associado</span></li>
+                    </a>
                     <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
@@ -192,6 +195,7 @@ class debliwuimenu extends HTMLElement {
     404: "/pages/404.html",
     "/": "/pages/inicio.html",
     "/pendentes": "/pages/pendentes.html",
+    "/iban": "/pages/iban.html",
     "/recorrentes": "/pages/recorrentes.html",
     "/depositarlevantar": "/pages/depositarlevantar.html",
     "/configuracoes": "/pages/configuracoes.html",
@@ -255,6 +259,13 @@ handleLocation = async () => {
                 setTimeout(function () {
                     PendentesRequests.pendentes();
 
+                }, 1000);
+            }
+            if (path == "/iban") {
+                loader.abrir();                
+                setTimeout(function () {
+                    IbanRequests.contas();
+                    loader.fechar();
                 }, 1000);
             }
             if (path == "/recorrentes") {
@@ -368,6 +379,12 @@ handleLocation = async () => {
             esse.handleLocation(esse.routes);
         });
         this.shadowRoot.querySelector('.pendentes').addEventListener("click", function (event) {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
+            esse.handleLocation(esse.routes);
+        });
+        this.shadowRoot.querySelector('.iban').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);

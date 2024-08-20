@@ -27,6 +27,9 @@ const routes = {
     "/recorrentes": "/pages/recorrentes.html",
     "/depositarlevantar": "/pages/depositarlevantar.html",
     "/configuracoes": "/pages/configuracoes.html",
+    "/bloqueio": "/pages/bloqueio.html",
+    "/pin": "/pages/pin.html",
+    "/receberauto": "/pages/receberauto.html",
     "/privacidade": "/pages/privacidade.html",
     "/conta": "/pages/conta.html",
     "/definicoes": "/pages/definicoes.html",
@@ -65,7 +68,7 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-                    IbanRequests.init();
+                    IbanRequests.contas();
                     loader.fechar();
                 }, 1000);
             }

@@ -1,21 +1,25 @@
 [
     {
-        "banco":"BAI",
+        "identificador": "1",
+        "banco": "BAI",
         "conta": "200380-272",
         "iban": "1645.0495.8765.4354.3453.7"
     },
     {
-        "banco":"BFA",
+        "identificador": "2",
+        "banco": "BFA",
         "conta": "308380-320",
         "iban": "0009.0495.1645.4354.3453.7"
     },
     {
-        "banco":"BIC",
+        "identificador": "3",
+        "banco": "BIC",
         "conta": "100380-000",
         "iban": "0495.1645.0009.4354.3453.7"
     },
     {
-        "banco":"BCS",
+        "identificador": "4",
+        "banco": "BCS",
         "conta": "097380-101",
         "iban": "3453.0009.0495.1645.4354.7"
     }
