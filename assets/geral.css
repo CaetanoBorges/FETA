@@ -137,4 +137,13 @@
      font-size: 20pt;
  }
 
+.opcao{display: flex;    
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-align: center;}
+
+.opcao p{font-weight: bold;font-size: 33px;line-height: 33px;}
+.opcao span{font-weight: 300;font-size: 13px;font-size: 13px;}
  @media screen and (max-width:400px) {}

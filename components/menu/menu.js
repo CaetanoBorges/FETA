@@ -278,7 +278,7 @@ handleLocation = async () => {
             if (path == "/depositarlevantar") {
                 loader.abrir();                
                 setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
+                    DepositarLevantarRequests.init();
                     loader.fechar();  
                 }, 1000);
             } 

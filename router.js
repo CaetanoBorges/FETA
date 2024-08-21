@@ -50,7 +50,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("iban");
+                vaiTela("receberauto");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -88,6 +88,35 @@ const handleLocation = async () => {
                 }, 1000);
             }
             if (path == "/configuracoes") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/bloqueio") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                    ConfiguracoesRequests.init();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/pin") {
+                loader.abrir();
+                
+                setTimeout(function () {
+                     $('.preview').prevue();
+                     $(function () {
+                        $(".preview").on('input', function (e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/receberauto") {
                 loader.abrir();
                 
                 setTimeout(function () {

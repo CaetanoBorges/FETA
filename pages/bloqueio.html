@@ -2,33 +2,55 @@
 
     <debliwui-voltar></debliwui-voltar>
     <br><br><br>
-    
+
     <div class="header">
         <img src="assets/icon-configuracao.svg" alt="">
     </div>
-<br>
+    <br>
     <div class="titulo">
         <h1>BLOQUEIO</h1>
     </div>
-
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Recargas")'>
-        <span class="label-btn"> Tempo de bloqueio </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("TV")'>
-        <span class="label-btn"> Alteração do PIN </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Estado")'>
-        <span class="label-btn"> Receber pagamentos </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>   
     <br>
+    <p style="padding: 10px;">
+        <b>Tempo de bloqueio</b><br>
+        Para garantir a segurança dos dados
+        após este período a aplicação será
+        bloqueada automaticamente.
+    </p>
     
-<style>
+    <div class="container">
+        <div style="display: none;">
+            <input type="radio" name="opcao" id="segs30" value="segs30">
+            <input type="radio" name="opcao" id="mins1" value="mins1">
+            <input type="radio" name="opcao" id="mins5" value="mins5">
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="segs30" class="opcao segs30">
+                    <p>30 <br> <span>Segundos</span></p>
+                </label>
+            </div>
+            <div class="col">
+                <label for="mins1" class="opcao mins1">
+                    <p>1 <br> <span>Minuto</span></p>
+                </label>
+            </div>
+            <div class="col">
+                <label for="mins5" class="opcao mins5">
+                    <p>5 <br><span>Minutos</span></p>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="btn-flexa hvr-bounce-out" style="text-align: center;position: fixed;bottom: 2vh;width: 94%;left: 3%;">
+        <span class="label-btn"> Guardar </span>
+    </div>
+
+    <style>
 
 
 </style>
-<script>
+    <script>
 
 </script>

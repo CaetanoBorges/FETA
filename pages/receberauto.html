@@ -2,32 +2,72 @@
 
     <debliwui-voltar></debliwui-voltar>
     <br><br><br>
-    
+
     <div class="header">
         <img src="assets/icon-configuracao.svg" alt="">
     </div>
-<br>
+    <br>
     <div class="titulo">
         <h1>RECEBER</h1>
     </div>
-
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Recargas")'>
-        <span class="label-btn"> Tempo de bloqueio </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("TV")'>
-        <span class="label-btn"> Alteração do PIN </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>
-    <div class="btn-flexa hvr-bounce-out" onclick='PagamentosRequests.vaiServico("Estado")'>
-        <span class="label-btn"> Receber pagamentos </span>
-        <img src="assets/flexa.svg" class="icon-btn-flexa">
-    </div>   
-    <br>
     
+    <br>
+    <p style="padding: 10px;">
+        Pode receber pagamentos sem 
+        a necessidade de confirmar a recepção.
+    </p>
+    <div style="padding:15px">
+        <p>
+            Receber pagamentos <br>
+            de forma automática?
+        </p>
+        <div>
+            <input type="radio"
+                name="receber-auto"
+                id="flexRadioDefault1" value="sim"
+                class="radio">
+            <label class="form-check-label"
+                for="flexRadioDefault1">
+                Sim
+            </label>
+        </div>
+        <div>
+            <input type="radio"
+                name="receber-auto"
+                id="flexRadioDefault2" value="nao"
+                checked class="radio">
+            <label class="form-check-label"
+                for="flexRadioDefault2">
+                Não
+            </label>
+
+        </div>
+    </div>
+    <div class="btn-flexa hvr-bounce-out" style="text-align: center;position:
+        fixed;bottom: 2vh;width: 94%;left: 3%;">
+        <span class="label-btn"> Guardar </span>
+    </div>
+    <br>
+</div>
 <style>
 
+.radio {
+  appearance: none;
 
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+
+  position: relative;
+  top: 4px;
+}
+
+.radio:checked {
+  border: 10px solid rgba(100, 5, 100, .5);
+}
 </style>
 <script>
 
