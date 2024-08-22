@@ -30,12 +30,12 @@ const routes = {
     "/bloqueio": "/pages/bloqueio.html",
     "/pin": "/pages/pin.html",
     "/receberauto": "/pages/receberauto.html",
+    "/termosprivacidade": "/pages/termosprivacidade.html",
     "/privacidade": "/pages/privacidade.html",
-    "/conta": "/pages/conta.html",
-    "/definicoes": "/pages/definicoes.html",
-    "/categoria": "/pages/categoria.html",
-    "/mesaIndisponivel": "/pages/mesaIndisponivel.html",
-    "/mesas": "/pages/mesas.html"
+    "/termos": "/pages/termos.html",
+    "/perguntas": "/pages/perguntas.html",
+    "/apoio": "/pages/apoio.html",
+    "/perfil": "/pages/perfil.html"
 }
 
 const handleLocation = async () => {
@@ -50,7 +50,7 @@ const handleLocation = async () => {
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/") {
-                vaiTela("receberauto");
+                vaiTela("home");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -121,6 +121,37 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     //RecorrentesRequests.recorrentes();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/termosprivacidade") {
+                loader.abrir();
+                setTimeout(function () {
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/privacidade") {
+                loader.abrir();
+                setTimeout(function () {
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/termos") {
+                loader.abrir();
+                setTimeout(function () {
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/perguntas") {
+                loader.abrir();
+                setTimeout(function () {
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/perfil") {
+                loader.abrir();
+                setTimeout(function () {
+                    PerfilRequests.init();
                     loader.fechar();
                 }, 1000);
             }

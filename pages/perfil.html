@@ -1,0 +1,127 @@
+<div id="render">
+
+    <debliwui-voltar></debliwui-voltar>
+    <br><br><br>
+
+    <div class="user">
+        <div class="relativa">
+            <img src="assets/alterimage-icon.svg" class="alter">
+            <img src="assets/" alt="" class="img" id="img">
+        </div>
+        <p class="nome"></p>
+    </div>
+    <br>
+    <div class="titulo">
+    </div>
+    <br><br>
+
+    <div style="padding: 2%;">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome">
+        </div>
+        <div class="mb-3">
+            <label for="id_doc" class="form-label id_doc"></label>
+            <input type="text" class="form-control" id="id_doc">
+        </div>
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input type="number" class="form-control" id="telefone">
+        </div>
+        <br>
+        <button class="btn btn-outline-success form-control btn-md
+            hvr-bounce-out" data-bs-toggle="modal"
+            data-bs-target="#alterar-modal">Alterar dados</button>
+    </div>
+    <br>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- MODAL LEVANTAR -->
+<div class="modal fade" id="alterar-modal" aria-hidden="true"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="exampleModalToggleLabel">ALTERAR DADOS</h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome_edit">
+                </div>
+                <div class="mb-3">
+                    <label for="id_doc_edit" class="form-label id_doc">BI</label>
+                    <input type="text" class="form-control" id="id_doc_edit">
+                </div>
+                <div class="mb-3">
+                    <label for="telefone_edit" class="form-label">Telefone</label>
+                    <input type="number" class="form-control" id="telefone_edit">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger form-control btn-lg
+                    hvr-bounce-out" onclick='PerfilRequests.modalConfirmar()'>Pedir
+                    alteração</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- MODAL CONFIRMAR NUMERO DA MENSAGEM -->
+
+<div class="modal fade" id="confirmar-sms" aria-hidden="true"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="min-height: 50vh;">
+                <div class="detalhes-transacao">
+                    <h1>Confirme o código que recebeu por mensagem</h1>
+
+                    <input type="text" class="form-control" placeholder="Digite
+                        aqui">
+                    <br>
+                    <p>Não recebeu o código?
+                        <br> <span style="color:#640564;font-weight:
+                            500;cursor:pointer;">Click aqui...</span> </p>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger form-control"
+                    onclick="DepositarLevantarRequests.confirmarSMS()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.user{width: 200px;display:block;margin:auto auto}
+.user .relativa{position: relative;width: fit-content;margin: auto auto;}
+.user img{width: 100px;display:block;margin:auto auto}
+.user p{text-align: center;font-size: 20px;opacity: .8;}
+.user .alter{position:absolute;top:60px;right:0;width: 30px;cursor: pointer;}
+
+</style>
+<script>
+
+</script>

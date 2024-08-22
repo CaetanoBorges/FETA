@@ -3,11 +3,11 @@ debliwui_loader.innerHTML = `
     <style>
         .container{
             position:fixed;
-            width:98%;
-            left: 1%;
-            top:1vh;
-            height:98vh;
-            background: #fe718d10;
+            width:100%;
+            left: 0;
+            top:0;
+            height:100vh;
+            background: #ffffff;
             z-index: 99999999999;
             display:none;
         }
@@ -44,7 +44,9 @@ class debliwuiloader extends HTMLElement {
 
     fechar() {
         let container = this.shadowRoot.querySelector('.container');
-        container.style.display = "none";
+        setTimeout(() => {
+            container.style.display = "none";
+        }, 1000);
     }
     abrir() {
         let container = this.shadowRoot.querySelector('.container');

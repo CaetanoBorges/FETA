@@ -130,6 +130,13 @@
      right: 3%;
      opacity: .5;
  }
+ .icon-btn-flexabaixo-perguntas {
+     position: absolute;
+     top: 25px;
+     width: 25px;
+     right: 3%;
+     opacity: .5;
+ }
 
  .label-btn {
      font-weight: 200;

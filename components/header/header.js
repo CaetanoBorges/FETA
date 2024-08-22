@@ -12,7 +12,7 @@ debliwui_top.innerHTML = `
     <div class="top-notification">
         <img src="assets/notificacao-icon.svg" class="notification-icon">
         <p class="label">Olá<br><span>Super Junior</span></p>
-        <img src="assets/user.svg" class="user-icon">
+        <img src="assets/user.svg" class="user-icon" onclick='vaiTela("perfil")'>
     </div>
 `;
 

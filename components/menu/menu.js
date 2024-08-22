@@ -148,13 +148,13 @@ debliwui_menu.innerHTML = `
                     <a href="/configuracoes" class="configuracoes">
                         <li> <img src="assets/configurar-menu.svg"> <span>Configurações</span></li>
                     </a>
-                    <a href="/reclamacao" class="reclamacao">
+                    <a href="/termosprivacidade" class="termosprivacidade">
                         <li> <img src="assets/privacidade-menu.svg"> <span>Privacidade e termos</span></li>
                     </a>
-                    <a href="/reclamacao" class="reclamacao">
+                    <a href="/perguntas" class="perguntas">
                         <li> <img src="assets/perguntas-menu.svg"> <span>Perguntas frequentes</span></li>
                     </a>
-                    <a href="/reclamacao" class="reclamacao">
+                    <a href="/apoio" class="apoio">
                         <li> <img src="assets/apoio-menu.svg"> <span>Apoio ao cliente</span></li>
                     </a>
                 </ul>
@@ -200,9 +200,9 @@ class debliwuimenu extends HTMLElement {
     "/depositarlevantar": "/pages/depositarlevantar.html",
     "/configuracoes": "/pages/configuracoes.html",
     "/reclamacao": "/pages/reclamacao.html",
-    "/privacidade": "/pages/privacidade.html",
-    "/conta": "/pages/conta.html",
-    "/definicoes": "/pages/definicoes.html"
+    "/termosprivacidade": "/pages/termosprivacidade.html",
+    "/perguntas": "/pages/perguntas.html",
+    "/apoio": "/pages/apoio.html"
 }
 
 handleLocation = async () => {
@@ -283,6 +283,27 @@ handleLocation = async () => {
                 }, 1000);
             } 
             if (path == "/configuracoes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/termosprivacidade") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/perguntas") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/apoio") {
                 loader.abrir();                
                 setTimeout(function () {
                     //RecorrentesRequests.recorrentes();
@@ -408,7 +429,19 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.reclamacao').addEventListener("click", function (event) {
+        this.shadowRoot.querySelector('.termosprivacidade').addEventListener("click", function (event) {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
+            esse.handleLocation(esse.routes);
+        });
+        this.shadowRoot.querySelector('.perguntas').addEventListener("click", function (event) {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
+            esse.handleLocation(esse.routes);
+        });
+        this.shadowRoot.querySelector('.apoio').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);

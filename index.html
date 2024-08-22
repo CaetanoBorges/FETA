@@ -45,6 +45,7 @@
     <script src="requests/Transacoes.js"></script>
     <script src="requests/DepositarLevantar.js"></script>
     <script src="requests/Configuracoes.js"></script>
+    <script src="requests/Perfil.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao($);
@@ -64,6 +65,7 @@
     const TransacoesRequests = new TransacoesReq($,api,loader,notificacao);
     const DepositarLevantarRequests = new DepositarLevantarReq($,api,loader,notificacao);
     const ConfiguracoesRequests = new ConfiguracoesReq($,api,loader,notificacao);
+    const PerfilRequests = new PerfilReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>
