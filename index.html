@@ -22,6 +22,7 @@
         <script src="components/transacao/transacao.js"></script>
         <script src="components/header/header.js"></script>
         <script src="components/voltar/voltar.js"></script>
+        <script src="components/logo_pequeno/logoPequeno.js"></script>
         <script>
             const api = 'http://127.0.0.1/FETA';
         </script>
@@ -33,7 +34,7 @@
         <div class="corpo">
 
         </div>
-        <div class="background-image"><img src="assets/fundo.png" alt></div>
+        <div class="background-image"><img src="assets/ff.png" alt></div>
     </body>
     <script src="requests/Pendentes.js"></script>
     <script src="requests/Iban.js"></script>
@@ -46,6 +47,7 @@
     <script src="requests/DepositarLevantar.js"></script>
     <script src="requests/Configuracoes.js"></script>
     <script src="requests/Perfil.js"></script>
+    <script src="requests/Inicio.js"></script>
     <script>
     var loader = new debliwuiloader();
     var notificacao = new debliwuinotificacao($);
@@ -66,6 +68,7 @@
     const DepositarLevantarRequests = new DepositarLevantarReq($,api,loader,notificacao);
     const ConfiguracoesRequests = new ConfiguracoesReq($,api,loader,notificacao);
     const PerfilRequests = new PerfilReq($,api,loader,notificacao);
+    const InicioRequests = new InicioReq($,api,loader,notificacao);
     //-------------------------------------------------
     
 </script>

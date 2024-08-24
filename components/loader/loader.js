@@ -46,7 +46,7 @@ class debliwuiloader extends HTMLElement {
         let container = this.shadowRoot.querySelector('.container');
         setTimeout(() => {
             container.style.display = "none";
-        }, 1000);
+        }, 500);
     }
     abrir() {
         let container = this.shadowRoot.querySelector('.container');

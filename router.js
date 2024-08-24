@@ -35,7 +35,19 @@ const routes = {
     "/termos": "/pages/termos.html",
     "/perguntas": "/pages/perguntas.html",
     "/apoio": "/pages/apoio.html",
-    "/perfil": "/pages/perfil.html"
+    "/perfil": "/pages/perfil.html",
+
+
+    "/inicio": "/pages/inicio.html",
+    "/login01": "/pages/login01.html",
+    "/login02": "/pages/login02.html",
+    "/criarconta": "/pages/criarconta.html",
+    "/criarindividual": "/pages/criarindividual.html",
+    "/criarempresa": "/pages/criarempresa.html",
+    "/inicioconfirmar": "/pages/inicioconfirmar.html",
+    "/criarpin": "/pages/criarpin.html",
+    "/recuperarconta": "/pages/recuperarconta.html",
+    "/recuperarpin": "/pages/recuperarpin.html"
 }
 
 const handleLocation = async () => {
@@ -49,8 +61,19 @@ const handleLocation = async () => {
         res.then(function(ui){
             document.querySelector(".corpo").innerHTML = ui;
             
+            
+
+            if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin") {
+                menu.fechar();
+            }else{
+                menu.abrir();
+            }
+
+
+
+
             if (path == "/") {
-                vaiTela("home");
+                vaiTela("inicio");
                 
                 setTimeout(function () {
                     loader.abrir();
@@ -224,35 +247,109 @@ const handleLocation = async () => {
                 }, 1000);
             }
 
-            if (path == "/categoria") {
+           
+
+
+            if (path == "/inicio") {
                 loader.abrir();
                 setTimeout(function () {
-                    if (hash) {
-
-                        Funcoes.renderProduto(hash.split("#")[1]);
-
-                    }
-                    
-                
-
+                    InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
                 
             }
-            if (path == "/mesaIndisponivel") {
+            if (path == "/login01") {
                 loader.abrir();
                 setTimeout(function () {
-                   
-                    
+                    $('.preview').prevue();
+                     $(function () {
+                        $(".preview").on('input', function (e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                    //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
                 
             }
-            if (path == "/mesas") {
+            if (path == "/login02") {
                 loader.abrir();
                 setTimeout(function () {
+                    $('.preview').prevue();
+                     $(function () {
+                        $(".preview").on('input', function (e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
                 
-                    Requests.verMesas(((window.location.hash).split("#")[1]));
+            }
+            if (path == "/criarconta") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/criarindividual") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/criarempresa") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/inicioconfirmar") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/criarpin") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    $('.preview').prevue();
+                     $(function () {
+                        $(".preview").on('input', function (e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/recuperarconta") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            if (path == "/recuperarpin") {
+                loader.abrir();
+                setTimeout(function () {
+                    $('.preview').prevue();
+                     $(function () {
+                        $(".preview").on('input', function (e) {
+                            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                        });
+                    });
+                    //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
                 

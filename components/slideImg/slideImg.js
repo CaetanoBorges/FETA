@@ -103,7 +103,7 @@ debliwui_slideimg.innerHTML = `
 }
 
 .lSSlideOuter .lSPager.lSpg>li a {
-    background-color: #222;
+    background-color: #fff;
     border-radius: 30px;
     display: inline-block;
     height: 8px;
@@ -118,7 +118,7 @@ debliwui_slideimg.innerHTML = `
 
 .lSSlideOuter .lSPager.lSpg>li.active a,
 .lSSlideOuter .lSPager.lSpg>li:hover a {
-    background-color: #428bca
+    background-color: #640564
 }
 
 .lSSlideOuter .media {
