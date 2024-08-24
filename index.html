@@ -36,6 +36,7 @@
         </div>
         <div class="background-image"><img src="assets/ff.png" alt></div>
     </body>
+    <script src="db_interface.js"></script>
     <script src="requests/Pendentes.js"></script>
     <script src="requests/Iban.js"></script>
     <script src="requests/Recorrentes.js"></script>
@@ -68,13 +69,13 @@
     const DepositarLevantarRequests = new DepositarLevantarReq($,api,loader,notificacao);
     const ConfiguracoesRequests = new ConfiguracoesReq($,api,loader,notificacao);
     const PerfilRequests = new PerfilReq($,api,loader,notificacao);
-    const InicioRequests = new InicioReq($,api,loader,notificacao);
+    const InicioRequests = new InicioReq($,api,loader,notificacao,db);
     //-------------------------------------------------
     
 </script>
     <script src="router.js"></script>
     <script>
-    
+       
 </script>
 
 </html>

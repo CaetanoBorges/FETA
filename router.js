@@ -73,8 +73,7 @@ const handleLocation = async () => {
 
 
             if (path == "/") {
-                vaiTela("inicio");
-                
+                db.verificaToken();
                 setTimeout(function () {
                     loader.abrir();
                 }, 1000);
