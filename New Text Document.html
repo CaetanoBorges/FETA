@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorização da Operação</title>
+</head>
+<body>
+    <div class="container">
+        <h1>AUTORIZAÇÃO DA OPERAÇÃO</h1>
+        <p>Autorize com o seu PIN</p>
+        <div class="pin-display">
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+        </div>
+        <div class="keypad">
+            <button class="key" onclick="inputPin(1)">1</button>
+            <button class="key" onclick="inputPin(2)">2</button>
+            <button class="key" onclick="inputPin(3)">3</button>
+            <button class="key" onclick="inputPin(4)">4</button>
+            <button class="key" onclick="inputPin(5)">5</button>
+            <button class="key" onclick="inputPin(6)">6</button>
+            <button class="key" onclick="inputPin(7)">7</button>
+            <button class="key" onclick="inputPin(8)">8</button>
+            <button class="key" onclick="inputPin(9)">9</button>
+            <button class="key" onclick="deletePin()">DEL</button>
+            <button class="key" onclick="inputPin(0)">0</button>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+Body {
+    Font-family: Arial, sans-serif;
+    Display: flex;
+    Justify-content: center;
+    Align-items: center;
+    Height: 100vh;
+    Margin: 0;
+    Background-color: #f0f0f0;
+}
+
+.container {
+    Text-align: center;
+}
+
+H1 {
+    Font-size: 24px;
+    Margin-bottom: 10px;
+}
+
+P {
+    Font-size: 16px;
+    Margin-bottom: 20px;
+}
+
+.pin-display {
+    Display: flex;
+    Justify-content: center;
+    Margin-bottom: 20px;
+}
+
+.pin-circle {
+    Width: 20px;
+    Height: 20px;
+    Border: 2px solid #000;
+    Border-radius: 50%;
+    Margin: 0 5px;
+}
+
+.keypad {
+    Display: grid;
+    Grid-template-columns: repeat(3, 1fr);
+    Gap: 10px;
+}
+
+.key {
+    Width: 60px;
+    Height: 60px;
+    Font-size: 24px;
+    Border: none;
+    Background-color: #fff;
+    Box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    Cursor: pointer;
+}
+
+.key:active {
+    Background-color: #ddd;
+}
+</style>
+
+<script>
+let pin = '';
+
+function inputPin(num) {
+    if (pin.length < 6) {
+        pin += num;
+        updatePinDisplay();
+    }
+    if (pin.length == 6){
+        alert("Deu");
+    }
+}
+
+function deletePin() {
+    pin = pin.slice(0, -1);
+    updatePinDisplay();
+}
+
+function updatePinDisplay() {
+    const circles = document.querySelectorAll('.pin-circle');
+    circles.forEach((circle, index) => {
+        if (index < pin.length) {
+            circle.style.backgroundColor = '#000';
+        } else {
+            circle.style.backgroundColor = '#fff';
+        }
+    });
+}
+</script>
