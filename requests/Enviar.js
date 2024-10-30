@@ -77,6 +77,10 @@ class EnviarReq {
         var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
         myModal.toggle()
     }
+    modalConfirmarPin() {
+        var myModal = new bootstrap.Modal(document.getElementById('confirmar-pin'))
+        myModal.toggle()
+    }
 
     pegaDadosOperacao(){
         var notificacao = this.notificacao;
