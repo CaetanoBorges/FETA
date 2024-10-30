@@ -47,7 +47,10 @@ const routes = {
     "/inicioconfirmar": "/pages/inicioconfirmar.html",
     "/criarpin": "/pages/criarpin.html",
     "/recuperarconta": "/pages/recuperarconta.html",
-    "/recuperarpin": "/pages/recuperarpin.html"
+    "/recuperarpin": "/pages/recuperarpin.html",
+
+    "/trm": "/pages/recuperarpin.html",
+    "/prv": "/pages/recuperarpin.html"
 }
 
 const handleLocation = async () => {
@@ -63,7 +66,7 @@ const handleLocation = async () => {
             
             
 
-            if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin") {
+            if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
             }else{
                 menu.abrir();
