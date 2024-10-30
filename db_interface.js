@@ -28,13 +28,13 @@ class StorageFeta {
         if (token) {
             return token;
         }
-        return [];
+        return false;
     }
     verificaToken() {
         if ((db.getToken()).length > 1) {
-            if(true){
+            if((db.getToken()).length > 30){
                 vaiTela("/home");
-            }else{
+            }else {
                 vaiTela("/login02");
             }
         } else {

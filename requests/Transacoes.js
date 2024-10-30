@@ -1,11 +1,24 @@
 class TransacoesReq {
-
+    datas = null;
     constructor(jquery, apiUrl, loader, notificacao) {
         this.jquery = jquery;
         this.apiUrl = apiUrl;
         this.loader = loader;
         this.notificacao = notificacao;
     }
+    removeDuplicates(originalArray, prop) {
+     var newArray = [];
+     var lookupObject  = {};
+
+     for(var i in originalArray) {
+        lookupObject[originalArray[i][prop]] = originalArray[i];
+     }
+
+     for(i in lookupObject) {
+         newArray.push(lookupObject[i]);
+     }
+      return newArray;
+ }
     init() {
         var esse = this;
         esse.loader.abrir()
@@ -21,46 +34,49 @@ class TransacoesReq {
                 showSearch: false
             }
         })
-        esse.jquery.get("APIMOCK/statsData.json").done(function (d) {
 
-            var mes = [];
-            d.mes.forEach(element => {
-                mes.push({ text: (element), value: (element) });
-            });
-            selectMes.setData(mes);
+        var settings = {
+            "url": (this.apiUrl) + "/transacao/init",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken()
+            }
+        };
 
-            var ano = [];
-            d.ano.forEach(element => {
-                ano.push({ text: (element), value: (element) });
-            });
-            selectAno.setData(ano);
+        var mes = [];
+        var ano = [];
+        esse.jquery.ajax(settings).done(function (d) {
+
+            console.log(d);
+            var anoAtual = (d.payload.atual.ano);
+            var mesAtual = (d.payload.atual.mes);
+            this.datas = (d.payload.datas).reverse();
+            (this.datas).forEach(element => {
+                let atualYear = element.ano;
+                ano.push({ text: (atualYear), value: (atualYear) });
+                if (element[anoAtual]) {
+                    element[anoAtual].forEach(month => {
+                        mes.push({ text: (month), value: (month) });
+                    })
+                }
+            })
+
+            
+            ano.push({ text: (anoAtual), value: (anoAtual) });
+            mes.push({ text: (mesAtual), value: (mesAtual) });
+
+            let m = (Object.values(mes.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));
+            let a = (Object.values(ano.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));
+            
+            selectAno.setData(a);
+            selectMes.setData(m);
+
             //---------------
 
-        }).always(function (a) {
-            esse.loader.fechar();
-        });
-
-        $('#ano').change(function () {
-            esse.loader.abrir();
-            setTimeout(function () {
-                esse.loader.fechar();
-            }, 3000)
-        })
-        $('#mes').change(function () {
-            esse.loader.abrir();
-            setTimeout(function () {
-                esse.loader.fechar();
-            }, 3000)
-        })
-    }
-
-    transacoes() {
-        $(".render-aqui").html("");
-        var loader = this.loader;
-        (this.jquery).get("APIMOCK/transacoes.json").done(function (dados) {
             var itens = ``;
             //console.log(dados);
-            var obj = dados;
+            var obj = d.payload.atual.res;
             $("#qtd").html(obj.length + " transacoes");
             obj.forEach(element => {
                 var fechar = "";
@@ -127,6 +143,30 @@ class TransacoesReq {
                 </div>`;
             });
             $(".render-aqui").append(itens);
+
+        }).always(function (a) {
+            esse.loader.fechar();
+        });
+
+        $('#ano').change(function () {
+            esse.loader.abrir();
+            setTimeout(function () {
+                esse.loader.fechar();
+            }, 3000)
+        })
+        $('#mes').change(function () {
+            esse.loader.abrir();
+            setTimeout(function () {
+                esse.loader.fechar();
+            }, 3000)
+        })
+    }
+
+    transacoes() {
+        $(".render-aqui").html("");
+        var loader = this.loader;
+        (this.jquery).get("APIMOCK/transacoes.json").done(function (dados) {
+
 
 
         }).always(function () {
