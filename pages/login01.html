@@ -6,13 +6,13 @@
         <div style="padding: 4%;">  
             <div class="mb-4">
                 <label class="form-label margin_0">Telefone</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="number" class="form-control input-inicio" inputmode="numeric" minlength="9" maxlength="9" id="telefone">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" min="6" maxlength="6" id="pin">
             </div>
-            <img src="assets/btn/btn-entrar.svg" class="btn-avancar hvr-bounce-out"  onclick='vaiTela("login01")'>
+            <img src="assets/btn/btn-entrar.svg" class="btn-avancar hvr-bounce-out"  onclick='InicioRequests.login()'>
         </div>
 
         <img src="assets/btn/btn-circle-criar.svg" class="criar-conta hvr-bounce-out"  onclick='vaiTela("criarconta")'>
@@ -25,6 +25,6 @@
 .criar-conta{position: fixed; left: 4%;bottom: 3vh;width: 54pt;}
  .background-image img {
      opacity: .5;
- }
+ } 
  .prevue-btn{margin-top: -7px;}
 </style>

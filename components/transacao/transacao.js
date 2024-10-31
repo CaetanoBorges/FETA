@@ -12,10 +12,8 @@ debliwui_transacao.innerHTML = `
         .saida .valor{color:red;}
     </style>
 
-    <div class="transacao entrada">
-        <p class="valor">+ 5 000,00</p>
-        <p class="data">05-08-2024</p>
-        <p class="descricao">Descricao aqui resumida...</p>
+    <div id="render">
+    
     </div>
 `;
 
@@ -39,7 +37,40 @@ class debliwuitransacao extends HTMLElement {
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
-        
+        console.log(JSON.parse(localStorage.getItem("transacoes")));
+
+        var itens = ``;
+        (JSON.parse(localStorage.getItem("transacoes"))).forEach(element => {
+                var fechar = "";
+                var classe = "";
+                var cor = "";
+                var titulo = "";
+                var sinal = "";
+                var quem = "";
+                if (element.enviar) {
+                    fechar = "assets/fechar-saida-icon.svg";
+                    quem = `<p>Para: ${(element.para)}</p>`;
+                    classe = "saida";
+                    cor = "#BF0003";
+                    titulo = "SAIDA";
+                    sinal = "-";
+                } else {
+                    fechar = "assets/fechar-entrada-icon.svg";
+                    quem = `<p>De: ${(element.de)}</p>`;
+                    classe = "entrada";
+                    cor = "#00BF00";
+                    titulo = "ENTRADA";
+                    sinal = "+";
+                }
+                itens += `
+                <div class="transacao ${classe}">
+                    <p class="valor">${sinal} ${(MONEY(element.valor,2,"."," "))}</p>
+                    <p class="data">${(element.quando)}</p>
+                    <p class="descricao">${(element.descricao)}</p>
+                </div>`;
+            });
+            esse.shadowRoot.querySelector('#render').innerHTML = (itens);
+
     }
 
 }

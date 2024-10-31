@@ -6,11 +6,20 @@ class PerfilReq {
         this.notificacao = notificacao;
     }
     init() {
+        var esse = this;
+        this.loader.abrir();
+        var settings = {
+            "url": (this.apiUrl)+"/perfil/detalhes",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken()
+            },
+        };
+        this.jquery.ajax(settings).done(function (dados) {
 
-        this.jquery.get("APIMOCK/perfil.json").done(function (dados) {
-
-           console.log(dados[1]);
-           var conta = dados[1];
+           console.log(dados);
+           var conta = dados.payload;
            if(conta.empresa){
                 $(".titulo").html("<h1>CONTA EMPRESA</h1>");
                 $(".id_doc").html("NIF");
@@ -18,8 +27,8 @@ class PerfilReq {
                 $(".titulo").html("<h1>CONTA PESSOAL</h1>");
                 $(".id_doc").html("BI");
            }
-           $(".nome").html(conta.nome);
-           $("#nome").val(conta.nome).attr("disabled","disabled");
+           $(".nome").html((conta.nome).toUpperCase());
+           $("#nome").val((conta.nome).toUpperCase()).attr("disabled","disabled");
            $("#id_doc").val(conta.id_doc).attr("disabled","disabled");
            $("#telefone").val(conta.telefone).attr("disabled","disabled");
            $("#img").attr("src","assets/"+conta.img);
@@ -29,6 +38,8 @@ class PerfilReq {
            $("#id_doc_edit").val(conta.id_doc);
            $("#telefone_edit").val(conta.telefone);
             
+        }).always(function(a){
+            esse.loader.fechar();
         })
 
 

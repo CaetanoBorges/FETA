@@ -36,6 +36,7 @@ class debliwuitop extends HTMLElement {
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
+        esse.shadowRoot.querySelector('.label span').innerHTML = (localStorage.getItem("nome")).toUpperCase();
         
     }
 

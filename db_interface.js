@@ -20,7 +20,7 @@ class StorageFeta {
         true;
     }
     setToken(token) {
-        this.set("feta01_token_token", token,true);
+        this.set("feta01_token_token", token,false);
         return true;
     }
     getToken() {

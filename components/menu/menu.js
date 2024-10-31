@@ -136,9 +136,6 @@ debliwui_menu.innerHTML = `
                     <a href="/pendentes" class="pendentes">
                         <li> <img src="assets/pendente-menu.svg"> <span>Pendentes</span></li>
                     </a>
-                    <a href="/iban" class="iban">
-                        <li> <img src="assets/iban-menu.svg"> <span>Iban associado</span></li>
-                    </a>
                     <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>

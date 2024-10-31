@@ -62,6 +62,7 @@ const handleLocation = async () => {
     const html = await fetch(route).then(function(data){
         var res = data.text();
         res.then(function(ui){
+            document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             
             
@@ -177,7 +178,6 @@ const handleLocation = async () => {
                 loader.abrir();
                 setTimeout(function () {
                     PerfilRequests.init();
-                    loader.fechar();
                 }, 1000);
             }
             if (path == "/home") {
@@ -236,7 +236,6 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     EstatisticaRequests.init()
-                    loader.fechar();
                 }, 1000);
             }
             if (path == "/transacoes") {
