@@ -149,61 +149,36 @@ class TransacoesReq {
         }).always(function (a) {
             esse.loader.fechar();
         });
-        //VER O QUE SE PASSA
-        $('#ano').on("change", function () {
-            var ano = $('#ano').val();
-            var mes = [];
 
-            ESCOPO.selectMes.destroy()
-            ESCOPO.selectMes = new SlimSelect({
-                select: '#mes',
-                settings: {
-                    showSearch: false,
-                    keepOrder: true
-                }
-            });
-            (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
-                if (element[ano]) {
-                    (element[ano]).forEach(function (month) {
-                        mes.unshift({ text: (month), value: (month) });
-                    })
-                }
+        setTimeout(() => {
+            this.controllerData();
+        }, 1000);
 
-            });
-            mes.unshift({text: "Selecionar", value: "00"});
-            ESCOPO.selectMes.setData(mes);
-            $(".render-aqui").html(`<h4 style="text-align:center">SELECIONE O MÊS</h4>`);
-            return;
-        });
-        //----------
-        
     }
 
-    transacoes() {
+    transacoes(mes, ano) {
         $(".render-aqui").html("");
         var esse = this;
         this.loader.abrir();
         var settings = {
             "url": (this.apiUrl) + "/transacao/ver",
-            "method": "GET",
+            "method": "POST",
             "timeout": 0,
             "headers": {
                 "token": db.getToken(),
                 "Content-Type": "application/json"
             },
             "data": JSON.stringify({
-                "mes": $('#mes').val(),
-                "ano": $('#ano').val()
+                "mes": mes,
+                "ano": ano
             }),
         };
-        console.log(JSON.stringify({
-                "mes": $('#mes').val(),
-                "ano": $('#ano').val()
-            }));
+
+        console.log(settings);
         (this.jquery).ajax(settings).done(function (dados) {
 
             var itens = ``;
-            //console.log(dados);
+            console.log(dados);
             var obj = dados.payload;
             $("#qtd").html(obj.length + " transacoes");
             obj.forEach(element => {
@@ -275,5 +250,45 @@ class TransacoesReq {
         }).always(function () {
             esse.loader.fechar();
         })
+    }
+
+
+    controllerData() {
+        var esse = this;
+        $('#ano').on("change", function () {
+            var ano = $('#ano').val();
+            var mes = [];
+
+            ESCOPO.selectMes.destroy()
+            ESCOPO.selectMes = new SlimSelect({
+                select: '#mes',
+                settings: {
+                    showSearch: false,
+                    keepOrder: true
+                }
+            });
+            (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
+                if (element[ano]) {
+                    (element[ano]).forEach(function (month) {
+                        mes.unshift({ text: (month), value: (month) });
+                    })
+                }
+
+            });
+            mes.unshift({ text: "Selecionar", value: "00" });
+            ESCOPO.selectMes.setData(mes);
+            $(".render-aqui").html(`<br><h4 style="text-align:center">SELECIONE O MÊS</h4><br>`);
+            $("#qtd").html(" &nbsp; ");
+        });
+        $('#mes').on("change", function () {
+            var mes = String($('#mes').val());
+            var ano = String($('#ano').val());
+
+            console.log(mes, ano);
+            if(mes != "00" && mes != 0 && mes != "0") {
+                esse.transacoes(mes,ano);
+            }
+
+        });
     }
 }

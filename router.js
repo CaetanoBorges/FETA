@@ -65,16 +65,11 @@ const handleLocation = async () => {
             document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             
-            
-
             if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
             }else{
                 menu.abrir();
             }
-
-
-
 
             if (path == "/") {
                 db.verificaToken();
@@ -243,8 +238,8 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     TransacoesRequests.init();
-                    TransacoesRequests.transacoes();
-                    loader.fechar();
+                    //TransacoesRequests.controllerData();
+                    //loader.fechar();
                 }, 1000);
             }
 

@@ -63,8 +63,8 @@ class debliwuinotificacao extends HTMLElement {
         var fechar = this.fechar;
         let sms = this.shadowRoot.querySelector('#sms');
         sms.innerHTML = mensagem;
+        var container = this.shadowRoot.querySelector('.container');
         if(tipo == 1){
-            var container = this.shadowRoot.querySelector('.container');
             container.style.background = "#dc3545";
             $(container).animate({"background":"#dc3545"},500);
         }else{

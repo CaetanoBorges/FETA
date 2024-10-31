@@ -402,12 +402,6 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.iban').addEventListener("click", function (event) {
-            event = event || window.event;
-            event.preventDefault();
-            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
-            esse.handleLocation(esse.routes);
-        });
         this.shadowRoot.querySelector('.recorrentes').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
