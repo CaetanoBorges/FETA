@@ -77,6 +77,7 @@ class EnviarReq {
         var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
         myModal.toggle()
     }
+
     modalConfirmarPin() {
         var myModal = new bootstrap.Modal(document.getElementById('confirmar-pin'))
         myModal.toggle()
@@ -84,21 +85,26 @@ class EnviarReq {
 
     pegaDadosOperacao(){
         var notificacao = this.notificacao;
-        var dadosOperacao = {};
-        var quanto = $("#quanto").val();
+        var dadosOperacao = {
+            opcoes:{
+                valor_parcela : null
+            }
+        };
+        var valor = $("#quanto").val();
         var para = $("#para").val();
         var descricao = $("#descricao").val();
         var tipo = "Normal";
         var onde = "App";
 
+        
         //VERIFICAÇÃO DO DESTINATÁRIO E DO SALDO DISPONÍVEL
-        if(quanto < 1){
+        if(valor < 1){
             notificacao.sms("Verifica o valor a enviar",1);
             return;
         }else{
-            var MOCK = {saldo:"15000"}
-            if((MOCK.saldo - 1) >= quanto){
-                dadosOperacao.quanto = (MOCK);
+            var MOCK = {saldo: localStorage.getItem("balanco")}
+            if((Number(MOCK.saldo) - 1) >= valor){
+                dadosOperacao.valor = (MOCK);
             }else{
                 notificacao.sms("Não tem saldo suficiente",1);
                 return;
@@ -110,7 +116,7 @@ class EnviarReq {
         }else{
             var MOCK = {nome:"Super Borge", telefone: "921797626"}
             if(MOCK.telefone == para){
-                dadosOperacao.para = (MOCK);
+                dadosOperacao.para = para;
             }else{
                 notificacao.sms("Destinatário desconhecido",1);
                 return;
@@ -124,45 +130,59 @@ class EnviarReq {
 
         var recorrente=$('[name="radio-recorrente"]:checked').val();
         var recorrentePeriodicidade;
-
         if(parcelado == "sim"){
             tipo = "Parcelado";
             parceladoPeriodicidade = $("#select-parcelado").val();
             parceladoParcelas = $("#select-parcela").val();
-            dadosOperacao.periodicidade = parceladoPeriodicidade;
-            dadosOperacao.parcelas = parceladoParcelas;
-            dadosOperacao.valorparcelas = (Number(quanto / parceladoParcelas)).toFixed(2);
+            var opcoes = {
+                periodicidade: parceladoPeriodicidade,
+                parcelas: parceladoParcelas,
+                valor_parcela: (Number(valor / parceladoParcelas)).toFixed(2)
+            }
+            dadosOperacao.opcoes = opcoes;
+            //dadosOperacao.periodicidade = parceladoPeriodicidade;
+            //dadosOperacao.parcelas = parceladoParcelas;
+           // dadosOperacao.valorparcelas = (Number(quanto / parceladoParcelas)).toFixed(2);
         }
 
         if(recorrente == "sim"){
             tipo = "Recorrente";
             recorrentePeriodicidade = $("#select-recorrente").val();
             dadosOperacao.periodicidade = recorrentePeriodicidade;
+            var opcoes = {
+                periodicidade: recorrentePeriodicidade,
+            }
+            dadosOperacao.opcoes = opcoes;
         }
 
 
-        dadosOperacao.quanto = quanto;
+        dadosOperacao.valor = valor;
         //dadosOperacao.para = para;
         dadosOperacao.tipo = tipo;
         dadosOperacao.onde = onde;
         dadosOperacao.descricao = descricao;
-
+        
+        ESCOPO.acao = `Trasferência para ${(dadosOperacao.para)} \nde ${(MONEY(dadosOperacao.valor, 2, ".", " "))}.`;
         var tipoo = ``;
         if(tipo == "Parcelado"){
-            tipoo = `<p>Tipo: ${(dadosOperacao.parcelas)} parcelas de <b>${(dadosOperacao.valorparcelas)}</b> pagos ${(dadosOperacao.periodicidade)} </p>`;
+            tipoo = `<p>Tipo: ${(dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " "))}</b> pagos ${(dadosOperacao.opcoes.periodicidade)}, fazendo um total de <b>${(MONEY(dadosOperacao.valor, 2, ".", " "))}</b> no final.</p>`;
+            //dadosOperacao.valor = dadosOperacao.opcoes.valor_parcela;
+            ESCOPO.acao = `Trasferência parcelada para ${(dadosOperacao.para)} \n${(dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(dadosOperacao.valor, 2, ".", " "))} no final.`;
         }
         if(tipo == "Recorrente"){
-            tipoo = `<p>Tipo: Recorrente pago ${(dadosOperacao.periodicidade)} </p>`;
+            tipoo = `<p>Tipo: Recorrente pago ${(dadosOperacao.opcoes.periodicidade)} </p>`;
+            ESCOPO.acao = `Trasferência recorrente para ${(dadosOperacao.para)} \nPago ${(MONEY(dadosOperacao.valor, 2, ".", " "))} de forma ${(dadosOperacao.opcoes.periodicidade)}.`;
         }
         $("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${(Number(dadosOperacao.quanto).toFixed(2))}</b></p>
+            <p>Quanto:  <b>${ (dadosOperacao.opcoes.valor_parcela ? MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " ") : MONEY(dadosOperacao.valor, 2, ".", " ") )}</b></p>
             <p>Onde:  ${(dadosOperacao.onde)}</p>
-            <p>Para:  ${dadosOperacao.para.nome}</p> 
+            <p>Para:  ${dadosOperacao.para}</p> 
             ${tipoo}
             <p>Descrição: ${(dadosOperacao.descricao)}</p>
             `)
 
         this.modalConfirmar();
         console.log(dadosOperacao);
+        console.log(ESCOPO.acao);
     }
 }

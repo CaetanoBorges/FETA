@@ -269,9 +269,9 @@ class TransacoesReq {
     controllerData() {
         var esse = this;
         $('#ano').on("change", function () {
+            
             var ano = $('#ano').val();
             var mes = [];
-
 
             (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
                 if (element[ano]) {
@@ -291,12 +291,13 @@ class TransacoesReq {
                     keepOrder: true
                 }
             });
-            ESCOPO.selectMes.setData(mes);
 
+            ESCOPO.selectMes.setData(mes);
             if (ESCOPO.init != true) {
                 $(".render-aqui").html(`<br><h4 style="text-align:center">SELECIONE O MÊS</h4><br>`);
                 $("#qtd").html(" &nbsp; ");
             }
+
         });
         $('#mes').on("change", function () {
             var mes = String($('#mes').val());

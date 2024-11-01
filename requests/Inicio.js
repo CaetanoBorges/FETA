@@ -1,5 +1,5 @@
-class InicioReq{
-    constructor(jquery, apiUrl, loader, notificacao,db) {
+class InicioReq {
+    constructor(jquery, apiUrl, loader, notificacao, db) {
         this.jquery = jquery;
         this.apiUrl = apiUrl;
         this.loader = loader;
@@ -15,19 +15,19 @@ class InicioReq{
 
         $(".slide").prepend(sli);
     }
-    login(){
+    login() {
         var esse = this;
         var id = $("#telefone").val();
         var pin = $("#pin").val();
 
-        if(id.length < 9 || pin.length < 6){
-            esse.notificacao.sms("Preencha os dados corretamente",1);
+        if (id.length < 9 || pin.length < 6) {
+            esse.notificacao.sms("Preencha os dados corretamente", 1);
             return;
         }
 
         esse.loader.abrir();
         var settings = {
-        "url": (this.apiUrl) + "/auth/entrar",
+            "url": (this.apiUrl) + "/auth/entrar",
             "method": "POST",
             "timeout": 0,
             "headers": {
@@ -40,25 +40,25 @@ class InicioReq{
         };
 
         $.ajax(settings).done(function (res) {
-            if(res.ok){
+            if (res.ok) {
                 esse.db.setToken(res.token);
                 esse.home();
                 esse.db.verificaToken();
                 esse.notificacao.sms("É feta, é fácil");
-            }else{
-                esse.notificacao.sms(res.payload,1);
+            } else {
+                esse.notificacao.sms(res.payload, 1);
             }
             console.log(res);
-        }).always(function(a){
+        }).always(function (a) {
             esse.loader.fechar();
         });
     }
 
-    
-    home(){
+
+    home() {
         var esse = this;
-       
-        
+
+
         var settings = {
             "url": (this.apiUrl) + "/perfil/init",
             "method": "GET",
@@ -68,17 +68,76 @@ class InicioReq{
             },
         };
         $.ajax(settings).done(function (res) {
-            if(res.ok){
-               localStorage.setItem("nome", res.payload.nome);
-               localStorage.setItem("balanco", res.payload.balanco);
-               localStorage.setItem("telefone", res.payload.telefone);
-               localStorage.setItem("transacoes", JSON.stringify(res.payload.transacoes.payload));
-            }else{
+            if (res.ok) {
+                localStorage.setItem("nome", res.payload.nome);
+                localStorage.setItem("balanco", res.payload.balanco);
+                localStorage.setItem("telefone", res.payload.telefone);
+                localStorage.setItem("transacoes", JSON.stringify(res.payload.transacoes.payload));
+            } else {
                 //esse.notificacao.sms(res.payload,1);
             }
             console.log(res);
-        }).always(function(a){
-            
+        }).always(function (a) {
+
+        });
+    }
+    pedirNumero() {
+        this.loader.abrir();
+        var esse = this;
+
+            var settings = {
+            "url": (this.apiUrl)+"/pedecodigo",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": esse.db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "acao": ESCOPO.acao
+            }),
+        };
+
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                esse.notificacao.sms("Código de confirmação enviado com sucesso", 1);
+                var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
+                myModal.toggle()
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            console.log(res);
+        }).always(function (a) {
+            esse.loader.fechar();
+        });
+    }
+    
+    pedirNumeroNovo() {
+        this.loader.abrir();
+        var esse = this;
+
+            var settings = {
+            "url": (this.apiUrl)+"/pedecodigo",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": esse.db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "acao": ESCOPO.acao
+            }),
+        };
+
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                esse.notificacao.sms("Código de confirmação enviado com sucesso", 1);
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            console.log(res);
+        }).always(function (a) {
+            esse.loader.fechar();
         });
     }
 }
