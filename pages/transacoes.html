@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col order-first" style="padding: 1%;">
                 <span style="text-align:left;">Ano</span>
-                <select name id="ano" class="form-control">
+                <select name id="ano" class="form-control" onchange="TransacoesRequests.controllerData()">
                     <option value>2024</option>
                 </select>
             </div>
@@ -29,7 +29,7 @@
 
     <div class="limpar"></div>
     <div class="limpar"></div>
-    <p style="text-indent: 5px;" id="qtd">5 transações</p>
+    <p style="text-indent: 5px;" id="qtd">&nbsp;</p>
     <div class="render-aqui container-div" style="max-height: 44vh;overflow-y: scroll;">
 
     </div>

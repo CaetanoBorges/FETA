@@ -22,20 +22,7 @@ class TransacoesReq {
     init() {
         var esse = this;
         esse.loader.abrir();
-        var selectAno = new SlimSelect({
-            select: '#ano',
-            settings: {
-                showSearch: false,
-                keepOrder: true
-            }
-        })
-        ESCOPO.selectMes = new SlimSelect({
-            select: '#mes',
-            settings: {
-                showSearch: false,
-                keepOrder: true
-            }
-        })
+
 
         var settings = {
             "url": (this.apiUrl) + "/transacao/init",
@@ -57,22 +44,43 @@ class TransacoesReq {
             localStorage.setItem("datas", JSON.stringify(esse.datas));
             (esse.datas).forEach(element => {
                 let atualYear = element.ano;
-                ano.push({ text: (atualYear), value: (atualYear) });
+                if (atualYear != anoAtual) {
+                    ano.push({ text: String(atualYear), value: String(atualYear) });
+                }
+
                 if (element[anoAtual]) {
                     element[anoAtual].forEach(month => {
-                        mes.push({ text: (month), value: (month) });
+                        if (month != mesAtual) {
+                            mes.push({ text: String(month), value: String(month) });
+                        }
                     })
                 }
             })
 
 
-            ano.unshift({ text: (anoAtual), value: (anoAtual) });
-            mes.unshift({ text: (mesAtual), value: (mesAtual) });
-
             let m = (Object.values(mes.reduce((acc, cur) => Object.assign(acc, { [cur.text]: cur }), {})));
             let a = (Object.values(ano.reduce((acc, cur) => Object.assign(acc, { [cur.text]: cur }), {})));
 
-            selectAno.setData(a);
+            ESCOPO.selectAno = new SlimSelect({
+                select: '#ano',
+                settings: {
+                    showSearch: false
+                }
+            })
+            ESCOPO.selectMes = new SlimSelect({
+                select: '#mes',
+                settings: {
+                    showSearch: false
+                }
+            })
+
+            a.sort((a, b) => b.text - a.text);
+            m.sort((a, b) => b.text - a.text);
+            
+            a.unshift({ text: String(anoAtual), value: String(anoAtual) });
+            m.unshift({ text: String(mesAtual), value: String(mesAtual) });
+            esse.controllerData();
+            ESCOPO.selectAno.setData(a);
             ESCOPO.selectMes.setData(m);
 
             //---------------
@@ -144,15 +152,17 @@ class TransacoesReq {
                     </div>
                 </div>`;
             });
-            $("#qtd").html(obj.length + " transacoes");
+            setTimeout(function () {
+                $("#qtd").html(obj.length + " transacoes");
+                ESCOPO.init = false;
+            }, 1500);
             $(".render-aqui").append(itens);
+
         }).always(function (a) {
             esse.loader.fechar();
         });
 
-        setTimeout(() => {
-            this.controllerData();
-        }, 1000);
+
 
     }
 
@@ -173,14 +183,13 @@ class TransacoesReq {
                 "ano": ano
             }),
         };
-
-        console.log(settings);
+        ESCOPO.init = true;
         (this.jquery).ajax(settings).done(function (dados) {
 
             var itens = ``;
             console.log(dados);
             var obj = dados.payload;
-            $("#qtd").html(obj.length + " transacoes");
+
             obj.forEach(element => {
                 var fechar = "";
                 var classe = "";
@@ -246,10 +255,14 @@ class TransacoesReq {
                 </div>`;
             });
             $(".render-aqui").append(itens);
+            $("#qtd").html(obj.length + " transacoes");
 
         }).always(function () {
             esse.loader.fechar();
         })
+        setTimeout(function () {
+            ESCOPO.init = false;
+        }, 1500)
     }
 
 
@@ -259,14 +272,7 @@ class TransacoesReq {
             var ano = $('#ano').val();
             var mes = [];
 
-            ESCOPO.selectMes.destroy()
-            ESCOPO.selectMes = new SlimSelect({
-                select: '#mes',
-                settings: {
-                    showSearch: false,
-                    keepOrder: true
-                }
-            });
+
             (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
                 if (element[ano]) {
                     (element[ano]).forEach(function (month) {
@@ -276,17 +282,29 @@ class TransacoesReq {
 
             });
             mes.unshift({ text: "Selecionar", value: "00" });
+
+            ESCOPO.selectMes.destroy()
+            ESCOPO.selectMes = new SlimSelect({
+                select: '#mes',
+                settings: {
+                    showSearch: false,
+                    keepOrder: true
+                }
+            });
             ESCOPO.selectMes.setData(mes);
-            $(".render-aqui").html(`<br><h4 style="text-align:center">SELECIONE O MÊS</h4><br>`);
-            $("#qtd").html(" &nbsp; ");
+
+            if (ESCOPO.init != true) {
+                $(".render-aqui").html(`<br><h4 style="text-align:center">SELECIONE O MÊS</h4><br>`);
+                $("#qtd").html(" &nbsp; ");
+            }
         });
         $('#mes').on("change", function () {
             var mes = String($('#mes').val());
             var ano = String($('#ano').val());
 
             console.log(mes, ano);
-            if(mes != "00" && mes != 0 && mes != "0") {
-                esse.transacoes(mes,ano);
+            if (mes != "00" && mes != 0 && mes != "0" && ESCOPO.init != true) {
+                esse.transacoes(mes, ano);
             }
 
         });

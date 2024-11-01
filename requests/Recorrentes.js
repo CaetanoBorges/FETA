@@ -10,15 +10,23 @@ class RecorrentesReq {
         var esse = this;
         $("#render-recorrentes").html("");
         var loader = this.loader;
-        (this.jquery).get("APIMOCK/recorrentes.json").done(function (dados) {
+        var settings = {
+            "url": (this.apiUrl)+"/recorrente/init",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken()
+            }
+        };
+        (this.jquery).ajax(settings).done(function (dados) {
             var itens = ``;
-            //console.log(dados);
-            var obj = dados;
+            console.log(dados);
+            var obj = dados.payload;
             $("#qtd-recorrentes").html(obj.length + " recorrentes");
             obj.forEach(element => {
                 var cancelarUI = ``;
                 var transacoes = ``;
-                if(element.enviar){
+                if (element.enviar) {
                     cancelarUI = `<div class="modal-footer" style="border: none;">
                                     <button type="button"
                                         class="btn btn-secondary form-control btn-danger"
@@ -29,12 +37,15 @@ class RecorrentesReq {
                 (element.transacoes).forEach(transacao => {
                     var classe = "";
                     var sinal = "";
+                    
                     if (element.enviar) {
                         classe = "saida";
                         sinal = "-";
+                        
                     } else {
                         classe = "entrada";
                         sinal = "+";
+                        
                     }
                     transacoes += `<div class="transacao ${classe}">
                             <p class="valor">${sinal} ${(transacao.valor)}</p>
@@ -44,22 +55,25 @@ class RecorrentesReq {
                 })
                 var icon = "";
                 var fechar = "";
-                var cor = "";
+                var cor = ""; 
                 var titulo = "";
+                var detail = "";
                 if (element.enviar) {
                     icon = "assets/enviar-icon.svg";
                     fechar = "assets/fechar-enviar-icon.svg";
                     cor = "#dc3545";
                     titulo = "ENVIAR";
+                    detail = "Para: "+element.para;
                 } else {
                     icon = "assets/receber-icon.svg";
                     fechar = "assets/fechar-receber-icon.svg";
                     cor = "#00BF00";
                     titulo = "RECEBER";
+                    detail = "de: "+element.de;
                 }
                 itens += `<div class="recorrente" data-bs-toggle="modal" data-bs-target="#modalrecorrentes${(element.identificador)}" style="background:${cor}15">
                     <p class="acao" style="color:${cor}">${titulo}</p>
-                    <p class="valor">${(element.valor)}</p>
+                    <p class="valor">${(MONEY(element.valor, 2, ".", " "))}</p>
                     <p class="data">${(element.quando)}</p>
                     <img src="${icon}">
                 </div>
@@ -78,12 +92,12 @@ class RecorrentesReq {
                                     style="width: 15px;">
                             </div>
                             <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}"> ${(element.valor)}</p>
+                                <p class="pendente-valor" style="color:${cor}"> ${(MONEY(element.valor, 2, ".", " "))}</p>
                                 <div class="detalhes-transacao">
 
                                     <p>Quando: ${(element.quando)}</p>
                                     <p>Onde: ${(element.onde)}</p>
-                                    <p>De: ${(element.de)}</p>
+                                    <p>${(detail)}</p>
                                     <p onclick='RecorrentesRequests.modalTransacoes("${(element.identificador)}")'>Tipo: ${(element.tipo)} <img src="assets/info.svg" style="width:20px"></p>
                                     <p>Descrição: ${(element.descricao)}</p>
 

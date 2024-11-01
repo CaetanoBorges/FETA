@@ -56,7 +56,7 @@ const routes = {
 const handleLocation = async () => {
     const path = window.location.pathname;
     const hash = window.location.hash;
-    
+    ESCOPO.init = true;
     
     const route = routes[path] || routes[404];
     const html = await fetch(route).then(function(data){
@@ -82,8 +82,7 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     PendentesRequests.pendentes();
-
-                }, 1000);
+                }, 500);
             }
             if (path == "/iban") {
                 loader.abrir();
