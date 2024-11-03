@@ -85,8 +85,8 @@ class InicioReq {
         this.loader.abrir();
         var esse = this;
 
-            var settings = {
-            "url": (this.apiUrl)+"/pedecodigo",
+        var settings = {
+            "url": (this.apiUrl) + "/pedecodigo",
             "method": "POST",
             "timeout": 0,
             "headers": {
@@ -100,9 +100,9 @@ class InicioReq {
 
         $.ajax(settings).done(function (res) {
             if (res.ok) {
-                esse.notificacao.sms("Código de confirmação enviado com sucesso", 1);
-                var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
-                myModal.toggle()
+                esse.notificacao.sms("Código de confirmação enviado com sucesso");
+                ESCOPO.modalConfirmarFinal = new bootstrap.Modal(document.getElementById('confirmar-sms'));
+                ESCOPO.modalConfirmarFinal.toggle();
             } else {
                 esse.notificacao.sms(res.payload, 1);
             }
@@ -111,13 +111,33 @@ class InicioReq {
             esse.loader.fechar();
         });
     }
-    
+
+    pedirPin() {
+        this.loader.abrir();
+        setTimeout(() => {
+            ESCOPO.modalConfirmarFinal = new bootstrap.Modal(document.getElementById('confirmar-pin'));
+            ESCOPO.modalConfirmarFinal.toggle();
+            this.loader.fechar();
+        }, 1000);
+    }
+
+    pedirNumeroOuPin() {
+        document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
+        document.querySelectorAll(".modal").forEach(function(i){ $(i).hide() });
+        if(ESCOPO.confirmarFinal == "pin"){
+            this.pedirPin();
+        }else{
+            this.pedirNumero();
+        }
+    }
+        
+
     pedirNumeroNovo() {
         this.loader.abrir();
         var esse = this;
 
-            var settings = {
-            "url": (this.apiUrl)+"/pedecodigo",
+        var settings = {
+            "url": (this.apiUrl) + "/pedecodigo",
             "method": "POST",
             "timeout": 0,
             "headers": {
@@ -139,5 +159,25 @@ class InicioReq {
         }).always(function (a) {
             esse.loader.fechar();
         });
+    }
+
+    confirmarNumero() {
+        this.loader.abrir();
+        var codigo = $("#codigo-confirmacao").val();
+
+        if (codigo.length < 6) {
+                this.notificacao.sms("Verifica o código de confirmação", 1);
+            } else {
+                ESCOPO.codigo = codigo;
+                ESCOPO.callback(ESCOPO.parametro);
+            }
+
+    }
+    
+    confirmarPin() {
+        ESCOPO.pin = pin;
+        pin = '';
+        updatePinDisplay();
+        ESCOPO.callback(ESCOPO.parametro);
     }
 }

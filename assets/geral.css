@@ -176,4 +176,54 @@
      margin-top: 0;
  }
 .margin_0{margin: 0;}
+
+
+.container-pin {
+    Text-align: center;
+    display: block;
+    margin: auto auto;
+}
+
+.container-pin h1 {
+    Font-size: 24px;
+    Margin-bottom: 10px;
+}
+
+.container-pin p {
+    Font-size: 16px;
+    Margin-bottom: 20px;
+}
+
+.pin-display {
+    Display: flex;
+    Justify-content: center;
+    Margin-bottom: 20px;
+}
+
+.pin-circle {
+    Width: 20px;
+    Height: 20px;
+    Border: 2px solid #000;
+    Border-radius: 50%;
+    Margin: 0 5px;
+}
+
+.keypad {
+    Display: grid;
+    Grid-template-columns: repeat(3, 0fr);
+    Gap: 15px;
+}
+
+.key {
+    Width: 60px;
+    Font-size: 24px;
+    Border: none;
+    Background-color: #fff;
+    Box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    Cursor: pointer;
+}
+
+.key:active {
+    Background-color: #ddd;
+}
  @media screen and (max-width:400px) {}

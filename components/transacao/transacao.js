@@ -37,39 +37,48 @@ class debliwuitransacao extends HTMLElement {
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
-        console.log(JSON.parse(localStorage.getItem("transacoes")));
+        var ver = false;
+        setInterval(() => {
+            
+            console.log(ver, (localStorage.getItem("transacoes")));
+            if (ver != localStorage.getItem("transacoes")) {
+                ver = localStorage.getItem("transacoes");
 
-        var itens = ``;
-        (JSON.parse(localStorage.getItem("transacoes"))).forEach(element => {
-                var fechar = "";
-                var classe = "";
-                var cor = "";
-                var titulo = "";
-                var sinal = "";
-                var quem = "";
-                if (element.enviar) {
-                    fechar = "assets/fechar-saida-icon.svg";
-                    quem = `<p>Para: ${(element.para)}</p>`;
-                    classe = "saida";
-                    cor = "#BF0003";
-                    titulo = "SAIDA";
-                    sinal = "-";
-                } else {
-                    fechar = "assets/fechar-entrada-icon.svg";
-                    quem = `<p>De: ${(element.de)}</p>`;
-                    classe = "entrada";
-                    cor = "#00BF00";
-                    titulo = "ENTRADA";
-                    sinal = "+";
-                }
-                itens += `
+                var itens = ``;
+                (JSON.parse(localStorage.getItem("transacoes"))).forEach(element => {
+                    var fechar = "";
+                    var classe = "";
+                    var cor = "";
+                    var titulo = "";
+                    var sinal = "";
+                    var quem = "";
+                    if (element.entrada != "1") {
+                        fechar = "assets/fechar-saida-icon.svg";
+                        quem = `<p>Para: ${(element.para)}</p>`;
+                        classe = "saida";
+                        cor = "#BF0003";
+                        titulo = "SAIDA";
+                        sinal = "-";
+                    } else {
+                        fechar = "assets/fechar-entrada-icon.svg";
+                        quem = `<p>De: ${(element.de)}</p>`;
+                        classe = "entrada";
+                        cor = "#00BF00";
+                        titulo = "ENTRADA";
+                        sinal = "+";
+                    }
+                    itens += `
                 <div class="transacao ${classe}">
-                    <p class="valor">${sinal} ${(MONEY(element.valor,2,"."," "))}</p>
+                    <p class="valor">${sinal} ${(MONEY(element.valor, 2, ".", " "))}</p>
                     <p class="data">${(element.quando)}</p>
-                    <p class="descricao">${(element.descricao)}</p>
                 </div>`;
-            });
-            esse.shadowRoot.querySelector('#render').innerHTML = (itens);
+                });
+                
+                $(esse.shadowRoot.querySelector('#render')).hide();
+                esse.shadowRoot.querySelector('#render').innerHTML = (itens);
+                $(esse.shadowRoot.querySelector('#render')).show("slow");
+            }
+        }, 2000);
 
     }
 

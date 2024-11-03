@@ -14,7 +14,7 @@ class EnviarReq {
                 $("#opcao-recorrente").hide("slow");
 
                 var quanto = $('#quanto').val();
-                var valorParcela = Number(quanto/2).toFixed(2);
+                var valorParcela = Number(quanto / 2).toFixed(2);
                 $(".valorParcela").html(`Serão pagos <br><b>${valorParcela}</b>, <br> ${2} vezes`);
             }
             if (parcelar == "nao") {
@@ -41,11 +41,11 @@ class EnviarReq {
             }
         })
 
-        
+
         $('#select-parcela').change(function () {
             var parcelar = $('#select-parcela').val();
             var quanto = $('#quanto').val();
-            var valorParcela = Number(quanto/parcelar).toFixed(2);
+            var valorParcela = Number(quanto / parcelar).toFixed(2);
             $(".valorParcela").html(`Serão pagos <br><b>${valorParcela}</b>, <br> ${parcelar} vezes`);
         })
 
@@ -70,57 +70,42 @@ class EnviarReq {
 
     }
     modalConfirmar() {
-        var myModal = new bootstrap.Modal(document.getElementById('confirmar-modal'))
-        myModal.toggle()
-    }
-    modalConfirmarSMS() {
-        var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
-        myModal.toggle()
+        ESCOPO.modalConfirmar = new bootstrap.Modal(document.getElementById('confirmar-modal'))
+        ESCOPO.modalConfirmar.toggle()
     }
 
-    modalConfirmarPin() {
-        var myModal = new bootstrap.Modal(document.getElementById('confirmar-pin'))
-        myModal.toggle()
-    }
-
-    pegaDadosOperacao(){
+    pegaDadosOperacao() {
         var notificacao = this.notificacao;
-        var dadosOperacao = {
-            opcoes:{
-                valor_parcela : null
+        ESCOPO.dadosOperacao = {
+            opcoes: {
+                valor_parcela: null
             }
         };
         var valor = $("#quanto").val();
         var para = $("#para").val();
         var descricao = $("#descricao").val();
-        var tipo = "Normal";
+        var tipo = "normal";
         var onde = "App";
 
-        
+
         //VERIFICAÇÃO DO DESTINATÁRIO E DO SALDO DISPONÍVEL
-        if(valor < 1){
-            notificacao.sms("Verifica o valor a enviar",1);
+        if (valor < 1) {
+            notificacao.sms("Verifica o valor a transaferir", 1);
             return;
-        }else{
-            var MOCK = {saldo: localStorage.getItem("balanco")}
-            if((Number(MOCK.saldo) - 1) >= valor){
-                dadosOperacao.valor = (MOCK);
-            }else{
-                notificacao.sms("Não tem saldo suficiente",1);
+        } else {
+            var MOCK = { saldo: localStorage.getItem("balanco") }
+            if ((Number(MOCK.saldo) - 1) >= valor) {
+                ESCOPO.dadosOperacao.valor = valor;
+            } else {
+                notificacao.sms("Não tem saldo suficiente", 1);
                 return;
             }
         }
-        if(para.length < 1){
-            notificacao.sms("Quem vai receber o enviu?",1);
+        if (para.length != 9) {
+            notificacao.sms("Verifique o destinatário, deve conter 9 digitos", 1);
             return;
-        }else{
-            var MOCK = {nome:"Super Borge", telefone: "921797626"}
-            if(MOCK.telefone == para){
-                dadosOperacao.para = para;
-            }else{
-                notificacao.sms("Destinatário desconhecido",1);
-                return;
-            }
+        } else {
+            ESCOPO.dadosOperacao.para = para;
         }
         //--------------------------------------------------------
 
@@ -128,10 +113,10 @@ class EnviarReq {
         var parceladoPeriodicidade;
         var parceladoParcelas;
 
-        var recorrente=$('[name="radio-recorrente"]:checked').val();
+        var recorrente = $('[name="radio-recorrente"]:checked').val();
         var recorrentePeriodicidade;
-        if(parcelado == "sim"){
-            tipo = "Parcelado";
+        if (parcelado == "sim") {
+            tipo = "parcelado";
             parceladoPeriodicidade = $("#select-parcelado").val();
             parceladoParcelas = $("#select-parcela").val();
             var opcoes = {
@@ -139,50 +124,102 @@ class EnviarReq {
                 parcelas: parceladoParcelas,
                 valor_parcela: (Number(valor / parceladoParcelas)).toFixed(2)
             }
-            dadosOperacao.opcoes = opcoes;
-            //dadosOperacao.periodicidade = parceladoPeriodicidade;
-            //dadosOperacao.parcelas = parceladoParcelas;
-           // dadosOperacao.valorparcelas = (Number(quanto / parceladoParcelas)).toFixed(2);
+            ESCOPO.dadosOperacao.opcoes = opcoes;
+            //ESCOPO.dadosOperacao.periodicidade = parceladoPeriodicidade;
+            //ESCOPO.dadosOperacao.parcelas = parceladoParcelas;
+            // ESCOPO.dadosOperacao.valorparcelas = (Number(quanto / parceladoParcelas)).toFixed(2);
         }
 
-        if(recorrente == "sim"){
-            tipo = "Recorrente";
+        if (recorrente == "sim") {
+            tipo = "recorrente";
             recorrentePeriodicidade = $("#select-recorrente").val();
-            dadosOperacao.periodicidade = recorrentePeriodicidade;
+            ESCOPO.dadosOperacao.periodicidade = recorrentePeriodicidade;
             var opcoes = {
                 periodicidade: recorrentePeriodicidade,
             }
-            dadosOperacao.opcoes = opcoes;
+            ESCOPO.dadosOperacao.opcoes = opcoes;
         }
 
 
-        dadosOperacao.valor = valor;
-        //dadosOperacao.para = para;
-        dadosOperacao.tipo = tipo;
-        dadosOperacao.onde = onde;
-        dadosOperacao.descricao = descricao;
-        
-        ESCOPO.acao = `Trasferência para ${(dadosOperacao.para)} \nde ${(MONEY(dadosOperacao.valor, 2, ".", " "))}.`;
+        ESCOPO.dadosOperacao.valor = valor;
+        //ESCOPO.dadosOperacao.para = para;
+        ESCOPO.dadosOperacao.tipo = tipo;
+        ESCOPO.dadosOperacao.onde = onde;
+        ESCOPO.dadosOperacao.descricao = descricao;
+
+        ESCOPO.acao = `Trasferência para ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
         var tipoo = ``;
-        if(tipo == "Parcelado"){
-            tipoo = `<p>Tipo: ${(dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " "))}</b> pagos ${(dadosOperacao.opcoes.periodicidade)}, fazendo um total de <b>${(MONEY(dadosOperacao.valor, 2, ".", " "))}</b> no final.</p>`;
-            //dadosOperacao.valor = dadosOperacao.opcoes.valor_parcela;
-            ESCOPO.acao = `Trasferência parcelada para ${(dadosOperacao.para)} \n${(dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(dadosOperacao.valor, 2, ".", " "))} no final.`;
+        if (tipo == "parcelado") {
+            tipoo = `<p>Tipo: ${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))}</b> pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b> no final.</p>`;
+            //ESCOPO.dadosOperacao.valor = ESCOPO.dadosOperacao.opcoes.valor_parcela;
+            ESCOPO.acao = `Trasferência parcelada para ${(ESCOPO.dadosOperacao.para)} \n${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} no final.`;
         }
-        if(tipo == "Recorrente"){
-            tipoo = `<p>Tipo: Recorrente pago ${(dadosOperacao.opcoes.periodicidade)} </p>`;
-            ESCOPO.acao = `Trasferência recorrente para ${(dadosOperacao.para)} \nPago ${(MONEY(dadosOperacao.valor, 2, ".", " "))} de forma ${(dadosOperacao.opcoes.periodicidade)}.`;
+        if (tipo == "recorrente") {
+            tipoo = `<p>Tipo: Recorrente pago ${(ESCOPO.dadosOperacao.opcoes.periodicidade)} </p>`;
+            ESCOPO.acao = `Trasferência recorrente para ${(ESCOPO.dadosOperacao.para)} \nPago ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} de forma ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}.`;
         }
         $("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${ (dadosOperacao.opcoes.valor_parcela ? MONEY(dadosOperacao.opcoes.valor_parcela, 2, ".", " ") : MONEY(dadosOperacao.valor, 2, ".", " ") )}</b></p>
-            <p>Onde:  ${(dadosOperacao.onde)}</p>
-            <p>Para:  ${dadosOperacao.para}</p> 
+            <p>Quanto:  <b>${(ESCOPO.dadosOperacao.opcoes.valor_parcela ? MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " ") : MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
+            <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
+            <p>Para:  ${ESCOPO.dadosOperacao.para}</p> 
             ${tipoo}
-            <p>Descrição: ${(dadosOperacao.descricao)}</p>
+            <p>Descrição: ${(ESCOPO.dadosOperacao.descricao)}</p>
             `)
 
         this.modalConfirmar();
-        console.log(dadosOperacao);
+        if(valor > 99999){
+            ESCOPO.confirmarFinal = "codigo";
+        }else{
+            ESCOPO.confirmarFinal = "pin";
+        }
+
+        ESCOPO.callback = this.novoEnvio;
+        ESCOPO.parametro = this;
+        console.log(ESCOPO.dadosOperacao);
+        console.log(ESCOPO.dadosOperacao);
         console.log(ESCOPO.acao);
+    }
+
+    novoEnvio(esse) {
+        var headers = {
+                "token": db.getToken(),
+                "codigo": ESCOPO.codigo,
+                "Content-Type": "application/json"
+        }
+        if(ESCOPO.confirmarFinal == "pin"){
+            headers = {
+                    "token": db.getToken(),
+                    "pin": ESCOPO.pin,
+                    "Content-Type": "application/json"
+            }
+        }
+        var settings = {
+            "url": (esse.apiUrl)+"/transacao/enviar",
+            "method": "POST",
+            "timeout": 0,
+            "headers": headers,
+            "data": JSON.stringify(ESCOPO.dadosOperacao),
+        };
+        esse.loader.abrir();
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if(response.ok){
+                InicioRequests.home();
+                ESCOPO.modalConfirmar.hide();
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 0);
+                setTimeout(function(){
+                    vaiTela("\home");
+                },1000);
+            }else{
+                
+                ESCOPO.modalConfirmar.hide();
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
     }
 }

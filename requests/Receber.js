@@ -70,42 +70,34 @@ class ReceberReq {
 
     }
     modalConfirmar() {
-        var myModal = new bootstrap.Modal(document.getElementById('confirmar-modal'))
-        myModal.toggle()
-    }
-    modalConfirmarSMS() {
-        var myModal = new bootstrap.Modal(document.getElementById('confirmar-sms'))
-        myModal.toggle()
+        ESCOPO.modalConfirmar = new bootstrap.Modal(document.getElementById('confirmar-modal'))
+        ESCOPO.modalConfirmar.toggle()
     }
 
     pegaDadosOperacao(){
         var notificacao = this.notificacao;
-        var dadosOperacao = {};
-        var quanto = $("#quanto").val();
+        ESCOPO.dadosOperacao = {
+            opcoes: {
+                valor_parcela: null
+            }
+        };
+        var valor = $("#quanto").val();
         var de = $("#de").val();
         var descricao = $("#descricao").val();
-        var tipo = "Normal";
+        var tipo = "normal";
         var onde = "App";
 
         //VERIFICAÇÃO DO DESTINATÁRIO E DO SALDO DISPONÍVEL
-        if(quanto < 1){
+        if(valor < 1){
             notificacao.sms("Verifica o valor a receber",1);
             return;
-        }else{
-            var MOCK = {saldo:"15000"}
-            dadosOperacao.quanto;
         }
+
         if(de.length < 1){
-            notificacao.sms("Quem vai enviar o recebimento?",1);
+            notificacao.sms("Quem vai tranferir o recebimento?",1);
             return;
         }else{
-            var MOCK = {nome:"Super Borge", telefone: "921797626"}
-            if(MOCK.telefone == de){
-                dadosOperacao.de = (MOCK);
-            }else{
-                notificacao.sms("Devedor desconhecido",1);
-                return;
-            }
+            ESCOPO.dadosOperacao.de = de;
         }
         //--------------------------------------------------------
 
@@ -117,43 +109,105 @@ class ReceberReq {
         var recorrentePeriodicidade;
 
         if(parcelado == "sim"){
-            tipo = "Parcelado";
+            tipo = "parcelado";
             parceladoPeriodicidade = $("#select-parcelado").val();
             parceladoParcelas = $("#select-parcela").val();
-            dadosOperacao.periodicidade = parceladoPeriodicidade;
-            dadosOperacao.parcelas = parceladoParcelas;
-            dadosOperacao.valorparcelas = (Number(quanto / parceladoParcelas)).toFixed(2);
+            var opcoes = {
+                periodicidade: parceladoPeriodicidade,
+                parcelas: parceladoParcelas,
+                valor_parcelas: (Number(valor / parceladoParcelas)).toFixed(2)
+            }
+            ESCOPO.dadosOperacao.opcoes = opcoes;
         }
 
         if(recorrente == "sim"){
-            tipo = "Recorrente";
+            tipo = "recorrente";
             recorrentePeriodicidade = $("#select-recorrente").val();
-            dadosOperacao.periodicidade = recorrentePeriodicidade;
+            ESCOPO.dadosOperacao.periodicidade = recorrentePeriodicidade;
+            var opcoes = {
+                periodicidade: recorrentePeriodicidade,
+            }
+            ESCOPO.dadosOperacao.opcoes = opcoes;
         }
 
 
-        dadosOperacao.quanto = quanto;
-        //dadosOperacao.para = para;
-        dadosOperacao.tipo = tipo;
-        dadosOperacao.onde = onde;
-        dadosOperacao.descricao = descricao;
-
+        ESCOPO.dadosOperacao.valor = valor;
+        //ESCOPO.dadosOperacao.para = para;
+        ESCOPO.dadosOperacao.tipo = tipo;
+        ESCOPO.dadosOperacao.onde = onde;
+        ESCOPO.dadosOperacao.descricao = descricao;
+        ESCOPO.acao = `Recebimento que virá de ${(ESCOPO.dadosOperacao.de)} \n${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
         var tipoo = ``;
-        if(tipo == "Parcelado"){
-            tipoo = `<p>Tipo: ${(dadosOperacao.parcelas)} parcelas de <b>${(dadosOperacao.valorparcelas)}</b> recebidos ${(dadosOperacao.periodicidade)} </p>`;
+        if(tipo == "parcelado"){
+            tipoo = `<p>Tipo: ${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcelas, 2, ".", " "))}</b> a ser recebido ${(ESCOPO.dadosOperacao.opcoes.periodicidade)} </p>`;
+            ESCOPO.acao = `Recebimento parcelado que virá de ${(ESCOPO.dadosOperacao.de)} \n${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcelas, 2, ".", " "))} pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} no final.`;
         }
-        if(tipo == "Recorrente"){
-            tipoo = `<p>Tipo: Recorrente a receber ${(dadosOperacao.periodicidade)} </p>`;
+        if(tipo == "recorrente"){
+            tipoo = `<p>Tipo: Recorrente a receber ${(ESCOPO.dadosOperacao.opcoes.periodicidade)} </p>`;
+            ESCOPO.acao = `Recebimento recorrente que virá de ${(ESCOPO.dadosOperacao.de)} \nPago ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} de forma ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}.`;
         }
         $("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${(Number(dadosOperacao.quanto).toFixed(2))}</b></p>
-            <p>Onde:  ${(dadosOperacao.onde)}</p>
-            <p>De:  ${dadosOperacao.de.nome}</p> 
+            <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
+            <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
+            <p>De:  ${ESCOPO.dadosOperacao.de}</p> 
             ${tipoo}
-            <p>Descrição: ${(dadosOperacao.descricao)}</p>
+            <p>Descrição: ${(ESCOPO.dadosOperacao.descricao)}</p>
             `)
 
         this.modalConfirmar();
-        console.log(dadosOperacao);
+        console.log(ESCOPO.dadosOperacao);
+        if(valor > 99999){
+            ESCOPO.confirmarFinal = "codigo";
+        }else{
+            ESCOPO.confirmarFinal = "pin";
+        }
+
+        ESCOPO.callback = this.novoEnvio;
+        ESCOPO.parametro = this;
+        console.log(ESCOPO.dadosOperacao);
+        console.log(ESCOPO.dadosOperacao);
+        console.log(ESCOPO.acao);
+    }
+    novoEnvio(esse) {
+        var headers = {
+                "token": db.getToken(),
+                "codigo": ESCOPO.codigo,
+                "Content-Type": "application/json"
+        }
+        if(ESCOPO.confirmarFinal == "pin"){
+            headers = {
+                    "token": db.getToken(),
+                    "pin": ESCOPO.pin,
+                    "Content-Type": "application/json"
+            }
+        }
+        var settings = {
+            "url": (esse.apiUrl)+"/transacao/receber",
+            "method": "POST",
+            "timeout": 0,
+            "headers": headers,
+            "data": JSON.stringify(ESCOPO.dadosOperacao),
+        };
+        esse.loader.abrir();
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if(response.ok){
+                InicioRequests.home();
+                ESCOPO.modalConfirmar.hide();
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 0);
+                setTimeout(function(){
+                    vaiTela("\home");
+                },1000);
+            }else{
+                
+                ESCOPO.modalConfirmar.hide();
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
     }
 }

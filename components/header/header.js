@@ -36,7 +36,13 @@ class debliwuitop extends HTMLElement {
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
-        esse.shadowRoot.querySelector('.label span').innerHTML = (localStorage.getItem("nome")).toUpperCase();
+        var ver = false;
+        setInterval(() => {
+            if (ver != localStorage.getItem("nome")) {
+                ver = localStorage.getItem("nome");
+                esse.shadowRoot.querySelector('.label span').innerHTML = (localStorage.getItem("nome")).toUpperCase();
+            }
+        }, 1000);
         
     }
 

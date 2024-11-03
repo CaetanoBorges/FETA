@@ -37,8 +37,13 @@ class debliwuisaldo extends HTMLElement {
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
-        esse.shadowRoot.querySelector('.saldo').innerHTML = (MONEY(localStorage.getItem("balanco"),2,"."," "));
-        
+        var ver = false;
+        setInterval(() => {
+            if (ver != localStorage.getItem("balanco")) {
+                ver = localStorage.getItem("balanco");
+                esse.shadowRoot.querySelector('.saldo').innerHTML = (MONEY(localStorage.getItem("balanco"),2,"."," "));
+            }
+        })        
     }
 
 }

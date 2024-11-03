@@ -63,6 +63,7 @@ const handleLocation = async () => {
         var res = data.text();
         res.then(function(ui){
             document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
+            document.querySelectorAll(".modal").forEach(function(i){ $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             
             if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
@@ -177,6 +178,7 @@ const handleLocation = async () => {
             if (path == "/home") {
                 loader.abrir();
                 menu.abrir(); 
+                InicioRequests.home();
                 setTimeout(function () {
 
                     
