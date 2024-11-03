@@ -1,9 +1,9 @@
 const debliwui_logopequeno = document.createElement('template');
 debliwui_logopequeno.innerHTML = `
     <style>
-        .logo{width: 46pt;display: block;}
+        .logo{width: 80pt;display: block;}
     </style>
-    <img src="assets/logo-pequeno.svg" class="logo">
+    <img src="assets/logo-p.png" class="logo">
 `;
 
 class debliwuilogopequeno extends HTMLElement {

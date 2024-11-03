@@ -47,10 +47,11 @@ const routes = {
     "/inicioconfirmar": "/pages/inicioconfirmar.html",
     "/criarpin": "/pages/criarpin.html",
     "/recuperarconta": "/pages/recuperarconta.html",
+    "/recuperarconfirmar": "/pages/recuperarconfirmar.html",
     "/recuperarpin": "/pages/recuperarpin.html",
 
-    "/trm": "/pages/recuperarpin.html",
-    "/prv": "/pages/recuperarpin.html"
+    "/trm": "/pages/termos.html",
+    "/prv": "/pages/privacidade.html"
 }
 
 const handleLocation = async () => {
@@ -65,7 +66,7 @@ const handleLocation = async () => {
             document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
             document.querySelectorAll(".modal").forEach(function(i){ $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
-            
+            db.verificaSessao();
             if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
             }else{
@@ -271,6 +272,7 @@ const handleLocation = async () => {
             }
             if (path == "/login02") {
                 loader.abrir();
+                $(".nome").html((localStorage.getItem("nome")).toUpperCase());
                 setTimeout(function () {
                     $('.preview').prevue();
                      $(function () {
@@ -278,7 +280,9 @@ const handleLocation = async () => {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
                     });
-                    //InicioRequests.slide();
+                    ESCOPO.callback = InicioRequests.reLogin;
+                    ESCOPO.parametro = InicioRequests;
+
                     loader.fechar();
                 }, 1000);
                 
@@ -330,6 +334,15 @@ const handleLocation = async () => {
                 
             }
             if (path == "/recuperarconta") {
+                loader.abrir();
+                setTimeout(function () {
+                    //InicioRequests.slide();
+                    loader.fechar();
+                }, 1000);
+                
+            }
+            
+            if (path == "/recuperarconfirmar") {
                 loader.abrir();
                 setTimeout(function () {
                     //InicioRequests.slide();

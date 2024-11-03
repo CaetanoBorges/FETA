@@ -1,22 +1,46 @@
 <div id="render">
-        <br><br><br><br>
-        <div class="user">
+    <br><br>
+    <div class="user">
         <div class="relativa">
-            <img src="assets/user.svg" alt="" class="img" id="img">
+            <img src="assets/user.svg" alt class="img" id="img">
         </div>
         <p class="nome">Super User</p>
     </div>
-        <br><br>
-        <div style="padding: 4%;">  
-            <div class="mb-4">
-                <label class="form-label margin_0">Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+    <br>
+    <div style="padding: 4%;">
+        <div class="mb-4">
+            <div class="container-pin">
+                <h1>ENTRAR COM O PIN</h1>
+                <div class="pin-display">
+                    <div class="pin-circle"></div>
+                    <div class="pin-circle"></div>
+                    <div class="pin-circle"></div>
+                    <div class="pin-circle"></div>
+                    <div class="pin-circle"></div>
+                    <div class="pin-circle"></div>
+                </div>
+                <div style="width: 210px;display: block;margin: auto;">
+                    <div class="keypad">
+                        <button class="key" onclick="inputPin(1)">1</button>
+                        <button class="key" onclick="inputPin(2)">2</button>
+                        <button class="key" onclick="inputPin(3)">3</button>
+                        <button class="key" onclick="inputPin(4)">4</button>
+                        <button class="key" onclick="inputPin(5)">5</button>
+                        <button class="key" onclick="inputPin(6)">6</button>
+                        <button class="key" onclick="inputPin(7)">7</button>
+                        <button class="key" onclick="inputPin(8)">8</button>
+                        <button class="key" onclick="inputPin(9)">9</button>
+                        <button class="key" onclick="deletePin()">DEL</button>
+                        <button class="key" onclick="inputPin(0)">0</button>
+                    </div>
+                </div>
             </div>
-            <img src="assets/btn/btn-entrar.svg" class="btn-avancar hvr-bounce-out">
         </div>
 
-        <p class="criar-conta hvr-bounce-out">Sair</p>
-        <p class="esqueci hvr-bounce-out">Esqueci o Pin</p>
+    </div>
+
+    <p class="criar-conta hvr-bounce-out" onclick="db.rmToken()">Sair</p>
+    <p class="esqueci hvr-bounce-out" onclick="vaiTela('/recuperarconta')">Esqueci o Pin</p>
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}
@@ -28,7 +52,7 @@
 .esqueci{position: fixed; right: 4%;bottom: 3vh;font-size: 15pt;font-weight: 500;}
 .criar-conta{position: fixed; left: 4%;bottom: 3vh;font-size: 15pt;font-weight: 500;}
  .background-image img {
-     opacity: .5;
+     opacity: .2;
  }
  .prevue-btn{margin-top: -7px;}
 </style>

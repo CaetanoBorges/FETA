@@ -20,7 +20,7 @@ class StorageFeta {
         true;
     }
     setToken(token) {
-        this.set("feta01_token_token", token,false);
+        this.set("feta01_token_token", token, false);
         return true;
     }
     getToken() {
@@ -32,9 +32,9 @@ class StorageFeta {
     }
     verificaToken() {
         if ((db.getToken()).length > 1) {
-            if((db.getToken()).length > 30){
+            if ((db.getToken()).length > 30) {
                 vaiTela("/home");
-            }else {
+            } else {
                 vaiTela("/login02");
             }
         } else {
@@ -43,8 +43,32 @@ class StorageFeta {
     }
     rmToken() {
         localStorage.removeItem("feta01_token_token");
+        this.verificaToken();
         return true;
     }
+
+    verificaSessao() {
+        if((db.getToken()).length > 30) {
+
+            var sessao = Number(localStorage.getItem("sessao"));
+            var limite = Number(localStorage.getItem("sessaolimite"));
+            var seconds = (Date.now() - (sessao)) / 1000;
+            console.log(seconds);
+            if (seconds > (limite)) {
+
+                this.setToken("expirou");
+                this.verificaToken();
+                notificacao.sms("Sua sessão expirou, entre novamente", 1);
+                return true;
+            } else {
+
+                localStorage.setItem("sessao", Date.now());
+                return false;
+            }
+
+        }
+    }
+
 }
 
 const db = new StorageFeta();

@@ -6,7 +6,11 @@ class ConfiguracoesReq {
         this.notificacao = notificacao;
     }
     init() {
-
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
 
 
         $('[name="opcao"]').change(function () {
@@ -28,10 +32,16 @@ class ConfiguracoesReq {
             console.log(response);
             $('.' + response.payload).css({ "color": "#640564" });
         });
+            
 
     }
 
     alterarTempo() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var opcao = $('[name="opcao"]:checked').val();
 
         ESCOPO.confirmarFinal = "pin";
@@ -44,8 +54,15 @@ class ConfiguracoesReq {
         };
 
         InicioRequests.pedirNumeroOuPin();
+            
+
     }
     setTimeout(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         esse.loader.abrir();
         var settings = {
             "url": (esse.apiUrl)+"/config/settimeout",
@@ -75,9 +92,16 @@ class ConfiguracoesReq {
                 esse.loader.fechar();
             }
         });
+            
+
     }
 
       alterarPin() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var pin_novo = $("#pin_novo").val();
         var pin_novo_confirmar = $("#pin_novo_confirmar").val();
 
@@ -97,8 +121,15 @@ class ConfiguracoesReq {
         };
 
         InicioRequests.pedirNumeroOuPin();
+            
+
     }
     setPin(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         esse.loader.abrir();
         var settings = {
             "url": (esse.apiUrl)+"/config/alterarpin",
@@ -113,7 +144,6 @@ class ConfiguracoesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmarFinal.hide();
@@ -122,11 +152,14 @@ class ConfiguracoesReq {
                     vaiTela("\home");
                 },1000);
             }else{
+                
                 ESCOPO.modalConfirmarFinal.hide();
                 $("#codigo-confirmacao").val("");
                 esse.notificacao.sms(response.payload, 1);
                 esse.loader.fechar();
             }
         });
+            
+
     }
 }

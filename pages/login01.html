@@ -1,16 +1,16 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
         <br><br><br>
-        <img src="assets/logo-big.svg" class="logo">
-        
+        <img src="assets/logo.png" class="logo">
+        <br><br>
         <div style="padding: 4%;">  
             <div class="mb-4">
                 <label class="form-label margin_0">Telefone</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" minlength="9" maxlength="9" id="telefone">
+                <input type="number" class="form-control input-inicio" inputmode="numeric" minlength="9" maxlength="9" id="telefone" autocomplete="off">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric" min="6" maxlength="6" id="pin">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" min="6" maxlength="6" id="pin" autocomplete="off">
             </div>
             <img src="assets/btn/btn-entrar.svg" class="btn-avancar hvr-bounce-out"  onclick='InicioRequests.login()'>
         </div>
@@ -20,11 +20,14 @@
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}
-.logo{width: 169px;display: block;margin: auto;}
+.logo{width: 100%;
+    display: block;
+    margin: auto;
+    border-radius: 10px;}
 .esqueci{position: fixed; right: 4%;bottom: 3vh;font-size: 15pt;font-weight: 500;}
 .criar-conta{position: fixed; left: 4%;bottom: 3vh;width: 54pt;}
  .background-image img {
-     opacity: .5;
+     opacity: .2;
  } 
  .prevue-btn{margin-top: -7px;}
 </style>

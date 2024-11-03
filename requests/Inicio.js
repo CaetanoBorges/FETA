@@ -41,6 +41,45 @@ class InicioReq {
 
         $.ajax(settings).done(function (res) {
             if (res.ok) {
+                localStorage.setItem("sessao", Date.now());
+                esse.db.setToken(res.token);
+                esse.home();
+                esse.db.verificaToken();
+                esse.notificacao.sms("É feta, é fácil");
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            console.log(res);
+        }).always(function (a) {
+            esse.loader.fechar();
+        });
+    }
+       reLogin(esse) {
+        var id = localStorage.getItem("telefone");
+        var pin = ESCOPO.pin;
+
+        if (id.length < 9 || pin.length < 6) {
+            esse.notificacao.sms("Preencha os dados corretamente", 1);
+            return;
+        }
+
+        esse.loader.abrir();
+        var settings = {
+            "url": (esse.apiUrl) + "/auth/entrar",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "id": id,
+                "pin": pin
+            }),
+        };
+
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                localStorage.setItem("sessao", Date.now());
                 esse.db.setToken(res.token);
                 esse.home();
                 esse.db.verificaToken();
@@ -58,7 +97,6 @@ class InicioReq {
     home() {
         var esse = this;
 
-
         var settings = {
             "url": (this.apiUrl) + "/perfil/init",
             "method": "GET",
@@ -69,6 +107,17 @@ class InicioReq {
         };
         $.ajax(settings).done(function (res) {
             if (res.ok) {
+
+                var sessao = res.payload.bloqueio;
+                if(sessao == "mins1") {
+                    localStorage.setItem("sessaolimite", 60);
+                }
+                if(sessao == "mins5") {
+                    localStorage.setItem("sessaolimite", 300);
+                }
+                if(sessao == "segs30") {
+                    localStorage.setItem("sessaolimite", 30);
+                }
                 localStorage.setItem("nome", res.payload.nome);
                 localStorage.setItem("balanco", res.payload.balanco);
                 localStorage.setItem("telefone", res.payload.telefone);
@@ -78,7 +127,7 @@ class InicioReq {
             }
             console.log(res);
         }).always(function (a) {
-
+            
         });
     }
     pedirNumero() {
@@ -122,15 +171,15 @@ class InicioReq {
     }
 
     pedirNumeroOuPin() {
-        document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
-        document.querySelectorAll(".modal").forEach(function(i){ $(i).hide() });
-        if(ESCOPO.confirmarFinal == "pin"){
+        document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
+        document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
+        if (ESCOPO.confirmarFinal == "pin") {
             this.pedirPin();
-        }else{
+        } else {
             this.pedirNumero();
         }
     }
-        
+
 
     pedirNumeroNovo() {
         this.loader.abrir();
@@ -166,18 +215,27 @@ class InicioReq {
         var codigo = $("#codigo-confirmacao").val();
 
         if (codigo.length < 6) {
-                this.notificacao.sms("Verifica o código de confirmação", 1);
-            } else {
-                ESCOPO.codigo = codigo;
-                ESCOPO.callback(ESCOPO.parametro);
-            }
+            this.notificacao.sms("Verifica o código de confirmação", 1);
+        } else {
+            ESCOPO.codigo = codigo;
+            ESCOPO.callback(ESCOPO.parametro);
+        }
 
     }
-    
+
     confirmarPin() {
         ESCOPO.pin = pin;
         pin = '';
         updatePinDisplay();
         ESCOPO.callback(ESCOPO.parametro);
     }
+
+ /*    verificaValidadeToken(response,esse) {
+        if (response.nivel == 1 || response.nivel == "1") {
+            db.setToken("expirou");
+            db.verificaToken();
+            esse.notificacao.sms("Sua sessão expirou, entre novamente", 1);
+        }
+    } */
+    
 }

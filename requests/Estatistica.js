@@ -7,6 +7,12 @@ class EstatisticaReq {
     }
 
     init() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
+        
         var esse = this;
         esse.loader.abrir()
 
@@ -26,8 +32,9 @@ class EstatisticaReq {
             console.log(d);
             var anoAtual = (d.payload.atual.ano);
             var mesAtual = (d.payload.atual.mes);
-            this.datas = (d.payload.datas).reverse();
-            (this.datas).forEach(element => {
+            esse.datas = (d.payload.datas);
+            localStorage.setItem("datas", JSON.stringify(esse.datas));
+            (esse.datas).forEach(element => {
 
                 let atualYear = element.ano;
                 if (atualYear != anoAtual) {
@@ -100,16 +107,24 @@ class EstatisticaReq {
         }).always(function (a) {
             esse.loader.fechar();
         });
+            
 
     }
     controllerData() {
+        var ver =  db.verificaSessao();
+        console.log(ver);
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var esse = this;
         $('#ano').on("change", function () {
             var ano = $('#ano').val();
             var mes = [];
 
 
-            (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
+           try {
+             (JSON.parse(localStorage.getItem("datas"))).forEach(function (element) {
                 if (element[ano]) {
                     (element[ano]).forEach(function (month) {
                         mes.unshift({ text: (month), value: (month) });
@@ -117,6 +132,9 @@ class EstatisticaReq {
                 }
 
             });
+           } catch (error) {
+            
+           }
             mes.unshift({ text: "Selecionar", value: "00" });
 
             ESCOPO.selectMes.destroy()
@@ -144,6 +162,8 @@ class EstatisticaReq {
             }
 
         });
+            
+
     }
 
     /**
@@ -159,6 +179,11 @@ class EstatisticaReq {
      * @param {string} ano - The year for which to retrieve transaction statistics.
      */
     estatisticas(mes, ano) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var esse = this;
         this.loader.abrir();
         var settings = {
@@ -205,6 +230,8 @@ class EstatisticaReq {
         setTimeout(function () {
             ESCOPO.init = false;
         }, 1500)
+            
+
     }
 
 

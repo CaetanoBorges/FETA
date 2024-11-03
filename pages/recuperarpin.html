@@ -1,29 +1,32 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
-        <br><br><br>
-        <img src="assets/logo-big.svg" class="logo">
-        
+        <br><br>
+        <img src="assets/logo.png" class="logo">
+        <br>
         <div style="padding: 4%;">  
             <h1 class="head_label">NOVO PIN</h1> <br><br>
             <div class="mb-4">
                 <label class="form-label margin_0">Novo Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" maxlength="9" id="pin_novo">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Confirmar Novo Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" maxlength="9" id="pin_novo_confirmar">
             </div>
         </div>
 
-        <img src="assets/btn/btn-novopin.svg" class="criar-conta hvr-bounce-out">
+        <img src="assets/btn/btn-novopin.svg" class="criar-conta hvr-bounce-out"  onclick='PerfilRequests.recuperarPin()'>
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}
-.logo{width: 169px;display: block;margin: auto;}
+.logo{width: 100%;
+    display: block;
+    margin: auto;
+    border-radius: 10px;}
 
 .criar-conta{display: block;width: 132pt;margin: 20px auto;}
  .background-image img {
-     opacity: .5;
+     opacity: .2;
  }
  .head_label{text-align: center;font-weight: 200;}
 </style>

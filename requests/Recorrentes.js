@@ -7,6 +7,11 @@ class RecorrentesReq {
         this.notificacao = notificacao;
     }
     recorrentes() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var esse = this;
         $("#render-recorrentes").html("");
         var loader = this.loader;
@@ -151,6 +156,8 @@ class RecorrentesReq {
         }).always(function () {
             loader.fechar();
         })
+            
+
     }
 
     modalCancelar(id) {
@@ -168,6 +175,11 @@ class RecorrentesReq {
 
     
     cancelarOperacao(id, valor, tipo) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         console.log(id,Number(valor),tipo);
         ESCOPO.dadosOperacao = { pid: id };
         ESCOPO.acao = `Cancelar operação recorrente a ${tipo} de ${valor}.`;
@@ -181,8 +193,15 @@ class RecorrentesReq {
         
 
         InicioRequests.pedirNumeroOuPin();
+            
+
     }
     cancelar(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         esse.loader.abrir();
         var headers = {
                 "token": db.getToken(),
@@ -222,6 +241,8 @@ class RecorrentesReq {
                 esse.loader.fechar();
             }
         });
+            
+
     }
 
 }

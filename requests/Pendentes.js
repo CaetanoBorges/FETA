@@ -7,6 +7,11 @@ class PendentesReq {
         this.notificacao = notificacao;
     }
     pendentes() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         $("#render-pendentes").html("");
         var loader = this.loader;
         var settings = {
@@ -106,9 +111,16 @@ class PendentesReq {
         }).always(function () {
             loader.fechar();
         })
+            
+
     }
 
     cancelarOperacao(id, valor, tipo) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         console.log(id,Number(valor),tipo);
         ESCOPO.dadosOperacao = { pid: id };
         ESCOPO.acao = `Cancelar operação pendente a ${tipo} de ${valor}.`;
@@ -122,8 +134,15 @@ class PendentesReq {
         
 
         InicioRequests.pedirNumeroOuPin();
+            
+
     }
     cancelar(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         esse.loader.abrir();
         var headers = {
                 "token": db.getToken(),
@@ -163,10 +182,17 @@ class PendentesReq {
                 esse.loader.fechar();
             }
         });
+            
+
     }
 
     
     aceitarOperacao(element, valor, tipo) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         console.log(element);
         ESCOPO.dadosOperacao = { pid: element };
         ESCOPO.acao = `Aceitar operação pendente a ${tipo} de ${valor}.`;
@@ -180,8 +206,15 @@ class PendentesReq {
         
 
         InicioRequests.pedirNumeroOuPin();
+            
+
     }
     aceitar(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         esse.loader.abrir();
         var headers = {
                 "token": db.getToken(),
@@ -221,6 +254,8 @@ class PendentesReq {
                 esse.loader.fechar();
             }
         });
+            
+
     }
 
 }

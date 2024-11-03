@@ -6,6 +6,11 @@ class ReceberReq {
         this.notificacao = notificacao;
     }
     init() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         $('[name="radio-parcelado"]').change(function () {
             var parcelar = $('[name="radio-parcelado"]:checked').val();
             if (parcelar == "sim") {
@@ -67,14 +72,21 @@ class ReceberReq {
                 showSearch: false
             }
         })
+            
 
     }
     modalConfirmar() {
+        
         ESCOPO.modalConfirmar = new bootstrap.Modal(document.getElementById('confirmar-modal'))
         ESCOPO.modalConfirmar.toggle()
     }
 
     pegaDadosOperacao(){
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var notificacao = this.notificacao;
         ESCOPO.dadosOperacao = {
             opcoes: {
@@ -164,11 +176,16 @@ class ReceberReq {
 
         ESCOPO.callback = this.novoEnvio;
         ESCOPO.parametro = this;
-        console.log(ESCOPO.dadosOperacao);
-        console.log(ESCOPO.dadosOperacao);
-        console.log(ESCOPO.acao);
+      
+            
+
     }
     novoEnvio(esse) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var headers = {
                 "token": db.getToken(),
                 "codigo": ESCOPO.codigo,
@@ -209,5 +226,7 @@ class ReceberReq {
                 esse.loader.fechar();
             }
         });
+            
+
     }
 }

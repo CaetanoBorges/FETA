@@ -20,6 +20,11 @@ class TransacoesReq {
         return newArray;
     }
     init() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var esse = this;
         esse.loader.abrir();
 
@@ -162,11 +167,17 @@ class TransacoesReq {
             esse.loader.fechar();
         });
 
+            
 
 
     }
 
     transacoes(mes, ano) {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         $(".render-aqui").html("");
         var esse = this;
         this.loader.abrir();
@@ -262,11 +273,18 @@ class TransacoesReq {
         })
         setTimeout(function () {
             ESCOPO.init = false;
-        }, 1500)
+        }, 1500);
+            
+
     }
 
 
     controllerData() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
         var esse = this;
         $('#ano').on("change", function () {
             
@@ -309,5 +327,7 @@ class TransacoesReq {
             }
 
         });
+            
+
     }
 }
