@@ -1,25 +1,44 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
-        <br><br><br>
+        <br><br>
         <img src="assets/logo.png" class="logo">
-        
+        <br>
         <div style="padding: 4%;">  
             <h1 class="head_label">CONTA PESSOAL</h1> <br><br>
             <div class="mb-4">
                 <label class="form-label margin_0">Nome</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="text" class="form-control input-inicio" id="nome" autocomplete="off">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">BI</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="text" class="form-control input-inicio" id="bi" autocomplete="off">
+            </div>
+            <div class="mb-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col" style="padding-left: 0;">  
+                            <label class="form-label margin_0">Gênero</label>
+                            <select name="genero" id="genero" class="form-control">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </select>
+                        </div>
+                        <div class="col" style="padding-right: 0;">
+                         
+                            <label class="form-label margin_0">Nascimento</label>
+                            <input type="date" class="form-control" id="nascimento" autocomplete="off" style="height: 31.5px;border-radius: 2px;">
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Telefone</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="number" class="form-control input-inicio" inputmode="numeric" maxlength="9"  id="telefone" autocomplete="off">
             </div>
         </div>
 
-        <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out">
+        <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out" onclick="InicioRequests.criarConta_dois()">
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}
@@ -32,5 +51,23 @@
  .background-image img {
      opacity: .2;
  }
- .head_label{text-align: center;font-weight: 200;}
+ .radio {
+  appearance: none;
+
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+
+  position: relative;
+  top: 4px;
+}
+
+.radio:checked {
+  border: 10px solid rgba(100, 5, 100, .5);
+}
+
+.head_label{text-align: center;font-weight: 200;}
 </style>

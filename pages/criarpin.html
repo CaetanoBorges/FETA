@@ -1,21 +1,21 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
-        <br><br><br>
+        <br><br>
         <img src="assets/logo.png" class="logo">
-        
+        <br>
         <div style="padding: 4%;">  
             <h1 class="head_label">CRIAR CONTA</h1> <br><br>
             <div class="mb-4">
                 <label class="form-label margin_0">Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" maxlength="6" id="pin">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Confirmar Pin</label>
-                <input type="password" class="preview form-control input-inicio" inputmode="numeric">
+                <input type="password" class="preview form-control input-inicio" inputmode="numeric" maxlength="6" id="pin_confirmar">
             </div>
         </div>
 
-        <img src="assets/btn/btn-criarconta.svg" class="criar-conta hvr-bounce-out"  onclick='vaiTela("home")'>
+        <img src="assets/btn/btn-criarconta.svg" class="criar-conta hvr-bounce-out"  onclick='InicioRequests.cadastrar()'>
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}

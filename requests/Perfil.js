@@ -23,14 +23,23 @@ class PerfilReq {
         };
         this.jquery.ajax(settings).done(function (dados) {
 
-            console.log(dados);
+            console.error(dados);
             var conta = dados.payload;
-            if (conta.empresa) {
+            if (Number(conta.empresa) == 1 ) {
                 $(".titulo").html("<h1>CONTA EMPRESA</h1>");
                 $(".id_doc").html("NIF");
-            } else {
+                $(".genero").html("Área de atuação");
+                $("#genero").val((conta.area).toUpperCase()).attr("disabled", "disabled");
+            } 
+            
+            if(Number(conta.empresa) != 1 ){
                 $(".titulo").html("<h1>CONTA PESSOAL</h1>");
                 $(".id_doc").html("BI");
+                $(".genero").html("Gênero");
+                $("#genero").val((conta.genero).toUpperCase()).attr("disabled", "disabled");
+                
+                $("#nasc_div").show();
+                $("#nascimento").val((conta.nascimento).toUpperCase()).attr("disabled", "disabled");
             }
             $(".nome").html((conta.nome).toUpperCase());
             $("#nome").val((conta.nome).toUpperCase()).attr("disabled", "disabled");
@@ -82,7 +91,7 @@ class PerfilReq {
         dadosOperacao.para = para;
         //--------------------------------------------------------
         this.modalConfirmar();
-        console.log(dadosOperacao);
+        //console.log(dadosOperacao);
             
 
     }
@@ -179,7 +188,7 @@ class PerfilReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 localStorage.setItem("sessao", Date.now());
                 esse.db.setToken(response.token);

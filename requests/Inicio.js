@@ -9,8 +9,7 @@ class InicioReq {
     slide() {
         var sli = new debliwuislideimg($, [
             '<img src="assets/img-menu.svg" style="border-radius:5px;">',
-            '<img src="assets/img-menu.svg" style="border-radius:5px;">',
-            '<img src="assets/img-menu.svg" style="border-radius:5px;">'
+            '<img src="assets/pub2.png" style="border-radius:5px;">'
         ], 1, true, 1200, 4000);
 
         $(".slide").prepend(sli);
@@ -49,12 +48,12 @@ class InicioReq {
             } else {
                 esse.notificacao.sms(res.payload, 1);
             }
-            console.log(res);
+            //console.log(res);
         }).always(function (a) {
             esse.loader.fechar();
         });
     }
-       reLogin(esse) {
+    reLogin(esse) {
         var id = localStorage.getItem("telefone");
         var pin = ESCOPO.pin;
 
@@ -87,7 +86,7 @@ class InicioReq {
             } else {
                 esse.notificacao.sms(res.payload, 1);
             }
-            console.log(res);
+            //console.log(res);
         }).always(function (a) {
             esse.loader.fechar();
         });
@@ -109,13 +108,13 @@ class InicioReq {
             if (res.ok) {
 
                 var sessao = res.payload.bloqueio;
-                if(sessao == "mins1") {
+                if (sessao == "mins1") {
                     localStorage.setItem("sessaolimite", 60);
                 }
-                if(sessao == "mins5") {
+                if (sessao == "mins5") {
                     localStorage.setItem("sessaolimite", 300);
                 }
-                if(sessao == "segs30") {
+                if (sessao == "segs30") {
                     localStorage.setItem("sessaolimite", 30);
                 }
                 localStorage.setItem("nome", res.payload.nome);
@@ -125,9 +124,9 @@ class InicioReq {
             } else {
                 //esse.notificacao.sms(res.payload,1);
             }
-            console.log(res);
+            //console.log(res);
         }).always(function (a) {
-            
+
         });
     }
     pedirNumero() {
@@ -155,7 +154,7 @@ class InicioReq {
             } else {
                 esse.notificacao.sms(res.payload, 1);
             }
-            console.log(res);
+            //console.log(res);
         }).always(function (a) {
             esse.loader.fechar();
         });
@@ -204,7 +203,7 @@ class InicioReq {
             } else {
                 esse.notificacao.sms(res.payload, 1);
             }
-            console.log(res);
+            //console.log(res);
         }).always(function (a) {
             esse.loader.fechar();
         });
@@ -230,12 +229,193 @@ class InicioReq {
         ESCOPO.callback(ESCOPO.parametro);
     }
 
- /*    verificaValidadeToken(response,esse) {
-        if (response.nivel == 1 || response.nivel == "1") {
-            db.setToken("expirou");
-            db.verificaToken();
-            esse.notificacao.sms("Sua sessão expirou, entre novamente", 1);
+    /*    verificaValidadeToken(response,esse) {
+           if (response.nivel == 1 || response.nivel == "1") {
+               db.setToken("expirou");
+               db.verificaToken();
+               esse.notificacao.sms("Sua sessão expirou, entre novamente", 1);
+           }
+       } */
+
+
+    criarConta_um() {
+        var empresa = false;
+        var valor = $("input[name=radio-criar]:checked").val();
+
+        if (valor != "particular") { empresa = true; }
+        ESCOPO.dadosOperacao = {
+            comercial: empresa
+        };
+        if (empresa) {
+            vaiTela("/criarempresa");
+        } else {
+            vaiTela("/criarindividual");
         }
-    } */
-    
+    }
+
+    criarConta_dois() {
+        var nome = $("#nome").val();
+        var bi = $("#bi").val();
+        var genero = $("#genero").val();
+        var nascimento = $("#nascimento").val();
+        var telefone = $("#telefone").val();
+
+        if (nome.length < 5 || bi.length < 5) {
+            this.notificacao.sms("Preencha os dados corretamente", 1);
+            return;
+        }
+
+        var dezoitoAnos = (new Date().getFullYear() - 18);
+        var idade = Number(($("#nascimento").val()).split("-")[0]);
+        if (dezoitoAnos < idade) {
+            this.notificacao.sms("Verifica a sua data de nascimento, parece ser menor de idade", 1);
+            return;
+        }
+
+        ESCOPO.dadosOperacao = {
+            nome: nome,
+            bi: bi,
+            genero: genero,
+            nascimento: nascimento,
+            id: telefone
+        };
+
+        this.verificaExistencia();
+
+    }
+
+   criarConta_dois_emp() {
+        var nome = $("#nome").val();
+        var nif = $("#nif").val();
+        var area = $("#area").val();
+        var telefone = $("#telefone").val();
+
+        if (nome.length < 5 || nif.length < 5) {
+            this.notificacao.sms("Preencha os dados corretamente", 1);
+            return;
+        }
+
+        ESCOPO.dadosOperacao = {
+            nome: nome,
+            nif: nif,
+            area: area,
+            id: telefone,
+            comercial: true
+        };
+
+        this.verificaExistencia();
+
+    }
+
+
+
+
+
+    verificaExistencia() {
+
+        var esse = this;
+        esse.loader.abrir();
+        var body = {
+            comercial: true,
+            id: ESCOPO.dadosOperacao.id,
+            bi: "123456789",
+            nome: ESCOPO.dadosOperacao.nome,
+            genero: ESCOPO.dadosOperacao.genero,
+            nascimento: ESCOPO.dadosOperacao.nascimento,
+        }
+        if (ESCOPO.dadosOperacao.comercial) {
+
+        }
+        var settings = {
+            "url": (esse.apiUrl) + "/auth/verificaexistencia",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({ id: ESCOPO.dadosOperacao.id, comercial: ESCOPO.dadosOperacao.comercial }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if (!response.ok) {
+                esse.notificacao.sms("Código de confirmação enviado com sucesso", 1);
+                vaiTela("/inicioconfirmar");
+            } else {
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+    }
+
+    confirmarTelefone() {
+
+        var esse = this;
+        esse.loader.abrir();
+
+        var settings = {
+            "url": (esse.apiUrl) + "/auth/verificatelefone",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({ id: ESCOPO.dadosOperacao.id, codigo: $("#codigo").val() })
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if (response.ok) {
+                esse.notificacao.sms(response.payload, 1);
+                vaiTela("/criarpin");
+            } else {
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+    }
+
+
+
+    cadastrar() {
+        var pin_novo = $("#pin").val();
+        var pin_novo_confirmar = $("#pin_confirmar").val();
+
+        if(pin_novo.length != 6){
+            this.notificacao.sms("Verifica o PIN, deve ter 6 digitos", 1);
+            return;
+        }
+        if(pin_novo != pin_novo_confirmar){
+            this.notificacao.sms("Verifica o PIN, as combinações devem ser iguais", 1);
+            return;
+        }
+        ESCOPO.dadosOperacao.pin  = pin_novo;
+        var esse = this;
+        esse.loader.abrir();
+
+        var settings = {
+            "url": (this.apiUrl)+"/auth/cadastrar",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(ESCOPO.dadosOperacao),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if (response.ok) {
+                localStorage.setItem("sessao", Date.now());
+                esse.db.setToken(response.token);
+                esse.home();
+                esse.db.verificaToken();
+                esse.notificacao.sms("É feta, é fácil");
+            } else {
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+    }
+
 }

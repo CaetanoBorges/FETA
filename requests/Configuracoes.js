@@ -15,7 +15,7 @@ class ConfiguracoesReq {
 
         $('[name="opcao"]').change(function () {
             var opcao = $('[name="opcao"]:checked').val();
-            console.log(opcao);
+            //console.log(opcao);
             $('.opcao').css({ "color": "black" });
             $('.' + opcao).css({ "color": "#640564" });
         })
@@ -29,7 +29,7 @@ class ConfiguracoesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             $('.' + response.payload).css({ "color": "#640564" });
         });
             
@@ -77,7 +77,7 @@ class ConfiguracoesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmarFinal.hide();

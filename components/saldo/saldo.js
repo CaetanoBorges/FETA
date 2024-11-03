@@ -11,7 +11,7 @@ debliwui_saldo.innerHTML = `
     <div class="saldo-info">
         <img src="assets/fundo-saldo.svg" alt>
         <p>
-            SALDO <br><span class="saldo">15 000,00</span>
+            SALDO <br><span class="saldo">0,00</span>
         </p>
         <span class="moeda">AOA</span>
     </div>

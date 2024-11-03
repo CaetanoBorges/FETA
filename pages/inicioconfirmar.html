@@ -1,19 +1,19 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
-        <br><br><br>
+        <br><br>
         <img src="assets/logo.png" class="logo">
-        
+        <br>
         <div style="padding: 4%;">  
             <h1 class="head_label">CONFIRMAR</h1> <br>
             <p>Insira o código que recebeu <br>por mensagem</p>
             <br><br>
             <div class="mb-4">
                 <label class="form-label margin_0">Código</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="number" class="form-control input-inicio" inputmode="numeric" maxlength="6" id="codigo">
             </div>
         </div>
 
-        <img src="assets/btn/btn-confirmar.svg" class="criar-conta hvr-bounce-out"  onclick='vaiTela("criarpin")'>
+        <img src="assets/btn/btn-confirmar.svg" class="criar-conta hvr-bounce-out"  onclick='InicioRequests.confirmarTelefone()'>
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}

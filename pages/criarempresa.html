@@ -1,25 +1,35 @@
 <div id="render">
         <debliwui-voltar></debliwui-voltar>
-        <br><br><br>
+        <br><br>
         <img src="assets/logo.png" class="logo">
-        
+        <br>
         <div style="padding: 4%;">  
             <h1 class="head_label">CONTA EMPRESA</h1> <br><br>
             <div class="mb-4">
                 <label class="form-label margin_0">Nome comercial</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="text" class="form-control input-inicio" id="nome">
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">NIF</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="text" class="form-control input-inicio" id="nif">
+            </div>
+            <div class="mb-4">
+            <label class="form-label margin_0">Área de atuação</label>
+                            <select name="area" id="area" class="form-control">
+                                <option value="comercio">Comércio</option>
+                                <option value="servicos">Servíços</option>
+                                <option value="industria">Indústria</option>
+                                <option value="outro...">Outro...</option>
+                            </select>
+                
             </div>
             <div class="mb-4">
                 <label class="form-label margin_0">Telefone</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" >
+                <input type="number" class="form-control input-inicio" inputmode="numeric"  maxlength="9" id="telefone">
             </div>
         </div>
 
-        <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out"  onclick='vaiTela("inicioconfirmar")'>
+        <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out"  onclick='InicioRequests.criarConta_dois_emp()'>
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}
@@ -32,5 +42,22 @@
  .background-image img {
      opacity: .2;
  }
+ .radio {
+  appearance: none;
+
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+
+  position: relative;
+  top: 4px;
+}
+
+.radio:checked {
+  border: 10px solid rgba(100, 5, 100, .5);
+}
  .head_label{text-align: center;font-weight: 200;}
 </style>

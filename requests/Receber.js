@@ -167,7 +167,7 @@ class ReceberReq {
             `)
 
         this.modalConfirmar();
-        console.log(ESCOPO.dadosOperacao);
+        //console.log(ESCOPO.dadosOperacao);
         if(valor > 99999){
             ESCOPO.confirmarFinal = "codigo";
         }else{
@@ -207,7 +207,7 @@ class ReceberReq {
         };
         esse.loader.abrir();
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmar.hide();

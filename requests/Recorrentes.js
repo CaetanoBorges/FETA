@@ -180,7 +180,7 @@ class RecorrentesReq {
             db.verificaToken();
             return;
         }
-        console.log(id,Number(valor),tipo);
+        //console.log(id,Number(valor),tipo);
         ESCOPO.dadosOperacao = { pid: id };
         ESCOPO.acao = `Cancelar operação recorrente a ${tipo} de ${valor}.`;
         ESCOPO.callback = this.cancelar;
@@ -224,7 +224,7 @@ class RecorrentesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmarFinal.hide();

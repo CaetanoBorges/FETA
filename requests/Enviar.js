@@ -221,7 +221,7 @@ class EnviarReq {
         };
         esse.loader.abrir();
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmar.hide();

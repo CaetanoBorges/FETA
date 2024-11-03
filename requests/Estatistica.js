@@ -4,6 +4,7 @@ class EstatisticaReq {
         this.apiUrl = apiUrl;
         this.loader = loader;
         this.notificacao = notificacao;
+        this.datas = [];
     }
 
     init() {
@@ -29,10 +30,10 @@ class EstatisticaReq {
         var mes = [];
         var ano = [];
         esse.jquery.ajax(settings).done(function (d) {
-            console.log(d);
+            //console.log(d);
             var anoAtual = (d.payload.atual.ano);
             var mesAtual = (d.payload.atual.mes);
-            esse.datas = (d.payload.datas);
+            esse.datas = (d.payload.datas) ? (d.payload.datas) : [];
             localStorage.setItem("datas", JSON.stringify(esse.datas));
             (esse.datas).forEach(element => {
 
@@ -93,9 +94,9 @@ class EstatisticaReq {
 
                 var entradaPercent = Math.round((entrada / (entrada + saida)) * 100);
                 var saidaPercent = Math.round((saida / (entrada + saida)) * 100);
-                //console.log("key "+(k+1), "Val "+v);
+                ////console.log("key "+(k+1), "Val "+v);
                 res += `<div class="barra"><div class="barra-grafico"><div class="saida" style="height:${saidaPercent}%"></div><div class="entrada" style="height:${entradaPercent}%"></div></div> <div class="limpar"></div> <p>${dia}</p></div>`;
-                //console.log("Entrada " + entradaPercent, "Saida " + saidaPercent, widthContainer);
+                ////console.log("Entrada " + entradaPercent, "Saida " + saidaPercent, widthContainer);
             })
             esse.jquery(".render-grafico").html(res);
             esse.jquery(".render-grafico").css({ "width": widthContainer + "px" });
@@ -112,7 +113,7 @@ class EstatisticaReq {
     }
     controllerData() {
         var ver =  db.verificaSessao();
-        console.log(ver);
+        //console.log(ver);
         if(ver){
             db.verificaToken();
             return;
@@ -156,7 +157,7 @@ class EstatisticaReq {
             var mes = String($('#mes').val());
             var ano = String($('#ano').val());
 
-            console.log(mes, ano);
+            //console.log(mes, ano);
             if (mes != "00" && mes != 0 && mes != "0" && ESCOPO.init != true) {
                 esse.estatisticas(mes, ano);
             }
@@ -201,7 +202,7 @@ class EstatisticaReq {
         };
         ESCOPO.init = true;
         (this.jquery).ajax(settings).done(function (d) {
-            console.log(d);
+            //console.log(d);
             var dados = d.payload;
             esse.jquery(".entrada-left").html(dados.qtd_entrada + " ENTRADAS");
             esse.jquery(".saida-left").html(dados.qtd_saida + " SAIDAS");
@@ -217,9 +218,9 @@ class EstatisticaReq {
 
                 var entradaPercent = Math.round((entrada / (entrada + saida)) * 100);
                 var saidaPercent = Math.round((saida / (entrada + saida)) * 100);
-                //console.log("key "+(k+1), "Val "+v);
+                ////console.log("key "+(k+1), "Val "+v);
                 res += `<div class="barra"><div class="barra-grafico"><div class="saida" style="height:${saidaPercent}%"></div><div class="entrada" style="height:${entradaPercent}%"></div></div> <div class="limpar"></div> <p>${dia}</p></div>`;
-                //console.log("Entrada " + entradaPercent, "Saida " + saidaPercent, widthContainer);
+                ////console.log("Entrada " + entradaPercent, "Saida " + saidaPercent, widthContainer);
             })
             esse.jquery(".render-grafico").html(res);
             esse.jquery(".render-grafico").css({ "width": widthContainer + "px" });

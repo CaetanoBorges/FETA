@@ -4,7 +4,7 @@ class TransacoesReq {
         this.apiUrl = apiUrl;
         this.loader = loader;
         this.notificacao = notificacao;
-        this.datas;
+        this.datas =[];
     }
     removeDuplicates(originalArray, prop) {
         var newArray = [];
@@ -41,11 +41,11 @@ class TransacoesReq {
         var mes = [];
         var ano = [];
         esse.jquery.ajax(settings).done(function (d) {
-
+            
             //console.log(d);
             var anoAtual = (d.payload.atual.ano);
             var mesAtual = (d.payload.atual.mes);
-            esse.datas = (d.payload.datas);
+            esse.datas = (d.payload.datas) ? (d.payload.datas) : [];
             localStorage.setItem("datas", JSON.stringify(esse.datas));
             (esse.datas).forEach(element => {
                 let atualYear = element.ano;
@@ -92,7 +92,7 @@ class TransacoesReq {
 
             var itens = ``;
             var obj = d.payload.atual.res;
-            console.log(obj);
+            //console.log(obj);
             obj.forEach(element => {
                 var fechar = "";
                 var classe = "";
@@ -198,7 +198,7 @@ class TransacoesReq {
         (this.jquery).ajax(settings).done(function (dados) {
 
             var itens = ``;
-            console.log(dados);
+            //console.log(dados);
             var obj = dados.payload;
 
             obj.forEach(element => {
@@ -321,7 +321,7 @@ class TransacoesReq {
             var mes = String($('#mes').val());
             var ano = String($('#ano').val());
 
-            console.log(mes, ano);
+            //console.log(mes, ano);
             if (mes != "00" && mes != 0 && mes != "0" && ESCOPO.init != true) {
                 esse.transacoes(mes, ano);
             }

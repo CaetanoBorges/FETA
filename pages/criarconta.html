@@ -1,8 +1,8 @@
 <div id="render">
     <debliwui-voltar></debliwui-voltar>
-    <br><br><br>
-    <img src="assets/logo.png" class="logo">
     <br><br>
+    <img src="assets/logo.png" class="logo">
+    <br>
     <div style="padding: 4%;font-size: 20px;" >
         <h1 class="head_label">CRIAR CONTA</h1>
         <br><br>
@@ -10,18 +10,18 @@
         <div>
             <div>
                 <input type="radio"
-                    name="radio-parcelado"
-                    id="flexRadioDefault1" value="pessoal"
+                    name="radio-criar"
+                    id="flexRadioDefault1" value="particular"
                     checked class="radio">
                 <label class="form-check-label"
                     for="flexRadioDefault1">
-                    Pessoal
+                    Particular
                 </label>
             </div>
             <br>
             <div>
                 <input type="radio"
-                    name="radio-parcelado"
+                    name="radio-criar"
                     id="flexRadioDefault2" value="empresa"
                      class="radio">
                 <label class="form-check-label"
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out" onclick='vaiTela("criarempresa")'>
+    <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out" onclick='InicioRequests.criarConta_um()'>
 </div>
 <style>
 .logo{width: 100%;

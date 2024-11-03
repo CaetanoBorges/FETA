@@ -58,18 +58,18 @@ const handleLocation = async () => {
     const path = window.location.pathname;
     const hash = window.location.hash;
     ESCOPO.init = true;
-    
+
     const route = routes[path] || routes[404];
-    const html = await fetch(route).then(function(data){
+    const html = await fetch(route).then(function (data) {
         var res = data.text();
-        res.then(function(ui){
-            document.querySelectorAll(".modal-backdrop").forEach(function(i){ $(i).hide() });
-            document.querySelectorAll(".modal").forEach(function(i){ $(i).hide() });
+        res.then(function (ui) {
+            document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
+            document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             db.verificaSessao();
             if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
-            }else{
+            } else {
                 menu.abrir();
             }
 
@@ -81,14 +81,14 @@ const handleLocation = async () => {
             }
             if (path == "/pendentes") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     PendentesRequests.pendentes();
                 }, 500);
             }
             if (path == "/iban") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     IbanRequests.contas();
                     loader.fechar();
@@ -96,14 +96,14 @@ const handleLocation = async () => {
             }
             if (path == "/recorrentes") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     RecorrentesRequests.recorrentes();
                 }, 1000);
             }
             if (path == "/depositarlevantar") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     DepositarLevantarRequests.init();
                     loader.fechar();
@@ -111,7 +111,7 @@ const handleLocation = async () => {
             }
             if (path == "/configuracoes") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     //ConfiguracoesRequests.recorrentes();
                     loader.fechar();
@@ -119,18 +119,18 @@ const handleLocation = async () => {
             }
             if (path == "/bloqueio") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     ConfiguracoesRequests.init();
-                    loader.fechar(); 
+                    loader.fechar();
                 }, 1000);
             }
             if (path == "/pin") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
-                     $('.preview').prevue();
-                     $(function () {
+                    $('.preview').prevue();
+                    $(function () {
                         $(".preview").on('input', function (e) {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
@@ -140,7 +140,7 @@ const handleLocation = async () => {
             }
             if (path == "/receberauto") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     //RecorrentesRequests.recorrentes();
                     loader.fechar();
@@ -178,27 +178,27 @@ const handleLocation = async () => {
             }
             if (path == "/home") {
                 loader.abrir();
-                menu.abrir(); 
+                menu.abrir();
                 InicioRequests.home();
                 setTimeout(function () {
 
-                    
+
 
                     loader.fechar();
                 }, 1000);
             }
             if (path == "/enviar") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
-                    
+
                     EnviarRequests.init()
                     loader.fechar();
                 }, 1000);
             }
             if (path == "/receber") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     ReceberRequests.init()
                     loader.fechar();
@@ -206,7 +206,7 @@ const handleLocation = async () => {
             }
             if (path == "/pagamentos") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
 
                     loader.fechar();
@@ -214,15 +214,15 @@ const handleLocation = async () => {
             }
             if (path == "/servico") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     PagamentosRequests.verServico();
                     loader.fechar();
                 }, 1000);
             }
             if (path == "/entidade") {
-                
-                
+
+
                 setTimeout(function () {
                     PagamentosRequests.verEntidade();
                     loader.fechar();
@@ -230,14 +230,14 @@ const handleLocation = async () => {
             }
             if (path == "/estatistica") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     EstatisticaRequests.init()
                 }, 1000);
             }
             if (path == "/transacoes") {
                 loader.abrir();
-                
+
                 setTimeout(function () {
                     TransacoesRequests.init();
                     //TransacoesRequests.controllerData();
@@ -245,7 +245,7 @@ const handleLocation = async () => {
                 }, 1000);
             }
 
-           
+
 
 
             if (path == "/inicio") {
@@ -254,13 +254,13 @@ const handleLocation = async () => {
                     InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/login01") {
                 loader.abrir();
                 setTimeout(function () {
                     $('.preview').prevue();
-                     $(function () {
+                    $(function () {
                         $(".preview").on('input', function (e) {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
@@ -268,14 +268,14 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/login02") {
                 loader.abrir();
                 $(".nome").html((localStorage.getItem("nome")).toUpperCase());
                 setTimeout(function () {
                     $('.preview').prevue();
-                     $(function () {
+                    $(function () {
                         $(".preview").on('input', function (e) {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
@@ -285,7 +285,7 @@ const handleLocation = async () => {
 
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/criarconta") {
                 loader.abrir();
@@ -293,23 +293,59 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/criarindividual") {
                 loader.abrir();
                 setTimeout(function () {
-                    //InicioRequests.slide();
+                    new SlimSelect({
+                        select: '#genero',
+                        settings: {
+                            showSearch: false
+                        }
+                    });
+                    const calendario = dobDatepicker('#nascimento', {
+                        display_mode: 'inline',
+                        year_range: 120,
+                        enable_built_in_validation: true,
+                        enable_ordinal_number: true,
+                        show_long_month: true,
+                        dateFormat: null,
+                        zIndex: {
+                            targetNode: "150",
+                            datepickerWidget: "150",
+                            invisibleBackground: "100"
+                        },
+                        long_month: ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                        short_month: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        labels: {
+                            header_label: 'Data de nascimento',
+                            select_day_label: 'Seleciona o dia',
+                            select_month_label: 'Seleciona o mês',
+                            select_year_label: 'Seleciona o ano',
+                            reset_button_label: 'Apagar e repetir',
+                            date_range_label: 'Ano '  //label for year section -> "Year 2000 - 2020"
+                        },
+                        alerts: {
+                            invalid_date_alert: 'A data é inválida'
+                        }
+                    })
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/criarempresa") {
                 loader.abrir();
                 setTimeout(function () {
-                    //InicioRequests.slide();
+                    new SlimSelect({
+                        select: '#area',
+                        settings: {
+                            showSearch: false
+                        }
+                    });
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/inicioconfirmar") {
                 loader.abrir();
@@ -317,21 +353,21 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/criarpin") {
                 loader.abrir();
                 setTimeout(function () {
                     //InicioRequests.slide();
                     $('.preview').prevue();
-                     $(function () {
+                    $(function () {
                         $(".preview").on('input', function (e) {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
                     });
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/recuperarconta") {
                 loader.abrir();
@@ -339,22 +375,22 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
-            
+
             if (path == "/recuperarconfirmar") {
                 loader.abrir();
                 setTimeout(function () {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
             if (path == "/recuperarpin") {
                 loader.abrir();
                 setTimeout(function () {
                     $('.preview').prevue();
-                     $(function () {
+                    $(function () {
                         $(".preview").on('input', function (e) {
                             $(this).val($(this).val().replace(/[^0-9]/g, ''));
                         });
@@ -362,11 +398,11 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
-                
+
             }
         })
     })
-    
+
 
 }
 

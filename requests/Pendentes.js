@@ -24,7 +24,7 @@ class PendentesReq {
         };
         (this.jquery).ajax(settings).done(function (dados) {
             var itens = ``;
-            console.log(dados);
+            //console.log(dados);
             var obj = dados.payload;
             $("#qtd-pendentes").html(obj.length + " pendentes");
             obj.forEach(element => {
@@ -121,7 +121,7 @@ class PendentesReq {
             db.verificaToken();
             return;
         }
-        console.log(id,Number(valor),tipo);
+        //console.log(id,Number(valor),tipo);
         ESCOPO.dadosOperacao = { pid: id };
         ESCOPO.acao = `Cancelar operação pendente a ${tipo} de ${valor}.`;
         ESCOPO.callback = this.cancelar;
@@ -165,7 +165,7 @@ class PendentesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmarFinal.hide();
@@ -193,7 +193,7 @@ class PendentesReq {
             db.verificaToken();
             return;
         }
-        console.log(element);
+        //console.log(element);
         ESCOPO.dadosOperacao = { pid: element };
         ESCOPO.acao = `Aceitar operação pendente a ${tipo} de ${valor}.`;
         ESCOPO.callback = this.aceitar;
@@ -237,7 +237,7 @@ class PendentesReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmarFinal.hide();
