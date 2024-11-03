@@ -112,7 +112,7 @@ const handleLocation = async () => {
                 loader.abrir();
                 
                 setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
+                    //ConfiguracoesRequests.recorrentes();
                     loader.fechar();
                 }, 1000);
             }
@@ -121,7 +121,7 @@ const handleLocation = async () => {
                 
                 setTimeout(function () {
                     ConfiguracoesRequests.init();
-                    loader.fechar();
+                    loader.fechar(); 
                 }, 1000);
             }
             if (path == "/pin") {
