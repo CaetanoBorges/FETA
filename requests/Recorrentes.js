@@ -20,20 +20,13 @@ class RecorrentesReq {
         };
         (this.jquery).ajax(settings).done(function (dados) {
             var itens = ``;
-            console.log(dados);
+            
             var obj = dados.payload;
             $("#qtd-recorrentes").html(obj.length + " recorrentes");
             obj.forEach(element => {
                 var cancelarUI = ``;
                 var transacoes = ``;
-                if (element.enviar) {
-                    cancelarUI = `<div class="modal-footer" style="border: none;">
-                                    <button type="button"
-                                        class="btn btn-secondary form-control btn-danger"
-                                        onclick='RecorrentesRequests.modalCancelar("${(element.identificador)}")'>Cancelar</button>
-                                </div>`;
-                }
-
+             
                 (element.transacoes).forEach(transacao => {
                     var classe = "";
                     var sinal = "";
@@ -58,17 +51,35 @@ class RecorrentesReq {
                 var cor = ""; 
                 var titulo = "";
                 var detail = "";
+                var ativo = "";
                 if (element.enviar) {
+                    if (element.ativo == '1') {
+                        ativo = "ATIVO";
+                        if(element.tipo == "recorrente") {
+                            cancelarUI = `<div class="modal-footer" style="border: none;">
+                                    <button type="button"
+                                        class="btn btn-secondary form-control btn-danger"
+                                        onclick='RecorrentesRequests.cancelarOperacao("${(element.identificador)}","${(element.valor)}","${(titulo)}")'>Cancelar Operação</button>
+                                </div>`;
+                        }
+                    }else {
+                        ativo = "INATIVO";
+                    }
                     icon = "assets/enviar-icon.svg";
                     fechar = "assets/fechar-enviar-icon.svg";
                     cor = "#dc3545";
-                    titulo = "ENVIAR";
+                    titulo = "ENVIAR -- "+ativo;
                     detail = "Para: "+element.para;
                 } else {
+                    if (element.ativo == '1') {
+                        ativo = "ATIVO";
+                    }else {
+                        ativo = "INATIVO";
+                    }
                     icon = "assets/receber-icon.svg";
                     fechar = "assets/fechar-receber-icon.svg";
                     cor = "#00BF00";
-                    titulo = "RECEBER";
+                    titulo = "RECEBER -- "+ativo;
                     detail = "de: "+element.de;
                 }
                 itens += `<div class="recorrente" data-bs-toggle="modal" data-bs-target="#modalrecorrentes${(element.identificador)}" style="background:${cor}15">
@@ -132,63 +143,7 @@ class RecorrentesReq {
                     </div>
                 </div>
                 
-                
-                <!-- Modal cancelar -->
-                <div class="modal fade" id="cancelar${(element.identificador)}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
-                                style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title"
-                                    style="text-align: center;font-size: 15px;color: ${cor};">CANCELAR</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body" style="">
-                                <br>
-                                <p style="text-align:center;">Tem certeza <br>
-                                que pretende cancelar <br>
-                                a operação recorrente?</p> <br><br>
-                                <p style="text-align:center;color:red;">OBSERVAÇÃO <br>
-                                ESTÁ AÇÃO É IRREVERSÍVEL</p>
-                            </div>
-                            <div class="modal-footer" style="border: none;">
-                                <button type="button" class="btn btn-light form-control" >Pensar melhor</button>
-                                <button type="button" class="btn btn-secondary form-control btn-danger" onclick='RecorrentesRequests.modalConfirmar("${(element.identificador)}")'>Cancelar operação</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <!-- Modal confirmar -->
-                <div class="modal fade" id="confirmar${(element.identificador)}" aria-hidden="true"
-                tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content" style="width: 300px;margin:auto;">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close"
-                                data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="min-height:52vh">
-                            <div class="detalhes-transacao">
-                                <h1>Confirme o código que recebeu por mensagem</h1>
-                                
-                                <input type="text" class="form-control" placeholder="Digite aqui">
-                                <br>
-                                <p>Não recebeu o código?
-                                    <br> <span style="color:#640564;font-weight: 500;cursor:pointer;">Click aqui...</span> </p>
-                            </div>
-                            <br>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary form-control btn-danger" onclick='RecorrentesRequests.confirmarSMS("${(element.identificador)}")'>Confirmar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+                `;
             });
             $("#render-recorrentes").append(itens);
 
@@ -210,4 +165,63 @@ class RecorrentesReq {
         var myModal = new bootstrap.Modal(document.getElementById('transacoes' + id))
         myModal.toggle()
     }
+
+    
+    cancelarOperacao(id, valor, tipo) {
+        console.log(id,Number(valor),tipo);
+        ESCOPO.dadosOperacao = { pid: id };
+        ESCOPO.acao = `Cancelar operação recorrente a ${tipo} de ${valor}.`;
+        ESCOPO.callback = this.cancelar;
+        ESCOPO.parametro = this;
+        if (Number(valor) > 99999) {
+            ESCOPO.confirmarFinal = "codigo";
+        } else {
+            ESCOPO.confirmarFinal = "pin";
+        }
+        
+
+        InicioRequests.pedirNumeroOuPin();
+    }
+    cancelar(esse) {
+        esse.loader.abrir();
+        var headers = {
+                "token": db.getToken(),
+                "codigo": ESCOPO.codigo,
+                "Content-Type": "application/json"
+        }
+        if(ESCOPO.confirmarFinal == "pin"){
+            headers = {
+                    "token": db.getToken(),
+                    "pin": ESCOPO.pin,
+                    "Content-Type": "application/json"
+            }
+        }
+        var settings = {
+            "url": (esse.apiUrl)+"/recorrente/cancelar",
+            "method": "POST",
+            "timeout": 0,
+            "headers": headers,
+            "data": JSON.stringify(ESCOPO.dadosOperacao),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            if(response.ok){
+                InicioRequests.home();
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 0);
+                setTimeout(function(){
+                    vaiTela("\home");
+                },1000);
+            }else{
+                
+                ESCOPO.modalConfirmarFinal.hide();
+                $("#codigo-confirmacao").val("");
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+    }
+
 }

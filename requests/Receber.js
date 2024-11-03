@@ -78,7 +78,7 @@ class ReceberReq {
         var notificacao = this.notificacao;
         ESCOPO.dadosOperacao = {
             opcoes: {
-                valor_parcela: null
+                valor_parcelas: null
             }
         };
         var valor = $("#quanto").val();
