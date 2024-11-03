@@ -13,19 +13,18 @@
 
     
      <br>
-        <div class="mb-2">
-            <label class="form-label">Pin atual</label>
-             <input type="password" class="preview form-control" inputmode="numeric" >
-        </div>
+     <br>
         <div class="mb-2">
             <label class="form-label">Novo pin</label>
-             <input type="password" class="preview form-control" inputmode="numeric">
+             <input type="password" class="preview form-control" inputmode="numeric" maxlength="6" id="pin_novo">
         </div>
+     <br>
+     <br>
         <div class="mb-2">
             <label class="form-label">Confirmar novo pin</label>
-             <input type="password" class="preview form-control" inputmode="numeric">
+             <input type="password" class="preview form-control" inputmode="numeric" maxlength="6" id="pin_novo_confirmar">
         </div>
     <br>
     <div class="btn-flexa hvr-bounce-out" style="text-align: center;position: fixed;bottom: 2vh;width: 94%;left: 3%;">
-        <span class="label-btn"> Continuar </span>
+        <span class="label-btn" onclick="ConfiguracoesRequests.alterarPin()"> Continuar </span>
     </div>
