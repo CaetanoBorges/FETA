@@ -40,7 +40,6 @@ class debliwuitransacao extends HTMLElement {
         var ver = false;
         setInterval(() => {
             
-            console.log(ver, (localStorage.getItem("transacoes")));
             if (ver != localStorage.getItem("transacoes")) {
                 ver = localStorage.getItem("transacoes");
 

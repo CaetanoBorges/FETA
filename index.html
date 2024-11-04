@@ -167,8 +167,13 @@ function inputPin(num) {
     if (pin.length == 6){
         updatePinDisplay();
         ESCOPO.pin = pin;
-        InicioRequests.confirmarPin();
-        
+        pin = '';
+        if(window.location.pathname == "/login02"){
+            InicioRequests.reLogin();
+        }else{
+           InicioRequests.confirmarPin(); 
+        }
+               
     }
 }
 
@@ -188,6 +193,7 @@ function updatePinDisplay() {
         }
     });
 }
+localStorage.setItem("sessaolimite",60);
 </script>
 
 </html>

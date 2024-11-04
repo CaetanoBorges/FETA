@@ -53,7 +53,10 @@ class InicioReq {
             esse.loader.fechar();
         });
     }
-    reLogin(esse) {
+
+
+    reLogin() {
+        var esse = this;
         var id = localStorage.getItem("telefone");
         var pin = ESCOPO.pin;
 
@@ -78,6 +81,7 @@ class InicioReq {
 
         $.ajax(settings).done(function (res) {
             if (res.ok) {
+                pin = '';
                 localStorage.setItem("sessao", Date.now());
                 esse.db.setToken(res.token);
                 esse.home();
@@ -85,6 +89,7 @@ class InicioReq {
                 esse.notificacao.sms("É feta, é fácil");
             } else {
                 esse.notificacao.sms(res.payload, 1);
+                pin = '';
             }
             //console.log(res);
         }).always(function (a) {
@@ -106,7 +111,7 @@ class InicioReq {
         };
         $.ajax(settings).done(function (res) {
             if (res.ok) {
-
+                console.log(res.payload);
                 var sessao = res.payload.bloqueio;
                 if (sessao == "mins1") {
                     localStorage.setItem("sessaolimite", 60);
@@ -223,8 +228,6 @@ class InicioReq {
     }
 
     confirmarPin() {
-        ESCOPO.pin = pin;
-        pin = '';
         updatePinDisplay();
         ESCOPO.callback(ESCOPO.parametro);
     }
