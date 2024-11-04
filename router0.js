@@ -196,7 +196,7 @@ const handleLocation = async () => {
     }
     if (path == "/login02") {
 
-        menu.fechar();
+        
         setTimeout(function () {
             $(".nome").html((localStorage.getItem("nome")).toUpperCase());
             $('.preview').prevue();
@@ -209,6 +209,7 @@ const handleLocation = async () => {
 
         ESCOPO.callback = InicioRequests.reLogin;
         ESCOPO.parametro = InicioRequests;
+        menu.fechar();
         loader.fechar()
     }
     if (path == "/criarconta") {

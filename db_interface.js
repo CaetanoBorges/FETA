@@ -55,7 +55,7 @@ class StorageFeta {
             var seconds = (Date.now() - (sessao)) / 1000;
             console.log(seconds);
             if (seconds > (limite)) {
-                
+                menu.fechar();
                 this.setToken("expirou");
                 this.verificaToken();
                 notificacao.sms("Sua sessão expirou, entre novamente", 1);
