@@ -46,14 +46,20 @@ const handleLocation = async () => {
     if (path == "/pendentes") {
 
         setTimeout(function () {
-            PendentesRequests.pendentes();
+             if((db.getToken()).length > 30){
+                PendentesRequests.pendentes();
+            }
+            
         }, 1000)
         loader.fechar()
     }
     if (path == "/recorrentes") {
 
         setTimeout(function () {
-            RecorrentesRequests.recorrentes();
+             if((db.getToken()).length > 30){
+                RecorrentesRequests.recorrentes();
+            }
+            
         }, 1000)
 
         loader.fechar()
@@ -61,7 +67,9 @@ const handleLocation = async () => {
     if (path == "/depositarlevantar") {
 
         setTimeout(function () {
+             if((db.getToken()).length > 30){
             DepositarLevantarRequests.init();
+            }
         }, 1000)
 
         loader.fechar()
@@ -73,7 +81,9 @@ const handleLocation = async () => {
     if (path == "/bloqueio") {
 
         setTimeout(function () {
+             if((db.getToken()).length > 30){
             ConfiguracoesRequests.init();
+            }
         }, 1000)
 
 
@@ -97,7 +107,15 @@ const handleLocation = async () => {
 
         loader.fechar()
     }
+    if (path == "/prv") {
+
+        loader.fechar()
+    }
     if (path == "/termos") {
+
+        loader.fechar()
+    }
+    if (path == "/trm") {
 
         loader.fechar()
     }
@@ -108,10 +126,12 @@ const handleLocation = async () => {
     if (path == "/perfil") {
 
         setTimeout(function () {
+             if((db.getToken()).length > 30){
+                
             PerfilRequests.init();
-        }, 1000)
+            }
+        }, 1000);
 
-        loader.fechar()
     }
     if (path == "/home") {
 
@@ -159,7 +179,9 @@ const handleLocation = async () => {
     if (path == "/estatistica") {
 
         setTimeout(function () {
-            EstatisticaRequests.init();
+            if((db.getToken()).length > 30){
+                EstatisticaRequests.init();
+            }
         }, 1000)
 
         
@@ -167,7 +189,10 @@ const handleLocation = async () => {
     if (path == "/transacoes") {
 
         setTimeout(function () {
-            TransacoesRequests.init();
+            if((db.getToken()).length > 30){
+                TransacoesRequests.init();
+            }
+            
         }, 1000)
 
     }
@@ -196,15 +221,9 @@ const handleLocation = async () => {
     }
     if (path == "/login02") {
 
-        
         setTimeout(function () {
             $(".nome").html((localStorage.getItem("nome")).toUpperCase());
-            $('.preview').prevue();
-            $(function () {
-                $(".preview").on('input', function (e) {
-                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
-                });
-            });
+            
         }, 1000)
 
         ESCOPO.callback = InicioRequests.reLogin;
@@ -219,7 +238,8 @@ const handleLocation = async () => {
     }
     if (path == "/criarindividual") {
 
-        new SlimSelect({
+        setTimeout(function () {
+            new SlimSelect({
             select: '#genero',
             settings: {
                 showSearch: false
@@ -250,9 +270,10 @@ const handleLocation = async () => {
             alerts: {
                 invalid_date_alert: 'A data é inválida'
             }
-        })
-
-        loader.fechar()
+        });
+loader.fechar();
+        },1500);
+        
     }
     if (path == "/criarempresa") {
         new SlimSelect({

@@ -168,7 +168,7 @@ debliwui_menu.innerHTML = `
 
 class debliwuimenu extends HTMLElement {
 
-    constructor(route,jquery) {
+    constructor(route, jquery) {
         super(route);
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(debliwui_menu.content.cloneNode(true));
@@ -190,119 +190,85 @@ class debliwuimenu extends HTMLElement {
     }
 
 
-handleLocation = async () => {
-    //loader.abrir();
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    ESCOPO.init = true;
+    handleLocation = async () => {
+        //loader.abrir();
+        const path = window.location.pathname;
+        const hash = window.location.hash;
+        ESCOPO.init = true;
 
-    const ui = UI_PAGES[path] || UI_PAGES[404];
+        const ui = UI_PAGES[path] || UI_PAGES[404];
 
-    document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
-    document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
-    if(path == "/inicio"){
-        (document.querySelector(".corpo")).innerHTML = (ui);
-    }else{
-        loader.abrir();
-        $(document.querySelector(".corpo")).animate({"opacity":"0"},300,function() {
-            $(document.querySelector(".corpo")).html(ui);
-        });
-    }
-    
-    $(document.querySelector(".corpo")).animate({"opacity":"1"},300);
+        document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
+        document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
+        if (path == "/inicio") {
+            (document.querySelector(".corpo")).innerHTML = (ui);
+        } else {
+            loader.abrir();
+            $(document.querySelector(".corpo")).animate({ "opacity": "0" }, 300, function () {
+                $(document.querySelector(".corpo")).html(ui);
+            });
+        }
 
-    if (path == "/pendentes") {
-        
-        setTimeout(function(){
-            PendentesRequests.pendentes();
-        },1000)
-        
-    }
-    if (path == "/recorrentes") {
-        
-        setTimeout(function(){
-            RecorrentesRequests.recorrentes();
-        },1000)
-        
-    }
-    if (path == "/depositarlevantar") {
-        
-        setTimeout(function(){
-            DepositarLevantarRequests.init();
-        },1000)
-        
-    }
-    if (path == "/configuracoes") {
+        $(document.querySelector(".corpo")).animate({ "opacity": "1" }, 300);
+        db.verificaSessao();
+        if (path == "/pendentes") {
 
-        loader.fechar();
-    }
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
 
-    if (path == "/termosprivacidade") {
-        loader.fechar();
-    }
-    if (path == "/privacidade") {
-        loader.fechar();
-    }
-    if (path == "/termos") {
-        loader.fechar();
-    }
-    if (path == "/perguntas") {
-        loader.fechar();
-    }
-    if (path == "/perfil") {
-        
-        setTimeout(function(){
-            PerfilRequests.init();
+                    PendentesRequests.pendentes();
+                }
+            }, 1000)
+
+        }
+        if (path == "/recorrentes") {
+
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
+
+                    RecorrentesRequests.recorrentes();
+                }
+            }, 1000)
+
+        }
+        if (path == "/depositarlevantar") {
+
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
+
+                    DepositarLevantarRequests.init();
+                }
+            }, 1000)
+
+        }
+        if (path == "/configuracoes") {
+
             loader.fechar();
-        },1000)
-        
-    }
-    if (path == "/home") {
+        }
 
-        
-        InicioRequests.home();
-        loader.fechar();
-    }
-    if (path == "/enviar") {
+        if (path == "/termosprivacidade") {
+            loader.fechar();
+        }
+        if (path == "/perguntas") {
+            loader.fechar();
+        }
 
-        
-        setTimeout(function(){
-EnviarRequests.init()
-        },1000)
-        
-        loader.fechar();
-    }
-    if (path == "/receber") {
-        
-        setTimeout(function(){
-            ReceberRequests.init();
-        },1000)
-        
-        loader.fechar();
-    }
-    if (path == "/pagamentos") {
-        loader.fechar();
-    }
-    
-    if (path == "/estatistica") {
-        
-        setTimeout(function(){
-            EstatisticaRequests.init();
-        },1000);
-        
-    }
-    if (path == "/transacoes") {
-        
-        setTimeout(function(){
-            TransacoesRequests.init();
-        },1000);
-        
-    }
+        if (path == "/home") {
+
+
+            InicioRequests.home();
+            loader.fechar();
+        }
+        if (path == "/apoio") {
+
+
+            loader.fechar();
+        }
 
 
 
-  
-}
+
+    }
 
     fechar() {
         var $ = this.jquery;
@@ -323,22 +289,22 @@ EnviarRequests.init()
         var route = this.getAttribute('route');
         this.shadowRoot.querySelector('.aciona-menu').addEventListener("click", function () {
             let acionamenu = esse.shadowRoot.querySelector('.aciona-menu');
-            $(acionamenu).animate({"opacity":"0"},"fast");
-            $(acionamenu).animate({"opacity":"1"},"fast");
+            $(acionamenu).animate({ "opacity": "0" }, "fast");
+            $(acionamenu).animate({ "opacity": "1" }, "fast");
 
             let container = esse.shadowRoot.querySelector('.conteudo');
             let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                $(container).animate({"left":"100%"},"slow");
-                setTimeout(function(){
-                    $(backdrop).animate({"left":"0"},"fast");
-                },300);
+                $(container).animate({ "left": "100%" }, "slow");
+                setTimeout(function () {
+                    $(backdrop).animate({ "left": "0" }, "fast");
+                }, 300);
                 $(container).show();
                 //container.style.display = "block";
             } else {
-                $(container).animate({"left":"-100%"},"slow");
-                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).animate({ "left": "-100%" }, "slow");
+                $(backdrop).animate({ "left": "-100%" }, "fast");
                 $(container).hide();
                 //container.style.display = "none";
             }
@@ -348,15 +314,15 @@ EnviarRequests.init()
             let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                $(container).animate({"left":"100%"},"slow");
-                setTimeout(function(){
-                    $(backdrop).animate({"left":"0"},"fast");
-                },300);
+                $(container).animate({ "left": "100%" }, "slow");
+                setTimeout(function () {
+                    $(backdrop).animate({ "left": "0" }, "fast");
+                }, 300);
                 $(container).show("slow");
                 //container.style.display = "block";
             } else {
-                $(container).animate({"left":"-100%"},"slow");
-                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).animate({ "left": "-100%" }, "slow");
+                $(backdrop).animate({ "left": "-100%" }, "fast");
                 $(container).hide("slow");
                 //container.style.display = "none";
             }
@@ -368,14 +334,14 @@ EnviarRequests.init()
                 let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
                 if (container.style.display == "none") {
-                     $(container).animate({"left":"100%"},"slow");
-                    setTimeout(function(){
-                        $(backdrop).animate({"left":"0"},"fast");
-                    },300);
+                    $(container).animate({ "left": "100%" }, "slow");
+                    setTimeout(function () {
+                        $(backdrop).animate({ "left": "0" }, "fast");
+                    }, 300);
                     $(container).show("slow");
                 } else {
-                    $(container).animate({"left":"-100%"},"slow");
-                    $(backdrop).animate({"left":"-100%"},"fast");
+                    $(container).animate({ "left": "-100%" }, "slow");
+                    $(backdrop).animate({ "left": "-100%" }, "fast");
                     $(container).hide("slow");
                 }
             });
@@ -429,7 +395,7 @@ EnviarRequests.init()
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        
+
     }
 
 }

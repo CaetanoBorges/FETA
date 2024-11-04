@@ -48,20 +48,31 @@ class StorageFeta {
     }
 
     verificaSessao() {
-        if((db.getToken()).length > 30) {
+        if ((db.getToken()).length > 30) {
+
+
 
             var sessao = Number(localStorage.getItem("sessao"));
             var limite = Number(localStorage.getItem("sessaolimite"));
             var seconds = (Date.now() - (sessao)) / 1000;
-            console.log(seconds);
+            //console.log(seconds);
             if (seconds > (limite)) {
+                $("datas-resolver").html(`
+            <select name id="ano" class="form-control">
+            </select>
+            <select name id="mes" class="form-control">
+            </select>`);
                 menu.fechar();
                 this.setToken("expirou");
+
+                ESCOPO.selectAno = null;
+                ESCOPO.selectMes = null;
+
                 this.verificaToken();
                 notificacao.sms("Sua sessão expirou, entre novamente", 1);
                 return true;
             } else {
-
+                $("datas-resolver").html(``);
                 localStorage.setItem("sessao", Date.now());
                 return false;
             }

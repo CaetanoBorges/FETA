@@ -75,8 +75,11 @@ class EstatisticaReq {
             m.unshift({ text: (mesAtual), value: (mesAtual) });
 
             esse.controllerData();
-            ESCOPO.selectAno.setData(a);
-            ESCOPO.selectMes.setData(m);
+            if(ESCOPO.selectAno && ESCOPO.selectMes){
+                ESCOPO.selectAno.setData(a);
+                ESCOPO.selectMes.setData(m);
+            }
+            
 
             //---------------
             var dados = d.payload.atual.res;

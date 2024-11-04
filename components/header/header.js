@@ -11,7 +11,7 @@ debliwui_top.innerHTML = `
 
     <div class="top-notification">
         <img src="assets/notificacao-icon.svg" class="notification-icon">
-        <p class="label">Olá<br><span></span></p>
+        <p class="label">Olá<br><span style="opacity:0">&nbsp;</span></p>
         <img src="assets/user.svg" class="user-icon" onclick='vaiTela("perfil")'>
     </div>
 `;
@@ -41,6 +41,7 @@ class debliwuitop extends HTMLElement {
             if (ver != localStorage.getItem("nome")) {
                 ver = localStorage.getItem("nome");
                 esse.shadowRoot.querySelector('.label span').innerHTML = (localStorage.getItem("nome")).toUpperCase();
+                $(esse.shadowRoot.querySelector('.label span')).animate({ "opacity": "1" }, 1000);
             }
         }, 1000);
         

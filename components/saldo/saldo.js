@@ -36,7 +36,6 @@ class debliwuisaldo extends HTMLElement {
 
     connectedCallback() {
         var esse = this;
-        var fechar = this.fechar;
         var ver = false;
         setInterval(() => {
             if (ver != localStorage.getItem("balanco")) {
@@ -48,4 +47,4 @@ class debliwuisaldo extends HTMLElement {
 
 }
 
-window.customElements.define('debliwui-saldo', debliwuisaldo)
+window.customElements.define('debliwui-saldo', debliwuisaldo);

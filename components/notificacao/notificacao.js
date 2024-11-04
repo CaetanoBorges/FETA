@@ -42,38 +42,43 @@ class debliwuinotificacao extends HTMLElement {
 
     fechar(esse) {
         let container = esse.shadowRoot.querySelector('.container');
-        $(container).animate({"top":"-100%"},"slow"); 
+        $(container).animate({ "top": "-100%" }, "slow");
+        navigator.vibrate(0);
     }
     abrir() {
         let container = this.shadowRoot.querySelector('.container');
-        $(container).animate({"top":"1.5vh"},400);        
+        $(container).animate({ "top": "1.5vh" }, 400);
     }
 
     connectedCallback() {
         var esse = this;
         var fechar = this.fechar;
-        this.shadowRoot.querySelector('.container').addEventListener("click", function() {
+        this.shadowRoot.querySelector('.container').addEventListener("click", function () {
             fechar(esse);
         });
     }
 
-    sms(mensagem,tipo = 0) {
+    sms(mensagem, tipo = 0) {
         var $ = this.$;
         var esse = this;
         var fechar = this.fechar;
         let sms = this.shadowRoot.querySelector('#sms');
         sms.innerHTML = mensagem;
         var container = this.shadowRoot.querySelector('.container');
-        if(tipo == 1){
+        if (tipo == 1) {
             container.style.background = "#dc3545";
-            $(container).animate({"background":"#dc3545"},500);
-        }else{
+            // Vibrate for 200ms, pause for 100ms, then vibrate for 200ms again
+            navigator.vibrate([200, 100, 200]);
+            $(container).animate({ "background": "#dc3545" }, 500);
+        } else {
             container.style.background = "#428bca";
-            $(container).animate({"background":"#428bca"},500);
+            // Vibrate for 500 milliseconds
+            navigator.vibrate(500);
+            $(container).animate({ "background": "#428bca" }, 500);
         }
 
         this.abrir();
-        setTimeout(function() {
+        setTimeout(function () {
             fechar(esse);
         }, 5000);
     }
