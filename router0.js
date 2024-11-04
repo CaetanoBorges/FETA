@@ -11,7 +11,6 @@ const vaiTela = (route) => {
 }
 
 const handleLocation = async () => {
-    //loader.abrir();
     const path = window.location.pathname;
     const hash = window.location.hash;
     ESCOPO.init = true;
@@ -20,15 +19,16 @@ const handleLocation = async () => {
 
     document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
     document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
-    if(path == "/inicio"){
+    if (path == "/inicio") {
         (document.querySelector(".corpo")).innerHTML = (ui);
-    }else{
-        $(document.querySelector(".corpo")).animate({"opacity":"0"},300,function() {
+    } else {
+        loader.abrir();
+        $(document.querySelector(".corpo")).animate({ "opacity": "0" }, 300, function () {
             $(document.querySelector(".corpo")).html(ui);
         });
     }
-    
-    $(document.querySelector(".corpo")).animate({"opacity":"1"},300);
+
+    $(document.querySelector(".corpo")).animate({ "opacity": "1" }, 300);
     db.verificaSessao();
     if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
         menu.fechar();
@@ -41,26 +41,43 @@ const handleLocation = async () => {
         setTimeout(function () {
             db.verificaToken();
         }, 1000);
+        loader.fechar()
     }
     if (path == "/pendentes") {
 
-        PendentesRequests.pendentes();
+        setTimeout(function () {
+            PendentesRequests.pendentes();
+        }, 1000)
+        loader.fechar()
     }
     if (path == "/recorrentes") {
 
-        RecorrentesRequests.recorrentes();
+        setTimeout(function () {
+            RecorrentesRequests.recorrentes();
+        }, 1000)
+
+        loader.fechar()
     }
     if (path == "/depositarlevantar") {
 
-        DepositarLevantarRequests.init();
+        setTimeout(function () {
+            DepositarLevantarRequests.init();
+        }, 1000)
+
+        loader.fechar()
     }
     if (path == "/configuracoes") {
 
+        loader.fechar()
     }
     if (path == "/bloqueio") {
 
-        ConfiguracoesRequests.init();
+        setTimeout(function () {
+            ConfiguracoesRequests.init();
+        }, 1000)
 
+
+        loader.fechar()
     }
     if (path == "/pin") {
 
@@ -74,50 +91,85 @@ const handleLocation = async () => {
 
     if (path == "/termosprivacidade") {
 
+        loader.fechar()
     }
     if (path == "/privacidade") {
 
+        loader.fechar()
     }
     if (path == "/termos") {
 
+        loader.fechar()
     }
     if (path == "/perguntas") {
 
+        loader.fechar()
     }
     if (path == "/perfil") {
-        PerfilRequests.init();
+
+        setTimeout(function () {
+            PerfilRequests.init();
+        }, 1000)
+
+        loader.fechar()
     }
     if (path == "/home") {
 
         menu.abrir();
         InicioRequests.home();
+        loader.fechar()
     }
     if (path == "/enviar") {
 
 
-        EnviarRequests.init()
+        setTimeout(function () {
+            EnviarRequests.init()
+        }, 1000)
+
+        loader.fechar()
     }
     if (path == "/receber") {
 
-        ReceberRequests.init()
+        setTimeout(function () {
+            ReceberRequests.init()
+        }, 1000)
+
+        loader.fechar()
     }
     if (path == "/pagamentos") {
 
+        loader.fechar()
     }
     if (path == "/servico") {
 
-        PagamentosRequests.verServico();
+        setTimeout(function () {
+            PagamentosRequests.verServico();
+        }, 1000)
+
+        
     }
     if (path == "/entidade") {
-        PagamentosRequests.verEntidade();
+
+        setTimeout(function () {
+            PagamentosRequests.verEntidade();
+        }, 1000)
+
+        
     }
     if (path == "/estatistica") {
 
-        EstatisticaRequests.init()
+        setTimeout(function () {
+            EstatisticaRequests.init();
+        }, 1000)
+
+        
     }
     if (path == "/transacoes") {
 
-        TransacoesRequests.init();
+        setTimeout(function () {
+            TransacoesRequests.init();
+        }, 1000)
+
     }
 
 
@@ -126,9 +178,10 @@ const handleLocation = async () => {
     if (path == "/inicio") {
 
         InicioRequests.slide();
-        setTimeout(function(){
-            $("#render").animate({"opacity":"1"},2000);
-        },1000);
+        setTimeout(function () {
+            $("#render").animate({ "opacity": "1" }, 2000);
+        }, 1000);
+        loader.fechar()
     }
     if (path == "/login01") {
 
@@ -139,21 +192,29 @@ const handleLocation = async () => {
             });
         });
 
+        loader.fechar()
     }
     if (path == "/login02") {
-        $(".nome").html((localStorage.getItem("nome")).toUpperCase());
-        $('.preview').prevue();
-        $(function () {
-            $(".preview").on('input', function (e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+
+        menu.fechar();
+        setTimeout(function () {
+            $(".nome").html((localStorage.getItem("nome")).toUpperCase());
+            $('.preview').prevue();
+            $(function () {
+                $(".preview").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
             });
-        });
+        }, 1000)
+
         ESCOPO.callback = InicioRequests.reLogin;
         ESCOPO.parametro = InicioRequests;
+        loader.fechar()
     }
     if (path == "/criarconta") {
 
 
+        loader.fechar()
     }
     if (path == "/criarindividual") {
 
@@ -190,6 +251,7 @@ const handleLocation = async () => {
             }
         })
 
+        loader.fechar()
     }
     if (path == "/criarempresa") {
         new SlimSelect({
@@ -200,10 +262,12 @@ const handleLocation = async () => {
         });
 
 
+        loader.fechar()
     }
     if (path == "/inicioconfirmar") {
 
 
+        loader.fechar()
     }
     if (path == "/criarpin") {
 
@@ -214,10 +278,12 @@ const handleLocation = async () => {
             });
         });
 
+        loader.fechar()
     }
     if (path == "/recuperarconta") {
 
 
+        loader.fechar()
     }
     if (path == "/recuperarpin") {
         $('.preview').prevue();
@@ -226,6 +292,7 @@ const handleLocation = async () => {
                 $(this).val($(this).val().replace(/[^0-9]/g, ''));
             });
         });
+        loader.fechar()
     }
     /* setTimeout(function () {
         loader.fechar();

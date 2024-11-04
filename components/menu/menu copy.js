@@ -188,120 +188,129 @@ class debliwuimenu extends HTMLElement {
             //container.style.display = "none";
         }
     }
-
+    routes = {
+    404: "/pages/404.html",
+    "/": "/pages/inicio.html",
+    "/pendentes": "/pages/pendentes.html",
+    "/iban": "/pages/iban.html",
+    "/recorrentes": "/pages/recorrentes.html",
+    "/depositarlevantar": "/pages/depositarlevantar.html",
+    "/configuracoes": "/pages/configuracoes.html",
+    "/reclamacao": "/pages/reclamacao.html",
+    "/termosprivacidade": "/pages/termosprivacidade.html",
+    "/perguntas": "/pages/perguntas.html",
+    "/apoio": "/pages/apoio.html"
+}
 
 handleLocation = async () => {
-    //loader.abrir();
     const path = window.location.pathname;
     const hash = window.location.hash;
-    ESCOPO.init = true;
-
-    const ui = UI_PAGES[path] || UI_PAGES[404];
-
-    document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
-    document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
-    if(path == "/inicio"){
-        (document.querySelector(".corpo")).innerHTML = (ui);
-    }else{
-        loader.abrir();
-        $(document.querySelector(".corpo")).animate({"opacity":"0"},300,function() {
-            $(document.querySelector(".corpo")).html(ui);
-        });
-    }
     
-    $(document.querySelector(".corpo")).animate({"opacity":"1"},300);
-
-    if (path == "/pendentes") {
-        
-        setTimeout(function(){
-            PendentesRequests.pendentes();
-        },1000)
-        
-    }
-    if (path == "/recorrentes") {
-        
-        setTimeout(function(){
-            RecorrentesRequests.recorrentes();
-        },1000)
-        
-    }
-    if (path == "/depositarlevantar") {
-        
-        setTimeout(function(){
-            DepositarLevantarRequests.init();
-        },1000)
-        
-    }
-    if (path == "/configuracoes") {
-
-        loader.fechar();
-    }
-
-    if (path == "/termosprivacidade") {
-        loader.fechar();
-    }
-    if (path == "/privacidade") {
-        loader.fechar();
-    }
-    if (path == "/termos") {
-        loader.fechar();
-    }
-    if (path == "/perguntas") {
-        loader.fechar();
-    }
-    if (path == "/perfil") {
-        
-        setTimeout(function(){
-            PerfilRequests.init();
-            loader.fechar();
-        },1000)
-        
-    }
-    if (path == "/home") {
-
-        
-        InicioRequests.home();
-        loader.fechar();
-    }
-    if (path == "/enviar") {
-
-        
-        setTimeout(function(){
-EnviarRequests.init()
-        },1000)
-        
-        loader.fechar();
-    }
-    if (path == "/receber") {
-        
-        setTimeout(function(){
-            ReceberRequests.init();
-        },1000)
-        
-        loader.fechar();
-    }
-    if (path == "/pagamentos") {
-        loader.fechar();
-    }
     
-    if (path == "/estatistica") {
-        
-        setTimeout(function(){
-            EstatisticaRequests.init();
-        },1000);
-        
-    }
-    if (path == "/transacoes") {
-        
-        setTimeout(function(){
-            TransacoesRequests.init();
-        },1000);
-        
-    }
+    const route = routes[path] || routes[404];
+    const html = await fetch(route).then(function(data){
+        var res = data.text();
+        res.then(function(ui){
+            document.querySelector(".corpo").innerHTML = ui;
+            if (path == "/reclamacao") {
+                loader.abrir();
+                setTimeout(function () {
+                    Funcoes.reclamou();
+                    loader.fechar();
+                }, 1000);
 
+            }else{
+                
+            }
 
+        
+            if (hash == "") {
+                
+            }
+            if (hash == "#chamarotaxi") {
+                
+            }
 
-  
+            if (path == "/home") {
+                loader.abrir();
+                
+                setTimeout(function () {
+
+                    
+
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/enviar") {
+                loader.abrir();
+                
+                setTimeout(function () {
+
+                    
+
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/pendentes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    PendentesRequests.pendentes();
+
+                }, 1000);
+            }
+            if (path == "/iban") {
+                loader.abrir();                
+                setTimeout(function () {
+                    IbanRequests.contas();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/recorrentes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    RecorrentesRequests.recorrentes();
+                     
+                }, 1000);
+            } 
+            if (path == "/depositarlevantar") {
+                loader.abrir();                
+                setTimeout(function () {
+                    DepositarLevantarRequests.init();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/configuracoes") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/termosprivacidade") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/perguntas") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+            if (path == "/apoio") {
+                loader.abrir();                
+                setTimeout(function () {
+                    //RecorrentesRequests.recorrentes();
+                    loader.fechar();  
+                }, 1000);
+            } 
+        })
+    })
+    
+
 }
 
     fechar() {
