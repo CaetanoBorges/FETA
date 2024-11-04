@@ -1,4 +1,3 @@
-var corrida = false;
 const route = (event) => {
     event = event || window.event;
     event.preventDefault();
@@ -12,14 +11,25 @@ const vaiTela = (route) => {
 }
 
 const handleLocation = async () => {
-    loader.abrir();
+    //loader.abrir();
     const path = window.location.pathname;
     const hash = window.location.hash;
+    ESCOPO.init = true;
 
     const ui = UI_PAGES[path] || UI_PAGES[404];
 
-    document.querySelector(".corpo").innerHTML = ui;
-
+    document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
+    document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
+    if(path == "/inicio"){
+        (document.querySelector(".corpo")).innerHTML = (ui);
+    }else{
+        $(document.querySelector(".corpo")).animate({"opacity":"0"},300,function() {
+            $(document.querySelector(".corpo")).html(ui);
+        });
+    }
+    
+    $(document.querySelector(".corpo")).animate({"opacity":"1"},300);
+    db.verificaSessao();
     if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
         menu.fechar();
     } else {
@@ -75,12 +85,12 @@ const handleLocation = async () => {
 
     }
     if (path == "/perfil") {
-
+        PerfilRequests.init();
     }
     if (path == "/home") {
 
         menu.abrir();
-        
+        InicioRequests.home();
     }
     if (path == "/enviar") {
 
@@ -108,16 +118,17 @@ const handleLocation = async () => {
     if (path == "/transacoes") {
 
         TransacoesRequests.init();
-        TransacoesRequests.transacoes();
     }
 
 
 
 
     if (path == "/inicio") {
-        
+
         InicioRequests.slide();
-        
+        setTimeout(function(){
+            $("#render").animate({"opacity":"1"},2000);
+        },1000);
     }
     if (path == "/login01") {
 
@@ -130,14 +141,15 @@ const handleLocation = async () => {
 
     }
     if (path == "/login02") {
-
+        $(".nome").html((localStorage.getItem("nome")).toUpperCase());
         $('.preview').prevue();
         $(function () {
             $(".preview").on('input', function (e) {
                 $(this).val($(this).val().replace(/[^0-9]/g, ''));
             });
         });
-
+        ESCOPO.callback = InicioRequests.reLogin;
+        ESCOPO.parametro = InicioRequests;
     }
     if (path == "/criarconta") {
 
@@ -145,9 +157,47 @@ const handleLocation = async () => {
     }
     if (path == "/criarindividual") {
 
+        new SlimSelect({
+            select: '#genero',
+            settings: {
+                showSearch: false
+            }
+        });
+        const calendario = dobDatepicker('#nascimento', {
+            display_mode: 'inline',
+            year_range: 120,
+            enable_built_in_validation: true,
+            enable_ordinal_number: true,
+            show_long_month: true,
+            dateFormat: null,
+            zIndex: {
+                targetNode: "150",
+                datepickerWidget: "150",
+                invisibleBackground: "100"
+            },
+            long_month: ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            short_month: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            labels: {
+                header_label: 'Data de nascimento',
+                select_day_label: 'Seleciona o dia',
+                select_month_label: 'Seleciona o mês',
+                select_year_label: 'Seleciona o ano',
+                reset_button_label: 'Apagar e repetir',
+                date_range_label: 'Ano '  //label for year section -> "Year 2000 - 2020"
+            },
+            alerts: {
+                invalid_date_alert: 'A data é inválida'
+            }
+        })
 
     }
     if (path == "/criarempresa") {
+        new SlimSelect({
+            select: '#area',
+            settings: {
+                showSearch: false
+            }
+        });
 
 
     }
@@ -157,7 +207,12 @@ const handleLocation = async () => {
     }
     if (path == "/criarpin") {
 
-
+        $('.preview').prevue();
+        $(function () {
+            $(".preview").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
 
     }
     if (path == "/recuperarconta") {
@@ -172,9 +227,9 @@ const handleLocation = async () => {
             });
         });
     }
-    setTimeout(function () {
+    /* setTimeout(function () {
         loader.fechar();
-    }, 1000);
+    }, 1000); */
 }
 
 window.onpopstate = handleLocation;
