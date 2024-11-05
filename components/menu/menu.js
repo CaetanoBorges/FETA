@@ -238,6 +238,7 @@ class debliwuimenu extends HTMLElement {
 
                     DepositarLevantarRequests.init();
                 }
+                loader.fechar();
             }, 1000)
 
         }

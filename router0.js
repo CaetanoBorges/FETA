@@ -91,12 +91,15 @@ const handleLocation = async () => {
     }
     if (path == "/pin") {
 
-        $('.preview').prevue();
-        $(function () {
-            $(".preview").on('input', function (e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        setTimeout(function () {
+            $('.preview').prevue();
+            $(function () {
+                $(".preview").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
             });
-        });
+            loader.fechar();
+        }, 1000)
     }
 
     if (path == "/termosprivacidade") {
@@ -143,18 +146,32 @@ const handleLocation = async () => {
 
 
         setTimeout(function () {
-            EnviarRequests.init()
-        }, 1000)
+            new SlimSelect({
+                select: '#descricao',
+                settings: {
+                    showSearch: false
+                }
+            });
+            EnviarRequests.init();
+            loader.fechar();
+        }, 1000);
 
-        loader.fechar()
+
     }
     if (path == "/receber") {
 
         setTimeout(function () {
-            ReceberRequests.init()
-        }, 1000)
+            new SlimSelect({
+                select: '#descricao',
+                settings: {
+                    showSearch: false
+                }
+            });
+            ReceberRequests.init();
+            loader.fechar();
+        }, 1000);
 
-        loader.fechar()
+
     }
     if (path == "/pagamentos") {
 
@@ -283,8 +300,6 @@ const handleLocation = async () => {
                 showSearch: false
             }
         });
-
-
         loader.fechar()
     }
     if (path == "/inicioconfirmar") {
@@ -339,5 +354,5 @@ const handleLocation = async () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
- 
+
 handleLocation();
