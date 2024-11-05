@@ -43,7 +43,7 @@ class debliwuinotificacao extends HTMLElement {
     fechar(esse) {
         let container = esse.shadowRoot.querySelector('.container');
         $(container).animate({ "top": "-100%" }, "slow");
-        navigator.vibrate(0);
+        //navigator.vibrate(0);
     }
     abrir() {
         let container = this.shadowRoot.querySelector('.container');
@@ -68,12 +68,12 @@ class debliwuinotificacao extends HTMLElement {
         if (tipo == 1) {
             container.style.background = "#dc3545";
             // Vibrate for 200ms, pause for 100ms, then vibrate for 200ms again
-            navigator.vibrate([200, 100, 200]);
+            //navigator.vibrate([200, 100, 200]);
             $(container).animate({ "background": "#dc3545" }, 500);
         } else {
             container.style.background = "#428bca";
             // Vibrate for 500 milliseconds
-            navigator.vibrate(500);
+            //navigator.vibrate(500);
             $(container).animate({ "background": "#428bca" }, 500);
         }
 

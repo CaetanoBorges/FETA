@@ -34,7 +34,7 @@ require("vendor/autoload.php");
   $minifier->minify($minifiedPath); */
   //TERMINA MINIFICACAO DOS COMPONENTES
 
-  $minifier = new Minify\JS("router0.js");
-  $minifiedPath = 'Minified/router0.js';
+  $minifier = new Minify\JS("rq.js");
+  $minifiedPath = 'producao.js';
   $minifier->minify($minifiedPath);
   echo $minifier->minify();

@@ -46,20 +46,20 @@ const handleLocation = async () => {
     if (path == "/pendentes") {
 
         setTimeout(function () {
-             if((db.getToken()).length > 30){
+            if ((db.getToken()).length > 30) {
                 PendentesRequests.pendentes();
             }
-            
+
         }, 1000)
         loader.fechar()
     }
     if (path == "/recorrentes") {
 
         setTimeout(function () {
-             if((db.getToken()).length > 30){
+            if ((db.getToken()).length > 30) {
                 RecorrentesRequests.recorrentes();
             }
-            
+
         }, 1000)
 
         loader.fechar()
@@ -67,8 +67,8 @@ const handleLocation = async () => {
     if (path == "/depositarlevantar") {
 
         setTimeout(function () {
-             if((db.getToken()).length > 30){
-            DepositarLevantarRequests.init();
+            if ((db.getToken()).length > 30) {
+                DepositarLevantarRequests.init();
             }
         }, 1000)
 
@@ -81,8 +81,8 @@ const handleLocation = async () => {
     if (path == "/bloqueio") {
 
         setTimeout(function () {
-             if((db.getToken()).length > 30){
-            ConfiguracoesRequests.init();
+            if ((db.getToken()).length > 30) {
+                ConfiguracoesRequests.init();
             }
         }, 1000)
 
@@ -126,9 +126,9 @@ const handleLocation = async () => {
     if (path == "/perfil") {
 
         setTimeout(function () {
-             if((db.getToken()).length > 30){
-                
-            PerfilRequests.init();
+            if ((db.getToken()).length > 30) {
+
+                PerfilRequests.init();
             }
         }, 1000);
 
@@ -166,7 +166,7 @@ const handleLocation = async () => {
             PagamentosRequests.verServico();
         }, 1000)
 
-        
+
     }
     if (path == "/entidade") {
 
@@ -174,25 +174,25 @@ const handleLocation = async () => {
             PagamentosRequests.verEntidade();
         }, 1000)
 
-        
+
     }
     if (path == "/estatistica") {
 
         setTimeout(function () {
-            if((db.getToken()).length > 30){
+            if ((db.getToken()).length > 30) {
                 EstatisticaRequests.init();
             }
         }, 1000)
 
-        
+
     }
     if (path == "/transacoes") {
 
         setTimeout(function () {
-            if((db.getToken()).length > 30){
+            if ((db.getToken()).length > 30) {
                 TransacoesRequests.init();
             }
-            
+
         }, 1000)
 
     }
@@ -210,20 +210,21 @@ const handleLocation = async () => {
     }
     if (path == "/login01") {
 
-        $('.preview').prevue();
-        $(function () {
-            $(".preview").on('input', function (e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        setTimeout(function () {
+            $('#pin').prevue();
+            $(function () {
+                $("#pin").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
             });
-        });
-
-        loader.fechar()
+            loader.fechar()
+        }, 1000);
     }
     if (path == "/login02") {
 
         setTimeout(function () {
             $(".nome").html((localStorage.getItem("nome")).toUpperCase());
-            
+
         }, 1000)
 
         ESCOPO.callback = InicioRequests.reLogin;
@@ -240,40 +241,40 @@ const handleLocation = async () => {
 
         setTimeout(function () {
             new SlimSelect({
-            select: '#genero',
-            settings: {
-                showSearch: false
-            }
-        });
-        const calendario = dobDatepicker('#nascimento', {
-            display_mode: 'inline',
-            year_range: 120,
-            enable_built_in_validation: true,
-            enable_ordinal_number: true,
-            show_long_month: true,
-            dateFormat: null,
-            zIndex: {
-                targetNode: "150",
-                datepickerWidget: "150",
-                invisibleBackground: "100"
-            },
-            long_month: ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            short_month: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            labels: {
-                header_label: 'Data de nascimento',
-                select_day_label: 'Seleciona o dia',
-                select_month_label: 'Seleciona o mês',
-                select_year_label: 'Seleciona o ano',
-                reset_button_label: 'Apagar e repetir',
-                date_range_label: 'Ano '  //label for year section -> "Year 2000 - 2020"
-            },
-            alerts: {
-                invalid_date_alert: 'A data é inválida'
-            }
-        });
-loader.fechar();
-        },1500);
-        
+                select: '#genero',
+                settings: {
+                    showSearch: false
+                }
+            });
+            const calendario = dobDatepicker('#nascimento', {
+                display_mode: 'inline',
+                year_range: 120,
+                enable_built_in_validation: true,
+                enable_ordinal_number: true,
+                show_long_month: true,
+                dateFormat: null,
+                zIndex: {
+                    targetNode: "150",
+                    datepickerWidget: "150",
+                    invisibleBackground: "100"
+                },
+                long_month: ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                short_month: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                labels: {
+                    header_label: 'Data de nascimento',
+                    select_day_label: 'Seleciona o dia',
+                    select_month_label: 'Seleciona o mês',
+                    select_year_label: 'Seleciona o ano',
+                    reset_button_label: 'Apagar e repetir',
+                    date_range_label: 'Ano '  //label for year section -> "Year 2000 - 2020"
+                },
+                alerts: {
+                    invalid_date_alert: 'A data é inválida'
+                }
+            });
+            loader.fechar();
+        }, 1500);
+
     }
     if (path == "/criarempresa") {
         new SlimSelect({
@@ -292,15 +293,21 @@ loader.fechar();
         loader.fechar()
     }
     if (path == "/criarpin") {
-
-        $('.preview').prevue();
-        $(function () {
-            $(".preview").on('input', function (e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        setTimeout(function () {
+            $('#pin_confirmar').prevue();
+            $(function () {
+                $("#pin_confirmar").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
             });
-        });
-
-        loader.fechar()
+            $('#pin').prevue();
+            $(function () {
+                $("#pin").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
+            });
+            loader.fechar()
+        }, 1500);
     }
     if (path == "/recuperarconta") {
 
@@ -308,13 +315,22 @@ loader.fechar();
         loader.fechar()
     }
     if (path == "/recuperarpin") {
-        $('.preview').prevue();
-        $(function () {
-            $(".preview").on('input', function (e) {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        setTimeout(function () {
+            $('#pin_novo_confirmar').prevue();
+            $(function () {
+                $("#pin_novo_confirmar").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
             });
-        });
-        loader.fechar()
+            $('#pin_novo').prevue();
+            $(function () {
+                $("#pin_novo").on('input', function (e) {
+                    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                });
+            });
+            loader.fechar()
+        }, 1500);
+
     }
     /* setTimeout(function () {
         loader.fechar();
