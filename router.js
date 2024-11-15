@@ -51,7 +51,12 @@ const routes = {
     "/recuperarpin": "/pages/recuperarpin.html",
 
     "/trm": "/pages/termos.html",
-    "/prv": "/pages/privacidade.html"
+    "/prv": "/pages/privacidade.html",
+    "/tarifario": "/pages/tarifario.html",
+    "/tarif": "/pages/tarifario.html",
+    "/fale": "/pages/apoio.html",
+    "/scan": "/pages/scan.html",
+    "/dadosscan": "/pages/dadosscan.html"
 }
 
 const handleLocation = async () => {
@@ -67,7 +72,7 @@ const handleLocation = async () => {
             document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             db.verificaSessao();
-            if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
+            if (path == "/inicio" || path == "/scan" ||  path == "/dadosscan" || path == "/tarif" || path == "/fale" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
             } else {
                 menu.abrir();
@@ -79,6 +84,28 @@ const handleLocation = async () => {
                     loader.abrir();
                 }, 1000);
             }
+            //----------
+            if (path == "/tarifario") {
+                
+
+            }
+            if (path == "/tarif") {
+                
+
+            }
+            if (path == "/fale") {
+                
+
+            }
+            if (path == "/scan") {
+                
+
+            }
+            if (path == "/dadosscan") {
+                
+
+            }
+            //----------
             if (path == "/pendentes") {
                 loader.abrir();
 
@@ -299,12 +326,12 @@ const handleLocation = async () => {
                 loader.abrir();
                 setTimeout(function () {
                     new SlimSelect({
-                        select: '#genero',
+                        select: '#ocupacao',
                         settings: {
                             showSearch: false
                         }
                     });
-                    const calendario = dobDatepicker('#nascimento', {
+                    /* const calendario = dobDatepicker('#nascimento', {
                         display_mode: 'inline',
                         year_range: 120,
                         enable_built_in_validation: true,
@@ -329,7 +356,7 @@ const handleLocation = async () => {
                         alerts: {
                             invalid_date_alert: 'A data é inválida'
                         }
-                    })
+                    }) */
                     loader.fechar();
                 }, 1000);
 

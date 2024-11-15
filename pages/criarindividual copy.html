@@ -6,21 +6,27 @@
         <div style="padding: 4%;">  
             <h1 class="head_label">CONTA PESSOAL</h1> <br><br>
             <div class="mb-4">
+                <label class="form-label margin_0">Nome</label>
+                <input type="text" class="form-control input-inicio" id="nome" autocomplete="off">
+            </div>
+            <div class="mb-4">
+                <label class="form-label margin_0">BI</label>
+                <input type="text" class="form-control input-inicio" id="bi" autocomplete="off">
+            </div>
+            <div class="mb-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12" style="padding: 0;">  
-                            <label class="form-label margin_0">Ocupação</label>
-                            <select name="ocupacao" id="ocupacao" class="form-control">
-                                <option value="Funcionario_estado">Funcionário do estado</option>
-                                <option value="Funcionario_privado">Funcionario do privado</option>
-                                <option value="Profissional_autonomo">Profissional autonomo</option>
-                                <option value="Comerciante">Comerciante</option>
-                                <option value="Empresario">Empresário</option>
-                                <option value="Freelancer">Freelancer</option>
-                                <option value="Micheiro">Micheiro</option>
-                                <option value="Desempregado">Desempregado</option>
-                                <option value="Outro...">Outro...</option>
+                        <div class="col" style="padding-left: 0;">  
+                            <label class="form-label margin_0">Gênero</label>
+                            <select name="genero" id="genero" class="form-control">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
                             </select>
+                        </div>
+                        <div class="col" style="padding-right: 0;">
+                         
+                            <label class="form-label margin_0">Nascimento</label>
+                            <input type="date" class="form-control" id="nascimento" autocomplete="off" style="border-radius: 2px;">
                         </div>
                     </div>
                 </div>
