@@ -6,6 +6,111 @@ class InicioReq {
         this.notificacao = notificacao;
         this.db = db;
     }
+    termosecondicoesWatchAct() {
+        $("#termos").change(function(){
+            console.log($(this).prop("checked"));
+            if($(this).prop("checked")){
+                localStorage.setItem("termos", "1");
+            }else{
+                localStorage.setItem("termos", "0");
+            };
+        });
+    }
+    termosecondicoesWatchVer() {
+        var termos = localStorage.getItem("termos");
+        if(termos == "1"){
+            $("#termos").prop("checked",true);
+        }else{
+            $("#termos").prop("checked",false);
+        }
+    }
+    tarifario() {
+        var esse = this;
+        //esse.loader.abrir();
+
+        var settings = {
+            "url": "APIMOCK/precario.json",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            }
+        };
+
+        $.ajax(settings).done(function (response) {
+            //console.log(response);
+            if (response.ok) {
+                    var AcordionUI = "";
+                //esse.loader.fechar();
+                (response.payload).forEach(function (item, index) {
+
+                    var show = "show";
+                    var expanded = "true";
+                    var collapsed = "";
+                    if(index > 0 ){
+                        show = "";
+                        expanded = "false";
+                        collapsed = "collapsed";
+                    }
+                    var iteUI = "";
+                    var categoria = item.categoria;
+                    var sobre = item.sobre;
+                    var itens = item.itens;
+
+
+                    (itens).forEach(function (ite, inde) {
+                        var valor = ite.valor;
+                        var tarifa = ite.tarifa;
+
+                        iteUI += `
+                            <tr>
+                                <td>${valor}</td>
+                                <td>${tarifa}</td>
+                            </tr>`;
+
+                    })
+
+
+
+                    var tabelaUI = `
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col"  style="background-color: #640564;color:white">Valor (kz)</th>
+                                <th scope="col"  style="background-color: #640564;color:white">Tarifa (kz) + IVA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${iteUI}
+                        </tbody>
+                    </table>
+                `;
+                AcordionUI += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne${index}">
+                            <button class="accordion-button ${collapsed}" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseOne${index}"
+                                aria-expanded="${expanded}" aria-controls="collapseOne${index}">
+                                ${(categoria.toUpperCase())}
+                            </button>
+                        </h2>
+                        <div id="collapseOne${index}" class="accordion-collapse collapse ${show}"
+                            aria-labelledby="headingOne${index}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body" style="padding: 10px;">
+                                <!-- <p class="text-danger text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, officia</p> -->
+                                ${tabelaUI}
+                            </div>
+                        </div>
+                    </div>
+                `
+                    $("#accordionExample").html("");
+                    $("#accordionExample").append(AcordionUI);
+                });
+
+                
+            }
+        });
+    }
     slide() {
         var sli = new debliwuislideimg($, [
             '<img src="assets/img-menu.svg" style="border-radius:5px;">',
@@ -287,7 +392,7 @@ class InicioReq {
 
     }
 
-   criarConta_dois_emp() {
+    criarConta_dois_emp() {
         var nome = $("#nome").val();
         var nif = $("#nif").val();
         var area = $("#area").val();
@@ -384,20 +489,20 @@ class InicioReq {
         var pin_novo = $("#pin").val();
         var pin_novo_confirmar = $("#pin_confirmar").val();
 
-        if(pin_novo.length != 6){
+        if (pin_novo.length != 6) {
             this.notificacao.sms("Verifica o PIN, deve ter 6 digitos", 1);
             return;
         }
-        if(pin_novo != pin_novo_confirmar){
+        if (pin_novo != pin_novo_confirmar) {
             this.notificacao.sms("Verifica o PIN, as combinações devem ser iguais", 1);
             return;
         }
-        ESCOPO.dadosOperacao.pin  = pin_novo;
+        ESCOPO.dadosOperacao.pin = pin_novo;
         var esse = this;
         esse.loader.abrir();
 
         var settings = {
-            "url": (this.apiUrl)+"/auth/cadastrar",
+            "url": (this.apiUrl) + "/auth/cadastrar",
             "method": "POST",
             "timeout": 0,
             "headers": {

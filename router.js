@@ -90,7 +90,11 @@ const handleLocation = async () => {
 
             }
             if (path == "/tarif") {
-                
+                loader.abrir();
+                setTimeout(function () {
+                    InicioRequests.tarifario();
+                    loader.fechar();
+                }, 1000);
 
             }
             if (path == "/fale") {
@@ -188,6 +192,13 @@ const handleLocation = async () => {
             if (path == "/termos") {
                 loader.abrir();
                 setTimeout(function () {
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/trm") {
+                loader.abrir();
+                setTimeout(function () {
+                    InicioRequests.termosecondicoesWatchVer();
                     loader.fechar();
                 }, 1000);
             }

@@ -116,6 +116,20 @@
      margin: 20px auto 0 auto;
      font-size: 15px;
  }
+ 
+ .btn-flexa-roxo {
+     display: block;
+     width: 96%;
+     background: #fff;
+     position: relative;
+     padding: 3% 6%;
+     -webkit-box-shadow: 0px 0px 8px 1px #640564;
+     -moz-box-shadow: 0px 0px 8px 1px #640564;
+     box-shadow: 0px 0px 8px 1px #640564;
+     border-radius: 5px;
+     margin: 20px auto 0 auto;
+     font-size: 15px;
+ }
 
  .icon-btn-flexa {
      position: absolute;

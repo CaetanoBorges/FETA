@@ -1,0 +1,113 @@
+{
+    "ok": true,
+    "payload": [
+        {
+            "categoria": "transferencia",
+            "sobre": "Detalhe da categoria e subcategorias",
+            "itens": [
+                {
+                    "identificador": "1234567",
+                    "tarifa": "Transferencia",
+                    "descricao": "Taxa de 0.5%",
+                    "valor": "Transferencia",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123567",
+                    "tarifa": "Pagamentos",
+                    "descricao": "Taxa de 0.2%",
+                    "valor": "Pagamentos",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123456",
+                    "tarifa": "Gateway de pagamento online",
+                    "descricao": "Taxa de 0.9%",
+                    "valor": "Gateway de pagamento online",
+                    "quando": 1234567
+                }
+            ]
+        },
+        {
+            "categoria": "transferencia",
+            "sobre": "Detalhe da categoria e subcategorias",
+            "itens": [
+                {
+                    "identificador": "1234567",
+                    "tarifa": "Transferencia",
+                    "descricao": "Taxa de 0.5%",
+                    "valor": "Transferencia",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123567",
+                    "tarifa": "Pagamentos",
+                    "descricao": "Taxa de 0.2%",
+                    "valor": "Pagamentos",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123456",
+                    "tarifa": "Gateway de pagamento online",
+                    "descricao": "Taxa de 0.9%",
+                    "valor": "Gateway de pagamento online",
+                    "quando": 1234567
+                }
+            ]
+        },
+        {
+            "categoria": "transferencia",
+            "sobre": "Detalhe da categoria e subcategorias",
+            "itens": [
+                {
+                    "identificador": "1234567",
+                    "tarifa": "Transferencia",
+                    "descricao": "Taxa de 0.5%",
+                    "valor": "Transferencia",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123567",
+                    "tarifa": "Pagamentos",
+                    "descricao": "Taxa de 0.2%",
+                    "valor": "Pagamentos",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123456",
+                    "tarifa": "Gateway de pagamento online",
+                    "descricao": "Taxa de 0.9%",
+                    "valor": "Gateway de pagamento online",
+                    "quando": 1234567
+                }
+            ]
+        },
+        {
+            "categoria": "transferencia",
+            "sobre": "Detalhe da categoria e subcategorias",
+            "itens": [
+                {
+                    "identificador": "1234567",
+                    "tarifa": "Transferencia",
+                    "descricao": "Taxa de 0.5%",
+                    "valor": "Transferencia",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123567",
+                    "tarifa": "Pagamentos",
+                    "descricao": "Taxa de 0.2%",
+                    "valor": "Pagamentos",
+                    "quando": 1234567
+                },
+                {
+                    "identificador": "123456",
+                    "tarifa": "Gateway de pagamento online",
+                    "descricao": "Taxa de 0.9%",
+                    "valor": "Gateway de pagamento online",
+                    "quando": 1234567
+                }
+            ]
+        }
+    ]
+}
