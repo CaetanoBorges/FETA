@@ -186,12 +186,16 @@ const handleLocation = async () => {
             if (path == "/privacidade") {
                 loader.abrir();
                 setTimeout(function () {
+                    InicioRequests.termosecondicoesWatchVer();
+                    $("#privacidade").prop("disabled", "disabled");
                     loader.fechar();
                 }, 1000);
             }
             if (path == "/termos") {
                 loader.abrir();
                 setTimeout(function () {
+                    InicioRequests.termosecondicoesWatchVer();
+                    $("#termos").prop("disabled", "disabled");
                     loader.fechar();
                 }, 1000);
             }
@@ -199,6 +203,15 @@ const handleLocation = async () => {
                 loader.abrir();
                 setTimeout(function () {
                     InicioRequests.termosecondicoesWatchVer();
+                    InicioRequests.termosecondicoesWatchAct();
+                    loader.fechar();
+                }, 1000);
+            }
+            if (path == "/prv") {
+                loader.abrir();
+                setTimeout(function () {
+                    InicioRequests.termosecondicoesWatchVer();
+                    InicioRequests.termosecondicoesWatchAct();
                     loader.fechar();
                 }, 1000);
             }
@@ -229,7 +242,12 @@ const handleLocation = async () => {
                 loader.abrir();
 
                 setTimeout(function () {
-
+                    new SlimSelect({
+                        select: '#descricao',
+                        settings: {
+                            showSearch: false
+                        }
+                    });
                     EnviarRequests.init()
                     loader.fechar();
                 }, 1000);
@@ -238,6 +256,12 @@ const handleLocation = async () => {
                 loader.abrir();
 
                 setTimeout(function () {
+                    new SlimSelect({
+                        select: '#descricao',
+                        settings: {
+                            showSearch: false
+                        }
+                    });
                     ReceberRequests.init()
                     loader.fechar();
                 }, 1000);
@@ -289,9 +313,13 @@ const handleLocation = async () => {
             if (path == "/inicio") {
                 loader.abrir();
                 setTimeout(function () {
+                    InicioRequests.termosecondicoesValidar();
                     InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
+                setTimeout(function () {
+                    InicioRequests.termosecondicoesValidar();
+                }, 2000);
 
             }
             if (path == "/login01") {
@@ -310,8 +338,8 @@ const handleLocation = async () => {
             }
             if (path == "/login02") {
                 loader.abrir();
-                $(".nome").html((localStorage.getItem("nome")).toUpperCase());
                 setTimeout(function () {
+                $(".nome").html((localStorage.getItem("nome")).toUpperCase());
                     $('.preview').prevue();
                     $(function () {
                         $(".preview").on('input', function (e) {

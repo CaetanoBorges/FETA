@@ -1,38 +1,51 @@
 <div id="render">
-        <debliwui-voltar></debliwui-voltar>
-        <br><br>
-        <img src="assets/pub2.png" class="logo">
-        <br>
-        <div style="padding: 4%;">  
-            <h1 class="head_label">CONTA PESSOAL</h1> <br><br>
-            <div class="mb-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12" style="padding: 0;">  
-                            <label class="form-label margin_0">Ocupação</label>
-                            <select name="ocupacao" id="ocupacao" class="form-control">
-                                <option value="Funcionario_estado">Funcionário do estado</option>
-                                <option value="Funcionario_privado">Funcionario do privado</option>
-                                <option value="Profissional_autonomo">Profissional autonomo</option>
-                                <option value="Comerciante">Comerciante</option>
-                                <option value="Empresario">Empresário</option>
-                                <option value="Freelancer">Freelancer</option>
-                                <option value="Micheiro">Micheiro</option>
-                                <option value="Desempregado">Desempregado</option>
-                                <option value="Outro...">Outro...</option>
-                            </select>
-                        </div>
+    <debliwui-voltar></debliwui-voltar>
+    <br><br>
+    <img src="assets/pub2.png" class="logo">
+    <br>
+    <div style="padding: 4%;">
+        <h1 class="head_label">CONTA PESSOAL</h1> <br><br>
+        <div class="mb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" style="padding: 0;">
+                        <label class="form-label margin_0">Ocupação</label>
+                        <select name="ocupacao" id="ocupacao"
+                            class="form-control">
+                            <option value="Funcionario_estado">Funcionário do
+                                estado</option>
+                            <option value="Funcionario_privado">Funcionario do
+                                privado</option>
+                            <option value="Profissional_autonomo">Profissional
+                                autonomo</option>
+                            <option value="Comerciante">Comerciante</option>
+                            <option value="Empresario">Empresário</option>
+                            <option value="Freelancer">Freelancer</option>
+                            <option value="Micheiro">Micheiro</option>
+                            <option value="Desempregado">Desempregado</option>
+                            <option value="Outro...">Outro...</option>
+                        </select>
                     </div>
                 </div>
-                
             </div>
-            <div class="mb-4">
-                <label class="form-label margin_0">Telefone</label>
-                <input type="number" class="form-control input-inicio" inputmode="numeric" maxlength="9"  id="telefone" autocomplete="off">
+
+        </div>
+        <div class="mb-4">
+            <label class="form-label margin_0">Telefone</label>
+            <div class="input-group">
+
+                <span class="input-group-text"
+                    style="border-radius:0;border-bottom: 1px solid #000;"
+                    for="telefone"><b>+244</b></span>
+                <input type="number" class="form-control input-inicio"
+                    inputmode="numeric" maxlength="9" id="telefone"
+                    autocomplete="off">
             </div>
         </div>
+    </div>
 
-        <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out" onclick="InicioRequests.criarConta_dois()">
+    <img src="assets/btn/btn-ceta-ir.svg" class="criar-conta hvr-bounce-out"
+        onclick="InicioRequests.criarConta_dois()">
 </div>
 <style>
 .btn-avancar{display: block;margin: auto;width: 94pt;}

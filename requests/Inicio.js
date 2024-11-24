@@ -11,17 +11,75 @@ class InicioReq {
             console.log($(this).prop("checked"));
             if($(this).prop("checked")){
                 localStorage.setItem("termos", "1");
+                clearInterval(window.termInterval);
+                setTimeout(function(){
+                    history.back();
+                },1000)
             }else{
                 localStorage.setItem("termos", "0");
+            };
+        });
+        $("#privacidade").change(function(){
+            console.log($(this).prop("checked"));
+            if($(this).prop("checked")){
+                localStorage.setItem("privacidade", "1");
+                clearInterval(window.privInterval);
+                setTimeout(function(){
+                    history.back();
+                },1000)
+            }else{
+                localStorage.setItem("privacidade", "0");
             };
         });
     }
     termosecondicoesWatchVer() {
         var termos = localStorage.getItem("termos");
+        var privacidade = localStorage.getItem("privacidade");
         if(termos == "1"){
             $("#termos").prop("checked",true);
         }else{
             $("#termos").prop("checked",false);
+        }
+        if(privacidade == "1"){
+            $("#privacidade").prop("checked",true);
+        }else{
+            $("#privacidade").prop("checked",false);
+        }
+    }
+    termosecondicoesValidar() {
+        var anima = function(el){
+            $(el).animate({
+                opacity: ".1"	
+            }, 100, function() {
+                setTimeout(function(){
+                    $(el).css({opacity:1});
+                },700);
+            });
+        }
+        var termos = localStorage.getItem("termos");
+        var privacidade = localStorage.getItem("privacidade");
+        if(termos == "1" || termos == '1'){
+            clearInterval(window.termInterval);
+            $("#btn-termos").removeClass("btn-flexa-roxo").addClass("btn-flexa");
+        }else if(termos == "0" || termos == '0'){
+            window.termInterval = setInterval(function(){
+                anima("#btn-termos");
+            },2500);
+        }
+        if(privacidade == "1" || privacidade == '1'){
+            clearInterval(window.privInterval);
+            $("#btn-privacidade").removeClass("btn-flexa-roxo").addClass("btn-flexa");
+            
+        }else if(privacidade == "0" || privacidade == '0'){
+            window.privInterval = setInterval(function(){
+                anima("#btn-privacidade");
+            },2500);
+        }
+
+        if(termos == "1" && privacidade == "1"){
+            clearInterval(window.termInterval);
+            clearInterval(window.privInterval);
+            $("#btn-avancar").show();
         }
     }
     tarifario() {

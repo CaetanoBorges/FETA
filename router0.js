@@ -33,7 +33,7 @@ const handleLocation = async () => {
     if (path == "/inicio" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
         menu.fechar();
     } else {
-        menu.abrir();
+        menu.abrir(); 
     }
 
     if (path == "/") {
