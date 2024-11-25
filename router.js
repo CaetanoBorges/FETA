@@ -60,6 +60,7 @@ const routes = {
 }
 
 const handleLocation = async () => {
+    
     const path = window.location.pathname;
     const hash = window.location.hash;
     ESCOPO.init = true;
@@ -102,7 +103,39 @@ const handleLocation = async () => {
 
             }
             if (path == "/scan") {
-                
+                localStorage.removeItem("bifrente");
+                localStorage.removeItem("bitras");
+                function frente() {
+                    $(".check-frente").show();
+                    $(".check-check-frente").css({opacity: ".5"});
+                    if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
+                        $(".btn-avancar").css({display:"block"});
+                    }
+                }
+                $("#camara-frente").change(function(){
+                    localStorage.setItem("bifrente", "#camara-frente");
+                    frente();
+                });
+                $("#galeria-frente").change(function(){
+                    localStorage.setItem("bifrente", "#galeria-frente");
+                    frente();
+                });
+                function tras() {
+                    $(".check-tras").show();
+                    $(".check-check-tras").css({opacity: ".5"});
+                    if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
+                        $(".btn-avancar").css({display:"block"});
+                    }
+                }
+                $("#camara-tras").change(function(){
+                    localStorage.setItem("bitras", "#camara-tras");
+                    tras();
+                });
+                $("#galeria-tras").change(function(){
+                    localStorage.setItem("bitras", "#galeria-tras");
+                    tras();
+                });
+                //$("#camara-frente").trigger('click');
 
             }
             if (path == "/dadosscan") {

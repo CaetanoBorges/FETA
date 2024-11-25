@@ -404,49 +404,30 @@ class InicioReq {
        } */
 
 
-    criarConta_um() {
-        var empresa = false;
-        var valor = $("input[name=radio-criar]:checked").val();
+    scanBilhete() {
+        var frente = $((localStorage.getItem("bifrente")));
+        var tras = $((localStorage.getItem("bitras")));
+        
+        
 
-        if (valor != "particular") { empresa = true; }
-        ESCOPO.dadosOperacao = {
-            comercial: empresa
-        };
-        if (empresa) {
-            vaiTela("/criarempresa");
-        } else {
-            vaiTela("/criarindividual");
-        }
+        console.log(frente,tras);
     }
 
     criarConta_dois() {
-        var nome = $("#nome").val();
-        var bi = $("#bi").val();
-        var genero = $("#genero").val();
-        var nascimento = $("#nascimento").val();
+        var ocupacao = $("#ocupacao").val();
         var telefone = $("#telefone").val();
 
-        if (nome.length < 5 || bi.length < 5) {
+        if (telefone.length != 9 ) {
             this.notificacao.sms("Preencha os dados corretamente", 1);
             return;
         }
 
-        var dezoitoAnos = (new Date().getFullYear() - 18);
-        var idade = Number(($("#nascimento").val()).split("-")[0]);
-        if (dezoitoAnos < idade) {
-            this.notificacao.sms("Verifica a sua data de nascimento, parece ser menor de idade", 1);
-            return;
-        }
-
         ESCOPO.dadosOperacao = {
-            nome: nome,
-            bi: bi,
-            genero: genero,
-            nascimento: nascimento,
+            ocupacao: ocupacao,
             id: telefone
         };
-
-        this.verificaExistencia();
+        vaiTela("/scan");
+        //this.verificaExistencia();
 
     }
 

@@ -7,9 +7,9 @@
 
     <div class="transparente">
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin:0">
                 <span class="quallado">PARTE DE FRENTE DO BILHETE</span> <img
-                    src="assets/check.svg" class="check">
+                    src="assets/check.svg" class="check check-frente" for="galeria-frente">
                 <div class="row check-check-frente">
                     <div class="col-6">
                         <label for="camara-frente" class="hvr-bounce-out">CAPTURAR
@@ -36,19 +36,19 @@
         <div class="container">
             <div class="row" style="margin:0">
                 <span class="quallado">PARTE DE TRÁS DO BILHETE</span> <img
-                    src="assets/check.svg" class="check">
+                    src="assets/check.svg" class="check check-tras" for="galeria-tras">
                 <div class="row check-check-tras">
                     <div class="col-6">
-                        <label for="camara-frente" class="hvr-bounce-out">CAPTURAR
+                        <label for="camara-tras" class="hvr-bounce-out">CAPTURAR
                             <br> COM CAMARA</label>
                         <input type="file" accept="image/*;capture=camera"
-                            capture="camera" id="camara-frente" style="width:
+                            capture="camera" id="camara-tras" style="width:
                             100px;display: none;">
                     </div>
                     <div class="col-6">
-                        <label for="galeria-frente" class="hvr-bounce-out">SELECIONAR
+                        <label for="galeria-tras" class="hvr-bounce-out">SELECIONAR
                             <br> DA GALERIA</label>
-                        <input type="file" accept="image/*" id="galeria-frente"
+                        <input type="file" accept="image/*" id="galeria-tras"
                             style="width: 100px;display: none;">
                     </div>
                 </div>
@@ -58,14 +58,11 @@
 
     <br><br>
     <img src="assets/btn/btn-scanear.svg" class="btn-avancar hvr-bounce-out"
-        onclick='vaiTela(" login01")'>
-
-
-
+        onclick='InicioRequests.scanBilhete()'>
     <style>
         .hvr-bounce-out {
     display: inline-flex;}
-    .check{width: 50px;height:50px;position: absolute;top: 10px; right: 10px;border: 1px solid #640564;border-radius: 50%;}
+    .check{width: 50px;height:50px;position: absolute;top: 10px; right: 10px;border: 1px solid #640564;border-radius: 50%;display: none;}
     .check-check-frente{width: 100%;}
     .check-check-tras{width: 100%;}
     .quallado {
@@ -98,7 +95,7 @@
         font-size: 13px;
     }
 
-.btn-avancar{display: block;margin: auto;width: 164pt;}
+.btn-avancar{display: none;margin: auto;width: 164pt;}
 
 .logo{width: 100%;
     display: block;
