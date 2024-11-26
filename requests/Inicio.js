@@ -7,27 +7,27 @@ class InicioReq {
         this.db = db;
     }
     termosecondicoesWatchAct() {
-        $("#termos").change(function(){
+        $("#termos").change(function () {
             console.log($(this).prop("checked"));
-            if($(this).prop("checked")){
+            if ($(this).prop("checked")) {
                 localStorage.setItem("termos", "1");
                 clearInterval(window.termInterval);
-                setTimeout(function(){
+                setTimeout(function () {
                     history.back();
-                },1000)
-            }else{
+                }, 1000)
+            } else {
                 localStorage.setItem("termos", "0");
             };
         });
-        $("#privacidade").change(function(){
+        $("#privacidade").change(function () {
             console.log($(this).prop("checked"));
-            if($(this).prop("checked")){
+            if ($(this).prop("checked")) {
                 localStorage.setItem("privacidade", "1");
                 clearInterval(window.privInterval);
-                setTimeout(function(){
+                setTimeout(function () {
                     history.back();
-                },1000)
-            }else{
+                }, 1000)
+            } else {
                 localStorage.setItem("privacidade", "0");
             };
         });
@@ -35,48 +35,48 @@ class InicioReq {
     termosecondicoesWatchVer() {
         var termos = localStorage.getItem("termos");
         var privacidade = localStorage.getItem("privacidade");
-        if(termos == "1"){
-            $("#termos").prop("checked",true);
-        }else{
-            $("#termos").prop("checked",false);
+        if (termos == "1") {
+            $("#termos").prop("checked", true);
+        } else {
+            $("#termos").prop("checked", false);
         }
-        if(privacidade == "1"){
-            $("#privacidade").prop("checked",true);
-        }else{
-            $("#privacidade").prop("checked",false);
+        if (privacidade == "1") {
+            $("#privacidade").prop("checked", true);
+        } else {
+            $("#privacidade").prop("checked", false);
         }
     }
     termosecondicoesValidar() {
-        var anima = function(el){
+        var anima = function (el) {
             $(el).animate({
-                opacity: ".1"	
-            }, 100, function() {
-                setTimeout(function(){
-                    $(el).css({opacity:1});
-                },700);
+                opacity: ".1"
+            }, 100, function () {
+                setTimeout(function () {
+                    $(el).css({ opacity: 1 });
+                }, 700);
             });
         }
         var termos = localStorage.getItem("termos");
         var privacidade = localStorage.getItem("privacidade");
-        if(termos == "1" || termos == '1'){
+        if (termos == "1" || termos == '1') {
             clearInterval(window.termInterval);
             $("#btn-termos").removeClass("btn-flexa-roxo").addClass("btn-flexa");
-        }else if(termos == "0" || termos == '0'){
-            window.termInterval = setInterval(function(){
+        } else if (termos == "0" || termos == '0') {
+            window.termInterval = setInterval(function () {
                 anima("#btn-termos");
-            },2500);
+            }, 2500);
         }
-        if(privacidade == "1" || privacidade == '1'){
+        if (privacidade == "1" || privacidade == '1') {
             clearInterval(window.privInterval);
             $("#btn-privacidade").removeClass("btn-flexa-roxo").addClass("btn-flexa");
-            
-        }else if(privacidade == "0" || privacidade == '0'){
-            window.privInterval = setInterval(function(){
+
+        } else if (privacidade == "0" || privacidade == '0') {
+            window.privInterval = setInterval(function () {
                 anima("#btn-privacidade");
-            },2500);
+            }, 2500);
         }
 
-        if(termos == "1" && privacidade == "1"){
+        if (termos == "1" && privacidade == "1") {
             clearInterval(window.termInterval);
             clearInterval(window.privInterval);
             $("#btn-avancar").show();
@@ -98,14 +98,14 @@ class InicioReq {
         $.ajax(settings).done(function (response) {
             //console.log(response);
             if (response.ok) {
-                    var AcordionUI = "";
+                var AcordionUI = "";
                 //esse.loader.fechar();
                 (response.payload).forEach(function (item, index) {
 
                     var show = "show";
                     var expanded = "true";
                     var collapsed = "";
-                    if(index > 0 ){
+                    if (index > 0) {
                         show = "";
                         expanded = "false";
                         collapsed = "collapsed";
@@ -143,7 +143,7 @@ class InicioReq {
                         </tbody>
                     </table>
                 `;
-                AcordionUI += `
+                    AcordionUI += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne${index}">
                             <button class="accordion-button ${collapsed}" type="button"
@@ -165,7 +165,7 @@ class InicioReq {
                     $("#accordionExample").append(AcordionUI);
                 });
 
-                
+
             }
         });
     }
@@ -405,19 +405,39 @@ class InicioReq {
 
 
     scanBilhete() {
-        var frente = $((localStorage.getItem("bifrente")));
-        var tras = $((localStorage.getItem("bitras")));
-        
-        
+        var frente = document.querySelector((localStorage.getItem("bifrente")));
+        var tras = document.querySelector((localStorage.getItem("bitras")));
 
-        console.log(frente,tras);
+        var form = new FormData();
+        form.append("bifrente", frente.files[0], frente.value);
+        form.append("bitras", tras.files[0], tras.value);
+
+        var settings = {
+            "url": (this.apiUrl) + "/scan",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": (this.db.getToken()),
+            },
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            
+        });
+
+        console.log(frente.value, tras.files[0]); 
     }
 
     criarConta_dois() {
         var ocupacao = $("#ocupacao").val();
         var telefone = $("#telefone").val();
 
-        if (telefone.length != 9 ) {
+        if (telefone.length != 9) {
             this.notificacao.sms("Preencha os dados corretamente", 1);
             return;
         }
