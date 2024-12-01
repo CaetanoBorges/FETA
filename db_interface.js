@@ -35,7 +35,9 @@ class StorageFeta {
             if ((db.getToken()).length > 30) {
                 vaiTela("/home");
             } else {
-                vaiTela("/login02");
+                setTimeout(() => {
+                    vaiTela("/login02");
+                }, 1000);
             }
         } else {
             vaiTela("/inicio");
