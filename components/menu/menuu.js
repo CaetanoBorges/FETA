@@ -145,6 +145,9 @@ debliwui_menu.innerHTML = `
                     <a href="/configuracoes" class="configuracoes">
                         <li> <img src="assets/configurar-menu.svg"> <span>Configurações</span></li>
                     </a>
+                    <a href="/tarifario" class="tarifario">
+                        <li> <img src="assets/tarifa-menu.svg"> <span>Tarifário</span></li>
+                    </a>
                     <a href="/termosprivacidade" class="termosprivacidade">
                         <li> <img src="assets/privacidade-menu.svg"> <span>Privacidade e termos</span></li>
                     </a>
@@ -199,7 +202,8 @@ class debliwuimenu extends HTMLElement {
     "/reclamacao": "/pages/reclamacao.html",
     "/termosprivacidade": "/pages/termosprivacidade.html",
     "/perguntas": "/pages/perguntas.html",
-    "/apoio": "/pages/apoio.html"
+    "/apoio": "/pages/apoio.html",
+    "/tarifario": "/pages/tarifario.html"
 }
 
 handleLocation = async () => {
@@ -307,6 +311,15 @@ handleLocation = async () => {
                     loader.fechar();  
                 }, 1000);
             } 
+            
+            if (path == "/tarifario") {
+                loader.abrir();
+                setTimeout(function () {
+                    InicioRequests.tarifario();
+                    loader.fechar();
+                }, 1000);
+
+            }
         })
     })
     
@@ -433,6 +446,12 @@ handleLocation = async () => {
             esse.handleLocation(esse.routes);
         });
         this.shadowRoot.querySelector('.apoio').addEventListener("click", function (event) {
+            event = event || window.event;
+            event.preventDefault();
+            window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
+            esse.handleLocation(esse.routes);
+        });
+        this.shadowRoot.querySelector('.tarifario').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
