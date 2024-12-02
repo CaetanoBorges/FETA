@@ -139,8 +139,12 @@ const handleLocation = async () => {
 
             }
             if (path == "/dadosscan") {
-                
+                loader.abrir();
 
+                setTimeout(function () {
+                    InicioRequests.pegaDadosScan();
+                    loader.fechar();
+                }, 1000);
             }
             //----------
             if (path == "/pendentes") {

@@ -403,8 +403,24 @@ class InicioReq {
            }
        } */
 
+    pegaDadosScan() {
+        var BI = JSON.parse(localStorage.getItem("dados_bi"));
+        $("#nome").val(BI.nome);
+        $("#filiacao").val(BI.filiacao);
+        $("#morada").val(BI.morada);
+        $("#naturalde").val(BI.natural);
+        $("#nascimento").val(BI.nascimento);
+        $("#provincia").val(BI.provincia);
+        $("#nascimento").val(BI.nascimento);
+        $("#bi").val(BI.bi);
+        $("#sexo").val(BI.sexo);
+        $("#altura").val(BI.altura);
+        $("#estadocivil").val(BI.esta_civil);
+    }
 
     scanBilhete() {
+        var esse = this;
+        esse.loader.abrir();
         var frente = document.querySelector((localStorage.getItem("bifrente")));
         var tras = document.querySelector((localStorage.getItem("bitras")));
 
@@ -426,8 +442,18 @@ class InicioReq {
         };
 
         $.ajax(settings).done(function (response) {
-            console.log(response);
+            var obj = JSON.parse(response);
+            if (obj.ok) {
+                console.log(obj.payload);
+                localStorage.setItem("foto_bi", obj.payload.foto_bi);
+                localStorage.setItem("dados_bi", JSON.stringify(obj.payload));
+                vaiTela("/dadosscan");
+            }else{
+                esse.notificacao.sms("Erro, algo inexperado aconteceu", 1);
+            }
             
+        }).always(function (a) {
+            esse.loader.fechar();
         });
 
         console.log(frente.value, tras.files[0]); 
@@ -436,7 +462,8 @@ class InicioReq {
     criarConta_dois() {
         var ocupacao = $("#ocupacao").val();
         var telefone = $("#telefone").val();
-
+        localStorage.setItem("ocupacao", ocupacao);
+        localStorage.setItem("telefone", telefone);
         if (telefone.length != 9) {
             this.notificacao.sms("Preencha os dados corretamente", 1);
             return;
@@ -452,22 +479,39 @@ class InicioReq {
     }
 
     criarConta_dois_emp() {
+        var ocupacao = localStorage.getItem("ocupacao");
+        var telefone = localStorage.getItem("telefone");
+        var foto_bi = localStorage.getItem("foto_bi");
         var nome = $("#nome").val();
-        var nif = $("#nif").val();
-        var area = $("#area").val();
-        var telefone = $("#telefone").val();
+        var filiacao = $("#filiacao").val();
+        var morada = $("#morada").val();
+        var naturalde = $("#naturalde").val();
+        var nascimento = $("#nascimento").val();
+        var provincia = $("#provincia").val();
+        var bi = $("#bi").val();
+        var sexo = $("#sexo").val();
+        var altura = $("#altura").val();
+        var estadocivil = $("#estadocivil").val();
 
-        if (nome.length < 5 || nif.length < 5) {
+        if (nome.length < 5 || filiacao.length < 5 || morada.length < 5 || naturalde.length < 5 || nascimento.length < 5 || provincia.length < 5 || bi.length < 5 || sexo.length < 5 || estadocivil.length < 5 ) {
             this.notificacao.sms("Preencha os dados corretamente", 1);
             return;
         }
 
         ESCOPO.dadosOperacao = {
-            nome: nome,
-            nif: nif,
-            area: area,
+            foto_bi: foto_bi,
+            ocupacao: ocupacao,
             id: telefone,
-            comercial: true
+            bi: bi,
+            nome: nome,
+            filiacao: filiacao,
+            morada: morada,
+            natural_de: naturalde,
+            nascimento: nascimento,
+            provincia: provincia,
+            genero: sexo,
+            altura: altura,
+            estado_civil: estadocivil
         };
 
         this.verificaExistencia();
@@ -482,17 +526,6 @@ class InicioReq {
 
         var esse = this;
         esse.loader.abrir();
-        var body = {
-            comercial: true,
-            id: ESCOPO.dadosOperacao.id,
-            bi: "123456789",
-            nome: ESCOPO.dadosOperacao.nome,
-            genero: ESCOPO.dadosOperacao.genero,
-            nascimento: ESCOPO.dadosOperacao.nascimento,
-        }
-        if (ESCOPO.dadosOperacao.comercial) {
-
-        }
         var settings = {
             "url": (esse.apiUrl) + "/auth/verificaexistencia",
             "method": "POST",
@@ -500,7 +533,7 @@ class InicioReq {
             "headers": {
                 "Content-Type": "application/json"
             },
-            "data": JSON.stringify({ id: ESCOPO.dadosOperacao.id, comercial: ESCOPO.dadosOperacao.comercial }),
+            "data": JSON.stringify({ id: ESCOPO.dadosOperacao.id, bi: ESCOPO.dadosOperacao.bi }),
         };
 
         $.ajax(settings).done(function (response) {
