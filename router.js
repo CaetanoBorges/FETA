@@ -56,7 +56,9 @@ const routes = {
     "/tarif": "/pages/tarifario.html",
     "/fale": "/pages/apoio.html",
     "/scan": "/pages/scan.html",
-    "/dadosscan": "/pages/dadosscan.html"
+    "/dadosscan": "/pages/dadosscan.html",
+    "/convidaramigo": "/pages/convidaramigo.html",
+    "/limitestransacao": "/pages/limitestransacao.html"
 }
 
 const handleLocation = async () => {
@@ -501,6 +503,18 @@ const handleLocation = async () => {
                     //InicioRequests.slide();
                     loader.fechar();
                 }, 1000);
+
+            }
+            if (path == "/convidaramigo") {
+                
+                
+                 
+
+            }
+            if (path == "/limitestransacao") {
+                
+                
+                 
 
             }
         })

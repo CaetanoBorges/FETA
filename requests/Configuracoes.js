@@ -162,4 +162,77 @@ class ConfiguracoesReq {
             
 
     }
+    convidarAmigo() {
+        var esse = this;
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
+        esse.loader.abrir();
+        var telefone = $("#telefone").val();
+        if(telefone.length != 9){
+            this.notificacao.sms("Insira o telefone corretamente", 1);
+            esse.loader.fechar();
+            return;
+        }
+        var settings = {
+            "url": (esse.apiUrl)+"/config/convidaramigo",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({telefone: telefone}),
+        };
+
+        $.ajax(settings).done(function (response) {
+            if(response.ok){
+                InicioRequests.home();
+                esse.notificacao.sms(response.payload, 0);
+                setTimeout(function(){
+                    vaiTela("\home");
+                },1000);
+            }else{
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+            
+
+    }
+    verLimites() {
+        var ver =  db.verificaSessao();
+        if(ver){
+            db.verificaToken();
+            return;
+        }
+        esse.loader.abrir();
+        var telefone = $("#telefone").val();
+        var settings = {
+            "url": (esse.apiUrl)+"/config/verlimites",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken(),
+                "Content-Type": "application/json"
+            }
+        };
+
+        $.ajax(settings).done(function (response) {
+            if(response.ok){
+                InicioRequests.home();
+                esse.notificacao.sms(response.payload, 0);
+                setTimeout(function(){
+                    vaiTela("\home");
+                },1000);
+            }else{
+                esse.notificacao.sms(response.payload, 1);
+                esse.loader.fechar();
+            }
+        });
+            
+
+    }
 }
