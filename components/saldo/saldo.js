@@ -1,7 +1,7 @@
 const debliwui_saldo = document.createElement('template');
 debliwui_saldo.innerHTML = `
     <style>
-        .saldo-info{display: block; width: 101%;margin-top: 40px;position: relative;}
+        .saldo-info{display: block; width: 101%;margin-top: 40px;position: relative;height:145px;}
         .saldo-info p{position: absolute;left:15px;top:2px;font-size: 24pt;line-height: 24pt;color: white;font-weight: 100;}
         .saldo-info .moeda{position: absolute;right:17px;top:7px;font-size: 14pt;font-weight: normal;color: white;}
         .saldo-info p span{font-weight: bolder;}

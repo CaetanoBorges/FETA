@@ -171,7 +171,7 @@ debliwui_menu.innerHTML = `
 
 class debliwuimenu extends HTMLElement {
 
-    constructor(route,jquery) {
+    constructor(route, jquery) {
         super(route);
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(debliwui_menu.content.cloneNode(true));
@@ -191,140 +191,95 @@ class debliwuimenu extends HTMLElement {
             //container.style.display = "none";
         }
     }
-    routes = {
-    404: "/pages/404.html",
-    "/": "/pages/inicio.html",
-    "/pendentes": "/pages/pendentes.html",
-    "/iban": "/pages/iban.html",
-    "/recorrentes": "/pages/recorrentes.html",
-    "/depositarlevantar": "/pages/depositarlevantar.html",
-    "/configuracoes": "/pages/configuracoes.html",
-    "/reclamacao": "/pages/reclamacao.html",
-    "/termosprivacidade": "/pages/termosprivacidade.html",
-    "/perguntas": "/pages/perguntas.html",
-    "/apoio": "/pages/apoio.html", 
-    "/tarifario": "/pages/tarifario.html"
-}
 
-handleLocation = async () => {
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    
-    
-    const route = routes[path] || routes[404];
-    const html = await fetch(route).then(function(data){
-        var res = data.text();
-        res.then(function(ui){
-            document.querySelector(".corpo").innerHTML = ui;
-            if (path == "/reclamacao") {
-                loader.abrir();
-                setTimeout(function () {
-                    Funcoes.reclamou();
-                    loader.fechar();
-                }, 1000);
 
-            }else{
-                
-            }
+    handleLocation = async () => {
+        const path = window.location.pathname;
+        const hash = window.location.hash;
+        ESCOPO.init = true;
 
-        
-            if (hash == "") {
-                
-            }
-            if (hash == "#chamarotaxi") {
-                
-            }
+        const ui = UI_PAGES[path] || UI_PAGES[404];
 
-            if (path == "/home") {
-                loader.abrir();
-                
-                setTimeout(function () {
+        document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
+        document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
+        if (path == "/inicio") {
+            (document.querySelector(".corpo")).innerHTML = (ui);
+        } else {
+            loader.abrir();
+            $(document.querySelector(".corpo")).animate({ "opacity": "0" }, 300, function () {
+                $(document.querySelector(".corpo")).html(ui);
+            });
+        }
 
-                    
+        $(document.querySelector(".corpo")).animate({ "opacity": "1" }, 300);
+        db.verificaSessao();
+        if (path == "/pendentes") {
 
-                    loader.fechar();
-                }, 1000);
-            }
-            if (path == "/enviar") {
-                loader.abrir();
-                
-                setTimeout(function () {
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
 
-                    
-
-                    loader.fechar();
-                }, 1000);
-            }
-            if (path == "/pendentes") {
-                loader.abrir();                
-                setTimeout(function () {
                     PendentesRequests.pendentes();
+                }
+            }, 1000)
 
-                }, 1000);
-            }
-            if (path == "/iban") {
-                loader.abrir();                
-                setTimeout(function () {
-                    IbanRequests.contas();
-                    loader.fechar();
-                }, 1000);
-            }
-            if (path == "/recorrentes") {
-                loader.abrir();                
-                setTimeout(function () {
+        }
+        if (path == "/recorrentes") {
+
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
+
                     RecorrentesRequests.recorrentes();
-                     
-                }, 1000);
-            } 
-            if (path == "/depositarlevantar") {
-                loader.abrir();                
-                setTimeout(function () {
+                }
+            }, 1000)
+
+        }
+        if (path == "/depositarlevantar") {
+
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
+
                     DepositarLevantarRequests.init();
-                    loader.fechar();  
-                }, 1000);
-            } 
-            if (path == "/configuracoes") {
-                loader.abrir();                
-                setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
-                    loader.fechar();  
-                }, 1000);
-            } 
-            if (path == "/termosprivacidade") {
-                loader.abrir();                
-                setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
-                    loader.fechar();  
-                }, 1000);
-            } 
-            if (path == "/perguntas") {
-                loader.abrir();                
-                setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
-                    loader.fechar();  
-                }, 1000);
-            } 
-            if (path == "/apoio") {
-                loader.abrir();                
-                setTimeout(function () {
-                    //RecorrentesRequests.recorrentes();
-                    loader.fechar();  
-                }, 1000);
-            } 
-            
-            if (path == "/tarifario") {
-                loader.abrir();
-                setTimeout(function () {
+                }
+                loader.fechar();
+            }, 1000)
+
+        }
+        if (path == "/configuracoes") {
+
+            loader.fechar();
+        }
+
+        if (path == "/termosprivacidade") {
+            loader.fechar();
+        }
+        if (path == "/perguntas") {
+            loader.fechar();
+        }
+
+        if (path == "/home") {
+
+
+            InicioRequests.home();
+            loader.fechar();
+        }
+        if (path == "/apoio") {
+
+
+            loader.fechar();
+        }
+
+        if (path == "/tarifario") {
+            loader.abrir();
+            setTimeout(function () {
+                if ((db.getToken()).length > 30) {
                     InicioRequests.tarifario();
-                    loader.fechar();
-                }, 1000);
+                }
+                loader.fechar();
+            }, 1000);
 
-            }
-        })
-    })
-    
+        }
 
-}
+    }
 
     fechar() {
         var $ = this.jquery;
@@ -345,22 +300,22 @@ handleLocation = async () => {
         var route = this.getAttribute('route');
         this.shadowRoot.querySelector('.aciona-menu').addEventListener("click", function () {
             let acionamenu = esse.shadowRoot.querySelector('.aciona-menu');
-            $(acionamenu).animate({"opacity":"0"},"fast");
-            $(acionamenu).animate({"opacity":"1"},"fast");
+            $(acionamenu).animate({ "opacity": "0" }, "fast");
+            $(acionamenu).animate({ "opacity": "1" }, "fast");
 
             let container = esse.shadowRoot.querySelector('.conteudo');
             let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                $(container).animate({"left":"100%"},"slow");
-                setTimeout(function(){
-                    $(backdrop).animate({"left":"0"},"fast");
-                },300);
+                $(container).animate({ "left": "100%" }, "slow");
+                setTimeout(function () {
+                    $(backdrop).animate({ "left": "0" }, "fast");
+                }, 300);
                 $(container).show();
                 //container.style.display = "block";
             } else {
-                $(container).animate({"left":"-100%"},"slow");
-                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).animate({ "left": "-100%" }, "slow");
+                $(backdrop).animate({ "left": "-100%" }, "fast");
                 $(container).hide();
                 //container.style.display = "none";
             }
@@ -370,15 +325,15 @@ handleLocation = async () => {
             let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
             if (container.style.display == "none") {
-                $(container).animate({"left":"100%"},"slow");
-                setTimeout(function(){
-                    $(backdrop).animate({"left":"0"},"fast");
-                },300);
+                $(container).animate({ "left": "100%" }, "slow");
+                setTimeout(function () {
+                    $(backdrop).animate({ "left": "0" }, "fast");
+                }, 300);
                 $(container).show("slow");
                 //container.style.display = "block";
             } else {
-                $(container).animate({"left":"-100%"},"slow");
-                $(backdrop).animate({"left":"-100%"},"fast");
+                $(container).animate({ "left": "-100%" }, "slow");
+                $(backdrop).animate({ "left": "-100%" }, "fast");
                 $(container).hide("slow");
                 //container.style.display = "none";
             }
@@ -390,14 +345,14 @@ handleLocation = async () => {
                 let backdrop = esse.shadowRoot.querySelector('.backdrop');
 
                 if (container.style.display == "none") {
-                     $(container).animate({"left":"100%"},"slow");
-                    setTimeout(function(){
-                        $(backdrop).animate({"left":"0"},"fast");
-                    },300);
+                    $(container).animate({ "left": "100%" }, "slow");
+                    setTimeout(function () {
+                        $(backdrop).animate({ "left": "0" }, "fast");
+                    }, 300);
                     $(container).show("slow");
                 } else {
-                    $(container).animate({"left":"-100%"},"slow");
-                    $(backdrop).animate({"left":"-100%"},"fast");
+                    $(container).animate({ "left": "-100%" }, "slow");
+                    $(backdrop).animate({ "left": "-100%" }, "fast");
                     $(container).hide("slow");
                 }
             });
@@ -457,7 +412,7 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        
+
     }
 
 }

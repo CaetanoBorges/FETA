@@ -6,7 +6,7 @@ use MatthiasMullie\Minify;
 require("vendor/autoload.php");
 
   //COMEÇA FAZENDO A MINIFICACAO DOS REQUESTS
-  /* $minifier = new Minify\JS("requests/Configuracoes.js");
+ $minifier = new Minify\JS("requests/Configuracoes.js");
   $minifier->add("requests/DepositarLevantar.js");
   $minifier->add("requests/Enviar.js");
   $minifier->add("requests/Estatistica.js");
@@ -16,9 +16,11 @@ require("vendor/autoload.php");
   $minifier->add("requests/Receber.js");
   $minifier->add("requests/Recorrentes.js");
   $minifier->add("requests/Transacoes.js");
+  $minifier->add("requests/Pagamentos.js");
   $minifiedPath = 'requests.js';
-  $minifier->minify($minifiedPath); */
+  $minifier->minify($minifiedPath); 
   //TERMINA MINIFICACAO DOS REQUESTS
+
 
   //COMEÇA FAZENDO A MINIFICACAO DOS COMPONENTES
 /*   $minifier = new Minify\JS("components/menu/menu.js");
@@ -34,7 +36,7 @@ require("vendor/autoload.php");
   $minifier->minify($minifiedPath); */
   //TERMINA MINIFICACAO DOS COMPONENTES
 
-  $minifier = new Minify\JS("rq.js");
+ /*  $minifier = new Minify\JS("rq.js");
   $minifiedPath = 'producao.js';
   $minifier->minify($minifiedPath);
-  echo $minifier->minify();
+  echo $minifier->minify(); */
