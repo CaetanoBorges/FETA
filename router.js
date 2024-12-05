@@ -62,7 +62,7 @@ const routes = {
 }
 
 const handleLocation = async () => {
-    
+
     const path = window.location.pathname;
     const hash = window.location.hash;
     ESCOPO.init = true;
@@ -75,7 +75,7 @@ const handleLocation = async () => {
             document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
             db.verificaSessao();
-            if (path == "/inicio" || path == "/scan" ||  path == "/dadosscan" || path == "/tarif" || path == "/fale" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
+            if (path == "/inicio" || path == "/scan" || path == "/dadosscan" || path == "/tarif" || path == "/fale" || path == "/login01" || path == "/login02" || path == "/criarconta" || path == "/criarindividual" || path == "/criarempresa" || path == "/inicioconfirmar" || path == "/criarpin" || path == "/recuperarconta" || path == "/recuperarpin" || path == "/trm" || path == "/prv") {
                 menu.fechar();
             } else {
                 menu.abrir();
@@ -89,7 +89,7 @@ const handleLocation = async () => {
             }
             //----------
             if (path == "/tarifario") {
-                
+
 
             }
             if (path == "/tarif") {
@@ -101,42 +101,45 @@ const handleLocation = async () => {
 
             }
             if (path == "/fale") {
-                
+
 
             }
             if (path == "/scan") {
-                localStorage.removeItem("bifrente");
-                localStorage.removeItem("bitras");
-                function frente() {
-                    $(".check-frente").show();
-                    $(".check-check-frente").css({opacity: ".5"});
-                    if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
-                        $(".btn-avancar").css({display:"block"});
+                setTimeout(function () {
+                    localStorage.removeItem("bifrente");
+                    localStorage.removeItem("bitras");
+                    function frente() {
+                        $(".check-frente").show();
+                        $(".check-check-frente").css({ opacity: ".5" });
+                        if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
+                            $(".btn-avancar").css({ display: "block" });
+                        }
                     }
-                }
-                $("#camara-frente").change(function(){
-                    localStorage.setItem("bifrente", "#camara-frente");
-                    frente();
-                });
-                $("#galeria-frente").change(function(){
-                    localStorage.setItem("bifrente", "#galeria-frente");
-                    frente();
-                });
-                function tras() {
-                    $(".check-tras").show();
-                    $(".check-check-tras").css({opacity: ".5"});
-                    if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
-                        $(".btn-avancar").css({display:"block"});
+                    $("#camara-frente").change(function () {
+                        localStorage.setItem("bifrente", "#camara-frente");
+                        frente();
+                    });
+                    $("#galeria-frente").change(function () {
+                        localStorage.setItem("bifrente", "#galeria-frente");
+                        frente();
+                    });
+                    function tras() {
+                        $(".check-tras").show();
+                        $(".check-check-tras").css({ opacity: ".5" });
+                        if (localStorage.getItem("bifrente") && localStorage.getItem("bitras")) {
+                            $(".btn-avancar").css({ display: "block" });
+                        }
                     }
-                }
-                $("#camara-tras").change(function(){
-                    localStorage.setItem("bitras", "#camara-tras");
-                    tras();
-                });
-                $("#galeria-tras").change(function(){
-                    localStorage.setItem("bitras", "#galeria-tras");
-                    tras();
-                });
+                    $("#camara-tras").change(function () {
+                        localStorage.setItem("bitras", "#camara-tras");
+                        tras();
+                    });
+                    $("#galeria-tras").change(function () {
+                        localStorage.setItem("bitras", "#galeria-tras");
+                        tras();
+                    });
+                    loader.fechar();
+                }, 1500);
                 //$("#camara-frente").trigger('click');
 
             }
@@ -378,7 +381,7 @@ const handleLocation = async () => {
             if (path == "/login02") {
                 loader.abrir();
                 setTimeout(function () {
-                $(".nome").html((localStorage.getItem("nome")).toUpperCase());
+                    $(".nome").html((localStorage.getItem("nome")).toUpperCase());
                     $('.preview').prevue();
                     $(function () {
                         $(".preview").on('input', function (e) {
@@ -506,15 +509,15 @@ const handleLocation = async () => {
 
             }
             if (path == "/convidaramigo") {
-                
-                
-                 
+
+
+
 
             }
             if (path == "/limitestransacao") {
-                
-                
-                 
+
+
+
 
             }
         })

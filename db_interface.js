@@ -45,6 +45,8 @@ class StorageFeta {
     }
     rmToken() {
         localStorage.removeItem("feta01_token_token");
+        localStorage.setItem("privacidade", "");
+        localStorage.setItem("termos", "");
         this.verificaToken();
         return true;
     }
