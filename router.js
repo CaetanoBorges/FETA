@@ -58,7 +58,15 @@ const routes = {
     "/scan": "/pages/scan.html",
     "/dadosscan": "/pages/dadosscan.html",
     "/convidaramigo": "/pages/convidaramigo.html",
-    "/limitestransacao": "/pages/limitestransacao.html"
+    "/limitestransacao": "/pages/limitestransacao.html",
+
+
+    "/levsemcartao": "/pages/levsemcartao.html",
+    "/consultarlevsemcartao": "/pages/consultarlevsemcartao.html",
+    "/fazerlevsemcartao": "/pages/fazerlevsemcartao.html",
+    "/qrcode": "/pages/qrcode.html"
+
+
 }
 
 const handleLocation = async () => {
@@ -519,6 +527,44 @@ const handleLocation = async () => {
 
 
 
+            }
+            if (path == "/qrcode") {
+                loader.abrir();
+                setTimeout(function () {
+
+                    function domReady(fn) {
+                        if (
+                            document.readyState === "complete" ||
+                            document.readyState === "interactive"
+                        ) {
+                            setTimeout(fn, 1000);
+                        } else {
+                            document.addEventListener("DOMContentLoaded", fn);
+                        }
+                    }
+
+                    domReady(function () {
+
+                        function onScanSuccess(decodeText, decodeResult) {
+                            alert("O resultado é : " + decodeText, decodeResult);
+                        }
+
+                        let htmlscanner = new Html5QrcodeScanner(
+                            "my-qr-reader",
+                            {
+                                fps: 10, qrbos: 250, 
+                                rememberLastUsedCamera: true,
+                                // Only support camera scan type.
+                                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+                            }
+                        );
+                        htmlscanner.render(onScanSuccess);
+                    });
+
+                }, 1000);
+                setTimeout(function () {
+                    loader.fechar();
+                }, 1500);
             }
         })
     })

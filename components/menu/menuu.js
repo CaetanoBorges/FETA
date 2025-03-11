@@ -139,9 +139,9 @@ debliwui_menu.innerHTML = `
                     <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
-                    <a href="/depositarlevantar" class="depositarlevantar">
+                    <!-- <a href="/depositarlevantar" class="depositarlevantar">
                         <li> <img src="assets/carregar-menu.svg"> <span>Carregar & Saque</span></li>
-                    </a>
+                    </a> -->
                     <a href="/configuracoes" class="configuracoes">
                         <li> <img src="assets/configurar-menu.svg"> <span>Configurações</span></li>
                     </a>
@@ -421,12 +421,12 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        this.shadowRoot.querySelector('.depositarlevantar').addEventListener("click", function (event) {
+        /* this.shadowRoot.querySelector('.depositarlevantar').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
-        });
+        }); */
         this.shadowRoot.querySelector('.configuracoes').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();

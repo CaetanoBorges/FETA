@@ -14,7 +14,8 @@
         src=assets/bootstrap/slinselec.js></script><script
         src=assets/polyfill/native-shim.js></script><script
         src=assets/polyfill/webcomponents-bundle.js></script><script
-        src=assets/polyfill/custom-elements.min.js></script>
+        src=assets/polyfill/custom-elements.min.js></script><script
+        src=assets/polyfill/qrcode.js></script>
         
         <script src=components/menu/menuu.js></script>
         <script src=components/header/header.js></script>
@@ -165,3 +166,30 @@ function updatePinDisplay() {
     });
 }
 localStorage.setItem("sessaolimite",60);</script>
+
+<!-- -->
+<script>
+navigator.getUserMedia (
+   // constraints
+   {
+      video: true,
+      audio: true
+   },
+
+   // successCallback
+   function(localMediaStream) {
+     /*  var video = document.querySelector('video');
+      video.src = window.URL.createObjectURL(localMediaStream);
+      video.onloadedmetadata = function(e) {
+         // Do something with the video here.
+      }; */
+   },
+
+   // errorCallback
+   function(err) {
+    if(err === PERMISSION_DENIED) {
+      // Explain why you need permission and how to update the permission setting
+    }
+   }
+);
+</script>
