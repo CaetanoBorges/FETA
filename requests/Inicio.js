@@ -285,6 +285,7 @@ class InicioReq {
                 if (sessao == "segs30") {
                     localStorage.setItem("sessaolimite", 30);
                 }
+                localStorage.setItem("tipo", res.payload.tipo);
                 localStorage.setItem("nome", res.payload.nome);
                 localStorage.setItem("balanco", res.payload.balanco);
                 localStorage.setItem("telefone", res.payload.telefone);

@@ -64,7 +64,9 @@ const routes = {
     "/levsemcartao": "/pages/levsemcartao.html",
     "/consultarlevsemcartao": "/pages/consultarlevsemcartao.html",
     "/fazerlevsemcartao": "/pages/fazerlevsemcartao.html",
-    "/qrcode": "/pages/qrcode.html"
+    "/qrcode": "/pages/qrcode.html",
+    "/depositar": "/pages/depositar.html",
+    "/levantar": "/pages/levantar.html"
 
 
 }
@@ -565,6 +567,19 @@ const handleLocation = async () => {
                 setTimeout(function () {
                     loader.fechar();
                 }, 1500);
+            }
+            
+            if (path == "/depositar") {
+
+
+
+
+            }
+            if (path == "/levantar") {
+
+
+
+
             }
         })
     })

@@ -116,6 +116,9 @@ debliwui_menu.innerHTML = `
                 display:none;
             }
         }
+        .levdep{
+            display:none;
+        }
     </style>
 
     <div class="container">
@@ -139,9 +142,9 @@ debliwui_menu.innerHTML = `
                     <a href="/recorrentes" class="recorrentes">
                         <li> <img src="assets/pagamentos-menu.svg"> <span>Operações recorrentes</span></li>
                     </a>
-                    <!-- <a href="/depositarlevantar" class="depositarlevantar">
-                        <li> <img src="assets/carregar-menu.svg"> <span>Carregar & Saque</span></li>
-                    </a> -->
+                    <div id="levdep"> <a href="/depositarlevantar" class="depositarlevantar">
+                        <li> <img src="assets/carregar-menu.svg"> <span>Depositar & Levantar</span></li>
+                    </a> </div>
                     <a href="/configuracoes" class="configuracoes">
                         <li> <img src="assets/configurar-menu.svg"> <span>Configurações</span></li>
                     </a>
@@ -421,12 +424,12 @@ handleLocation = async () => {
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
         });
-        /* this.shadowRoot.querySelector('.depositarlevantar').addEventListener("click", function (event) {
+         this.shadowRoot.querySelector('.depositarlevantar').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
             window.history.pushState({}, "", "/" + (this.href).split("/")[3]);
             esse.handleLocation(esse.routes);
-        }); */
+        }); 
         this.shadowRoot.querySelector('.configuracoes').addEventListener("click", function (event) {
             event = event || window.event;
             event.preventDefault();
@@ -458,6 +461,14 @@ handleLocation = async () => {
             esse.handleLocation(esse.routes);
         });
         
+        setInterval(function(){
+            if(localStorage.tipo == 0 || localStorage.tipo == "0"){
+                esse.shadowRoot.querySelector('#levdep').style.display = "none";
+            }
+            if(localStorage.tipo == 2 || localStorage.tipo == "2"){
+                esse.shadowRoot.querySelector('#levdep').style.display = "block";
+            }
+        }, 1000);
     }
 
 }
