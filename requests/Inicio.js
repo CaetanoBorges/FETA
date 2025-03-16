@@ -298,7 +298,37 @@ class InicioReq {
 
         });
     }
-    pedirNumero() {
+    pedirNumeroCliente() {
+        this.loader.abrir();
+        var esse = this;
+
+        var settings = {
+            "url": (this.apiUrl) + "/pedecodigolevantamento",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": esse.db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "acao": ESCOPO.acao
+            }),
+        };
+
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                esse.notificacao.sms("Código de confirmação enviado com sucesso");
+                ESCOPO.modalConfirmarFinal = new bootstrap.Modal(document.getElementById('confirmar-sms'));
+                ESCOPO.modalConfirmarFinal.toggle();
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            //console.log(res);
+        }).always(function (a) {
+            esse.loader.fechar();
+        });
+    }
+ pedirNumero() {
         this.loader.abrir();
         var esse = this;
 
@@ -343,8 +373,10 @@ class InicioReq {
         document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
         if (ESCOPO.confirmarFinal == "pin") {
             this.pedirPin();
-        } else {
+        } else if(ESCOPO.confirmarFinal == "codigo"){ 
             this.pedirNumero();
+        } else if(ESCOPO.confirmarFinal == "codigoCliente"){
+            this.pedirNumeroCliente();
         }
     }
 

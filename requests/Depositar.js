@@ -51,7 +51,7 @@ class DepositarReq {
         ESCOPO.dadosOperacao.valor = valor;
         ESCOPO.dadosOperacao.tipo = tipo;
         ESCOPO.dadosOperacao.onde = onde;
-        //ESCOPO.dadosOperacao.descricao = descricao;
+        ESCOPO.dadosOperacao.descricao = "Deposito de numerario";
         ESCOPO.acao = `Deposito para ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
         var tipoo = ``;
         $("#detalhes-transacao").html(`
@@ -103,7 +103,7 @@ class DepositarReq {
         };
         esse.loader.abrir();
         $.ajax(settings).done(function (response) {
-            //console.log(response);
+            console.log(response);
             if(response.ok){
                 InicioRequests.home();
                 ESCOPO.modalConfirmar.hide();

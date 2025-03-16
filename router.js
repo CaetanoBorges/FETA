@@ -554,7 +554,7 @@ const handleLocation = async () => {
                         let htmlscanner = new Html5QrcodeScanner(
                             "my-qr-reader",
                             {
-                                fps: 10, qrbos: 250, 
+                                fps: 10, qrbox : { width: 400, height: 400 }, 
                                 rememberLastUsedCamera: true,
                                 // Only support camera scan type.
                                 supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]

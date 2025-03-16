@@ -4,7 +4,7 @@
     <br>
     <debliwui-saldo></debliwui-saldo>
 
-
+    <br>
     <div class="section">
         <div id="my-qr-reader">
         </div>
@@ -26,14 +26,12 @@
 }
 
 .section {
-    padding: 50px 30px;
+    padding: 1.5%;
     border-radius: 0.25em;
+    border: none;
 }
 
 #my-qr-reader {
-    padding: 20px !important;
-    border: 1.5px solid #b2b2b2 !important;
-    border-radius: 8px;
 }
 
 #my-qr-reader img[alt="Info icon"] {
@@ -53,14 +51,16 @@ button {
     color: white;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    background-color: #008000ad;
+    background-color: #6f42c1;
     transition: 0.3s background-color;
+    width: 100%;
+    margin: 0;
 }
-
+#my-qr-reader__dashboard_section {
+    padding: 0 !important;
+}
 button:hover {
-    background-color: #008000;
+    background-color: #6f42c1;
 }
 
 #html5-qrcode-anchor-scan-type-change {

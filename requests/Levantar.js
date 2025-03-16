@@ -42,7 +42,7 @@ class LevantarReq {
             notificacao.sms("Verifique o número da conta a debitar",1);
             return;
         }else{
-            ESCOPO.dadosOperacao.de = de;
+            ESCOPO.dadosOperacao.para = de;
         }
         //--------------------------------------------------------
 
@@ -51,20 +51,20 @@ class LevantarReq {
         ESCOPO.dadosOperacao.valor = valor;
         ESCOPO.dadosOperacao.tipo = tipo;
         ESCOPO.dadosOperacao.onde = onde;
-        //ESCOPO.dadosOperacao.descricao = descricao;
-        ESCOPO.acao = `Deposito de ${(ESCOPO.dadosOperacao.de)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
+        ESCOPO.dadosOperacao.descricao = "Levantamento de numerario";
+        ESCOPO.acao = `Levantamento de ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
         var tipoo = ``;
         $("#detalhes-transacao").html(`
             <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
             <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
-            <p>De:  ${ESCOPO.dadosOperacao.de}</p> 
+            <p>De:  ${ESCOPO.dadosOperacao.para}</p> 
             ${tipoo}
             <p>Descrição: Levantamento</p>
             `)
 
         this.modalConfirmar();
         //console.log(ESCOPO.dadosOperacao);
-        ESCOPO.confirmarFinal = "pin";
+        ESCOPO.confirmarFinal = "codigoCliente";
 
         ESCOPO.callback = this.novoEnvio;
         ESCOPO.parametro = this;
