@@ -581,6 +581,22 @@ const handleLocation = async () => {
 
 
             }
+            if (path == "/fazerlevsemcartao") {
+                loader.abrir();
+                setTimeout(function () {
+                    new SlimSelect({
+                        select: '#quanto',
+                        settings: {
+                            showSearch: false
+                        }
+                    });
+                    loader.fechar();
+                }, 1000);
+
+
+
+
+            }
         })
     })
 
