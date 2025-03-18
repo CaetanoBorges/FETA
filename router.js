@@ -66,7 +66,8 @@ const routes = {
     "/fazerlevsemcartao": "/pages/fazerlevsemcartao.html",
     "/qrcode": "/pages/qrcode.html",
     "/depositar": "/pages/depositar.html",
-    "/levantar": "/pages/levantar.html"
+    "/levantar": "/pages/levantar.html",
+    "/consultardepositarlevantar": "/pages/consultardepositarlevantar.html"
 
 
 }
@@ -595,6 +596,24 @@ const handleLocation = async () => {
 
 
 
+
+            }
+            if (path == "/consultarlevsemcartao") {
+                loader.abrir();
+
+                setTimeout(function () {
+                    LevantarSemCartaoRequests.levantamentos();
+                }, 500);
+
+            }
+            if (path == "/consultardepositarlevantar") {
+                loader.abrir();
+
+                setTimeout(function () {
+                    DepositarLevantarRequests.init();
+                    //TransacoesRequests.controllerData();
+                    //loader.fechar();
+                }, 1000);
 
             }
         })
