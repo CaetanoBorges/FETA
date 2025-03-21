@@ -9,7 +9,7 @@
         rel=stylesheet><link href=assets/geral.css rel=stylesheet><script
         src=assets/bootstrap/jquery.js></script><script
         src=assets/bootstrap/prevue.min.js></script><script
-        src=components/slideImg/lightSlider.js></script><script
+        src=lightSlider.js></script><script
         src=assets/bootstrap/bootstrap.min.js></script><script
         src=assets/bootstrap/slinselec.js></script><script
         src=assets/polyfill/native-shim.js></script><script
@@ -17,15 +17,7 @@
         src=assets/polyfill/custom-elements.min.js></script><script
         src=assets/polyfill/qrcode.js></script>
         
-        <script src=components/menu/menuu.js></script>
-        <script src=components/header/header.js></script>
-        <script src=components/loader/loader.js></script>
-        <script src=components/notificacao/notificacao.js></script>
-        <script src=components/voltar/voltar.js></script>
-        <script src=components/logo_pequeno/logoPequeno.js></script>
-        <script src=components/saldo/saldo.js></script>
-        <script src=components/transacao/transacao.js></script>
-        <script src=components/slideImg/slideImg.js></script>
+        <script src=components.js></script>
 
         <script>const api = 'http://127.0.0.1/fetaapi';</script>
     <div style="opacity: 0;height:1px;" id="datas-resolver">
@@ -94,19 +86,7 @@
                 src=db_interface.js></script>
                 <!-- <script src=requests.js></script> -->
                 
-                <script src=requests/Pendentes.js></script>
-                <script src=requests/Configuracoes.js></script>
-                <script src=requests/DepositarLevantar.js></script>
-                <script src=requests/Enviar.js></script>
-                <script src=requests/Estatistica.js></script>
-                <script src=requests/Inicio.js></script>
-                <script src=requests/Pagamentos.js></script>
-                <script src=requests/Perfil.js></script>
-                <script src=requests/Recorrentes.js></script>
-                <script src=requests/Transacoes.js></script>
-                <script src=requests/Depositar.js></script>
-                <script src=requests/Levantar.js></script>
-                <script src=requests/LevantarSemCartao.js></script>
+                <script src=requests.js></script>
                 
                 
                 
@@ -122,7 +102,6 @@
     const PendentesRequests = new PendentesReq($,api,loader,notificacao);
     const RecorrentesRequests = new RecorrentesReq($,api,loader,notificacao);
     const EnviarRequests = new EnviarReq($,api,loader,notificacao);
-    const ReceberRequests = new ReceberReq($,api,loader,notificacao);
     const EstatisticaRequests = new EstatisticaReq($,api,loader,notificacao);
     const TransacoesRequests = new TransacoesReq($,api,loader,notificacao);
     const DepositarLevantarRequests = new DepositarLevantarReq($,api,loader,notificacao);

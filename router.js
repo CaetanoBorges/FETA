@@ -555,7 +555,10 @@ const handleLocation = async () => {
                         let htmlscanner = new Html5QrcodeScanner(
                             "my-qr-reader",
                             {
-                                fps: 10, qrbox : { width: 400, height: 400 }, 
+                                fps: 10, qrbox: { width: 400, height: 400 },
+                                videoConstraints: {
+                                    facingMode: "environment"
+                                },
                                 rememberLastUsedCamera: true,
                                 // Only support camera scan type.
                                 supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
@@ -569,7 +572,7 @@ const handleLocation = async () => {
                     loader.fechar();
                 }, 1500);
             }
-            
+
             if (path == "/depositar") {
 
 

@@ -7,17 +7,19 @@ require("vendor/autoload.php");
 
   //COMEÇA FAZENDO A MINIFICACAO DOS REQUESTS
  $minifier = new Minify\JS("requests/Configuracoes.js");
+  $minifier->add("requests/Depositar.js");
   $minifier->add("requests/DepositarLevantar.js");
   $minifier->add("requests/Enviar.js");
   $minifier->add("requests/Estatistica.js");
   $minifier->add("requests/Inicio.js");
+  $minifier->add("requests/Levantar.js");
+  $minifier->add("requests/LevantarSemCartao.js");
+  $minifier->add("requests/Pagamentos.js");
   $minifier->add("requests/Pendentes.js");
   $minifier->add("requests/Perfil.js");
-  $minifier->add("requests/Receber.js");
   $minifier->add("requests/Recorrentes.js");
   $minifier->add("requests/Transacoes.js");
-  $minifier->add("requests/Pagamentos.js");
-  $minifiedPath = 'requests.js';
+  $minifiedPath = '_DEPLOY/requests.js';
   $minifier->minify($minifiedPath); 
   //TERMINA MINIFICACAO DOS REQUESTS
 
