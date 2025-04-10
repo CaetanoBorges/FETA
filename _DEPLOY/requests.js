@@ -23,15 +23,15 @@ ESCOPO.modalConfirmar.toggle()}
 pegaDadosOperacao(){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
 var notificacao=this.notificacao;ESCOPO.dadosOperacao={};var valor=$("#quanto").val();var para=$("#para").val();var tipo="deposito";var onde="App";if(valor<1){notificacao.sms("Verifica o valor a depositar",1);return}
 if(para.length<9){notificacao.sms("Verifique o número da conta",1);return}else{ESCOPO.dadosOperacao.para=para}
-ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao="Deposito de numerario";ESCOPO.acao=`Deposito para ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;var tipoo=``;$("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
-            <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
-            <p>para:  ${ESCOPO.dadosOperacao.para}</p> 
-            ${tipoo}
-            <p>Descrição: Deposito</p>
-            `)
-this.modalConfirmar();if(valor>99999){ESCOPO.confirmarFinal="codigo"}else{ESCOPO.confirmarFinal="pin"}
-ESCOPO.callback=this.novoEnvio;ESCOPO.parametro=this}
+var settings={"url":(this.apiUrl)+"/config/verificanumero","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"telefone":para}),};var result=null;var esse=this;$.ajax(settings).done(function(res){if(res.ok){result=(res.payload);ESCOPO.outraConta=result}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){var nomeReceptor=ESCOPO.outraConta.nome;var nomeNumeroEmissor=localStorage.getItem("telefone")+", "+localStorage.getItem("nome");ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao="Deposito de numerario";ESCOPO.dadosOperacao.acao=`Deposito para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())}. \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${(nomeNumeroEmissor).toUpperCase()}.`;ESCOPO.acao=`Deposito para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${(nomeNumeroEmissor).toUpperCase()}.`;var tipoo=``;$("#detalhes-transacao").html(`
+                <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
+                <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
+                <p>para:  ${ESCOPO.dadosOperacao.para} <br> <b>${(nomeReceptor.toUpperCase())}</b></p> 
+                ${tipoo}
+                <p>Descrição: Deposito</p>
+                `)
+esse.modalConfirmar();if(valor>99999){ESCOPO.confirmarFinal="codigo"}else{ESCOPO.confirmarFinal="pin"}
+ESCOPO.callback=esse.novoEnvio;ESCOPO.parametro=esse})}
 novoEnvio(esse){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
 var headers={"token":db.getToken(),"codigo":ESCOPO.codigo,"Content-Type":"application/json"}
 if(ESCOPO.confirmarFinal=="pin"){headers={"token":db.getToken(),"pin":ESCOPO.pin,"Content-Type":"application/json"}}
@@ -44,80 +44,83 @@ var esse=this;esse.loader.abrir();var settings={"url":(this.apiUrl)+"/depositole
 if(element[anoAtual]){element[anoAtual].forEach(month=>{if(month!=mesAtual){mes.push({text:String(month),value:String(month)})}})}})
 let m=(Object.values(mes.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));let a=(Object.values(ano.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));ESCOPO.selectAno=new SlimSelect({select:'#ano',settings:{showSearch:!1}})
 ESCOPO.selectMes=new SlimSelect({select:'#mes',settings:{showSearch:!1}})
-a.sort((a,b)=>b.text-a.text);m.sort((a,b)=>b.text-a.text);a.unshift({text:String(anoAtual),value:String(anoAtual)});m.unshift({text:String(mesAtual),value:String(mesAtual)});esse.controllerData();ESCOPO.selectAno.setData(a);ESCOPO.selectMes.setData(m);var itens=``;var obj=d.payload.atual.res;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";if(element.tipo=="levantamento"){fechar="assets/fechar-saida-icon.svg";quem=`<p>Cliente: ${(element.cliente)}</p>`;classe="saida";cor="#BF0003";titulo="LEVANTAMENTO";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>Cliente: ${(element.cliente)}</p>`;classe="entrada";cor="#00BF00";titulo="DEPOSITO";sinal="+"}
+a.sort((a,b)=>b.text-a.text);m.sort((a,b)=>b.text-a.text);a.unshift({text:String(anoAtual),value:String(anoAtual)});m.unshift({text:String(mesAtual),value:String(mesAtual)});esse.controllerData();ESCOPO.selectAno.setData(a);ESCOPO.selectMes.setData(m);var itens=``;var obj=d.payload.atual.res;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";var eu="";console.error(element);if(element.tipo=="levantamento"){fechar="assets/fechar-saida-icon.svg";quem=`<p>Cliente: ${(element.cliente)}<br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;eu=`<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="saida";cor="#BF0003";titulo="LEVANTAMENTO";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>Cliente: ${(element.cliente)} <br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;eu=`<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="entrada";cor="#00BF00";titulo="DEPOSITO";sinal="+"}
 itens+=`
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#dl${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="dl${(element.identificador)}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
-                                style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DO ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
-                                <div class="detalhes-transacao">
+                        <div class="modal-content" style="width: 300px;margin:auto;margin-top: 100px;">
+                            <div class="OPDF">
+                                <div class="modal-header"
+                                    style="border-bottom: 1px solid ${cor};">
+                                    <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DO ${titulo}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
+                                    <div class="detalhes-transacao">
 
-                                    <p>Quando: ${(element.quando)}</p>
-                                    ${quem}
+                                        <p>Quando: ${(element.quando)}</p>
+                                        ${quem}
+                                        ${eu}
+                                    </div>
+                                    <br>
+                                    <div class="id-transacao">
+                                        <p>Id transação</p>
+                                        <p><b>${(element.transacao_pid)}</b></p>
+                                    </div>
 
                                 </div>
-                                <br>
-                                <div class="id-transacao">
-                                    <p>Id transação</p>
-                                    <p><b>${(element.transacao_pid)}</b></p>
-                                </div>
-
                             </div>
-                            
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("dl${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>      
                         </div>
                     </div>
                 </div>`});setTimeout(function(){$("#qtd").html(obj.length+" operações");ESCOPO.init=!1},1500);$(".render-aqui").append(itens)}).always(function(a){esse.loader.fechar()})}
 transacoes(mes,ano){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
-$(".render-aqui").html("");var esse=this;this.loader.abrir();var settings={"url":(this.apiUrl)+"/depositolevantamento/ver","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"mes":mes,"ano":ano}),};ESCOPO.init=!0;(this.jquery).ajax(settings).done(function(dados){var itens=``;var obj=dados.payload;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";if(element.tipo=="levantamento"){fechar="assets/fechar-saida-icon.svg";quem=`<p>Cliente: ${(element.cliente)}</p>`;classe="saida";cor="#BF0003";titulo="LEVANTAMENTO";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>Cliente: ${(element.cliente)}</p>`;classe="entrada";cor="#00BF00";titulo="DEPOSITO";sinal="+"}
+$(".render-aqui").html("");var esse=this;this.loader.abrir();var settings={"url":(this.apiUrl)+"/depositolevantamento/ver","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"mes":mes,"ano":ano}),};ESCOPO.init=!0;(this.jquery).ajax(settings).done(function(dados){var itens=``;var obj=dados.payload;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";var eu="";if(element.tipo=="levantamento"){fechar="assets/fechar-saida-icon.svg";quem=`<p>Cliente: ${(element.cliente)}<br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;eu=`<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="saida";cor="#BF0003";titulo="LEVANTAMENTO";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>Cliente: ${(element.cliente)} <br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;eu=`<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="entrada";cor="#00BF00";titulo="DEPOSITO";sinal="+"}
 itens+=`
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#dl${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="dl${(element.identificador)}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
-                                style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DO ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
-                                <div class="detalhes-transacao">
+                        <div class="modal-content" style="width: 300px;margin:auto;margin-top: 100px;">
+                            <div class="OPDF">
+                                <div class="modal-header"
+                                    style="border-bottom: 1px solid ${cor};">
+                                    <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DO ${titulo}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
+                                    <div class="detalhes-transacao">
 
-                                    <p>Quando: ${(element.quando)}</p>
-                                    ${quem}
+                                        <p>Quando: ${(element.quando)}</p>
+                                        ${quem}
+                                        ${eu}
+
+                                    </div>
+                                    <br>
+                                    <div class="id-transacao">
+                                        <p>Id transação</p>
+                                        <p><b>${(element.transacao_pid)}</b></p>
+                                    </div>
 
                                 </div>
-                                <br>
-                                <div class="id-transacao">
-                                    <p>Id transação</p>
-                                    <p><b>${(element.transacao_pid)}</b></p>
-                                </div>
-
                             </div>
-                            
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("dl${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>
                         </div>
                     </div>
                 </div>`});$(".render-aqui").append(itens);$("#qtd").html(obj.length+" operações")}).always(function(){esse.loader.fechar()})
@@ -137,24 +140,24 @@ new SlimSelect({select:'#select-recorrente',settings:{showSearch:!1}})}
 modalConfirmar(){ESCOPO.modalConfirmar=new bootstrap.Modal(document.getElementById('confirmar-modal'))
 ESCOPO.modalConfirmar.toggle()}
 pegaDadosOperacao(){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
-var notificacao=this.notificacao;ESCOPO.dadosOperacao={opcoes:{valor_parcela:null}};var valor=$("#quanto").val();var para=$("#para").val();var descricao=$("#descricao").val();var tipo="normal";var onde="App";if(valor<1){notificacao.sms("Verifica o valor a transaferir",1);return}else{var MOCK={saldo:localStorage.getItem("balanco")}
+var notificacao=this.notificacao;ESCOPO.dadosOperacao={opcoes:{valor_parcela:null}};var valor=$("#quanto").val();var para=$("#para").val();var descricao=$("#descricao").val();var tipo="normal";var onde="App";var settings={"url":(this.apiUrl)+"/config/verificanumero","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"telefone":para}),};var result=null;var esse=this;$.ajax(settings).done(function(res){if(res.ok){result=(res.payload);ESCOPO.outraConta=result}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){var nomeReceptor=ESCOPO.outraConta.nome;var nomeNumeroEmissor=localStorage.getItem("telefone")+", "+localStorage.getItem("nome");if(valor<1){notificacao.sms("Verifica o valor a transaferir",1);return}else{var MOCK={saldo:localStorage.getItem("balanco")}
 if((Number(MOCK.saldo)-1)>=valor){ESCOPO.dadosOperacao.valor=valor}else{notificacao.sms("Não tem saldo suficiente",1);return}}
 if(para.length!=9){notificacao.sms("Verifique o destinatário, deve conter 9 digitos",1);return}else{ESCOPO.dadosOperacao.para=para}
 var parcelado=$('[name="radio-parcelado"]:checked').val();var parceladoPeriodicidade;var parceladoParcelas;var recorrente=$('[name="radio-recorrente"]:checked').val();var recorrentePeriodicidade;if(parcelado=="sim"){tipo="parcelado";parceladoPeriodicidade=$("#select-parcelado").val();parceladoParcelas=$("#select-parcela").val();var opcoes={periodicidade:parceladoPeriodicidade,parcelas:parceladoParcelas,valor_parcela:(Number(valor/parceladoParcelas)).toFixed(2)}
 ESCOPO.dadosOperacao.opcoes=opcoes}
 if(recorrente=="sim"){tipo="recorrente";recorrentePeriodicidade=$("#select-recorrente").val();ESCOPO.dadosOperacao.periodicidade=recorrentePeriodicidade;var opcoes={periodicidade:recorrentePeriodicidade,}
 ESCOPO.dadosOperacao.opcoes=opcoes}
-ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao=descricao;ESCOPO.acao=`Trasferência para ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;var tipoo=``;if(tipo=="parcelado"){tipoo=`<p>Tipo: ${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))}</b> pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b> no final.</p>`;ESCOPO.acao=`Trasferência parcelada para ${(ESCOPO.dadosOperacao.para)} \n${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} no final.`}
-if(tipo=="recorrente"){tipoo=`<p>Tipo: Recorrente pago ${(ESCOPO.dadosOperacao.opcoes.periodicidade)} </p>`;ESCOPO.acao=`Trasferência recorrente para ${(ESCOPO.dadosOperacao.para)} \nPago ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} de forma ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}.`}
+ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao=descricao;ESCOPO.acao=`Trasferência para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${nomeNumeroEmissor}.`;ESCOPO.dadosOperacao.acao=`Trasferência para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${nomeNumeroEmissor}.`;var tipoo=``;if(tipo=="parcelado"){tipoo=`<p>Tipo: ${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de <b>${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))}</b> pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b> no final.</p>`;ESCOPO.acao=`Trasferência parcelada para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \n${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz no final. \nVindo de ${nomeNumeroEmissor}.`;ESCOPO.dadosOperacao.acao=`Trasferência parcelada para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \n${(ESCOPO.dadosOperacao.opcoes.parcelas)} parcelas de ${(MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " "))} pagos ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}, fazendo um total de ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz no final. \nVindo de ${nomeNumeroEmissor}.`}
+if(tipo=="recorrente"){tipoo=`<p>Tipo: Recorrente pago ${(ESCOPO.dadosOperacao.opcoes.periodicidade)} </p>`;ESCOPO.acao=`Trasferência recorrente para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nPago ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz, de forma ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}.\nVindo de ${nomeNumeroEmissor}.`;ESCOPO.dadosOperacao.acao=`Trasferência recorrente para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nPago ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz, de forma ${(ESCOPO.dadosOperacao.opcoes.periodicidade)}.\nVindo de ${nomeNumeroEmissor}.`}
 $("#detalhes-transacao").html(`
             <p>Quanto:  <b>${(ESCOPO.dadosOperacao.opcoes.valor_parcela ? MONEY(ESCOPO.dadosOperacao.opcoes.valor_parcela, 2, ".", " ") : MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
             <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
-            <p>Para:  ${ESCOPO.dadosOperacao.para}</p> 
+            <p>Para:  ${ESCOPO.dadosOperacao.para} <br> <b>${(nomeReceptor.toUpperCase())}</b></p> 
             ${tipoo}
             <p>Descrição: ${(ESCOPO.dadosOperacao.descricao)}</p>
             `)
-this.modalConfirmar();if(valor>99999){ESCOPO.confirmarFinal="codigo"}else{ESCOPO.confirmarFinal="pin"}
-ESCOPO.callback=this.novoEnvio;ESCOPO.parametro=this}
+esse.modalConfirmar();if(valor>99999){ESCOPO.confirmarFinal="codigo"}else{ESCOPO.confirmarFinal="pin"}
+ESCOPO.callback=esse.novoEnvio;ESCOPO.parametro=esse})}
 novoEnvio(esse){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
 var headers={"token":db.getToken(),"codigo":ESCOPO.codigo,"Content-Type":"application/json"}
 if(ESCOPO.confirmarFinal=="pin"){headers={"token":db.getToken(),"pin":ESCOPO.pin,"Content-Type":"application/json"}}
@@ -229,11 +232,12 @@ home(){var esse=this;var settings={"url":(this.apiUrl)+"/perfil/init","method":"
 if(sessao=="mins5"){localStorage.setItem("sessaolimite",300)}
 if(sessao=="segs30"){localStorage.setItem("sessaolimite",30)}
 localStorage.setItem("tipo",res.payload.tipo);localStorage.setItem("nome",res.payload.nome);localStorage.setItem("balanco",res.payload.balanco);localStorage.setItem("telefone",res.payload.telefone);localStorage.setItem("transacoes",JSON.stringify(res.payload.transacoes.payload))}else{}}).always(function(a){})}
-pedirNumeroCliente(){this.loader.abrir();var esse=this;var settings={"url":(this.apiUrl)+"/pedecodigolevantamento","method":"POST","timeout":0,"headers":{"token":esse.db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"acao":ESCOPO.acao}),};$.ajax(settings).done(function(res){if(res.ok){esse.notificacao.sms("Código de confirmação enviado com sucesso");ESCOPO.modalConfirmarFinal=new bootstrap.Modal(document.getElementById('confirmar-sms'));ESCOPO.modalConfirmarFinal.toggle()}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){esse.loader.fechar()})}
+verificaExistenciaDeConta(telefone){var esse=this;var settings={"url":(this.apiUrl)+"/config/verificanumero","method":"POST","timeout":0,"headers":{"token":esse.db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"telefone":telefone}),};var result=null;$.ajax(settings).done(function(res){if(res.ok){result=(res.payload);ESCOPO.outraConta=result}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){})}
+pedirNumeroCliente(){this.loader.abrir();var esse=this;var settings={"url":(this.apiUrl)+"/pedecodigolevantamento","method":"POST","timeout":0,"headers":{"token":esse.db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"acao":ESCOPO.acao,"numero":ESCOPO.dadosOperacao.para}),};$.ajax(settings).done(function(res){if(res.ok){esse.notificacao.sms("Código de confirmação enviado com sucesso");ESCOPO.modalConfirmarFinal=new bootstrap.Modal(document.getElementById('confirmar-sms'));ESCOPO.modalConfirmarFinal.toggle()}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){esse.loader.fechar()})}
 pedirNumero(){this.loader.abrir();var esse=this;var settings={"url":(this.apiUrl)+"/pedecodigo","method":"POST","timeout":0,"headers":{"token":esse.db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"acao":ESCOPO.acao}),};$.ajax(settings).done(function(res){if(res.ok){esse.notificacao.sms("Código de confirmação enviado com sucesso");ESCOPO.modalConfirmarFinal=new bootstrap.Modal(document.getElementById('confirmar-sms'));ESCOPO.modalConfirmarFinal.toggle()}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){esse.loader.fechar()})}
 pedirPin(){this.loader.abrir();setTimeout(()=>{ESCOPO.modalConfirmarFinal=new bootstrap.Modal(document.getElementById('confirmar-pin'));ESCOPO.modalConfirmarFinal.toggle();this.loader.fechar()},1000)}
 pedirNumeroOuPin(){document.querySelectorAll(".modal-backdrop").forEach(function(i){$(i).hide()});document.querySelectorAll(".modal").forEach(function(i){$(i).hide()});if(ESCOPO.confirmarFinal=="pin"){this.pedirPin()}else if(ESCOPO.confirmarFinal=="codigo"){this.pedirNumero()}else if(ESCOPO.confirmarFinal=="codigoCliente"){this.pedirNumeroCliente()}}
-pedirNumeroNovo(){this.loader.abrir();var esse=this;var settings={"url":(this.apiUrl)+"/pedecodigo","method":"POST","timeout":0,"headers":{"token":esse.db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"acao":ESCOPO.acao}),};$.ajax(settings).done(function(res){if(res.ok){esse.notificacao.sms("Código de confirmação enviado com sucesso",1)}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){esse.loader.fechar()})}
+pedirNumeroNovo(){if(ESCOPO.confirmarFinal=="codigo"){this.pedirNumero()}else if(ESCOPO.confirmarFinal=="codigoCliente"){this.pedirNumeroCliente()}}
 confirmarNumero(){this.loader.abrir();var codigo=$("#codigo-confirmacao").val();if(codigo.length<6){this.notificacao.sms("Verifica o código de confirmação",1)}else{ESCOPO.codigo=codigo;ESCOPO.callback(ESCOPO.parametro)}}
 confirmarPin(){updatePinDisplay();ESCOPO.callback(ESCOPO.parametro)}
 pegaDadosScan(){var BI=JSON.parse(localStorage.getItem("dados_bi"));$("#nome").val(BI.nome);$("#filiacao").val(BI.filiacao);$("#morada").val(BI.morada);$("#naturalde").val(BI.natural);$("#nascimento").val(BI.nascimento);$("#provincia").val(BI.provincia);$("#nascimento").val(BI.nascimento);$("#bi").val(BI.bi);$("#sexo").val(BI.sexo);$("#altura").val(BI.altura);$("#estadocivil").val(BI.esta_civil)}
@@ -253,14 +257,14 @@ ESCOPO.modalConfirmar.toggle()}
 pegaDadosOperacao(){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
 var notificacao=this.notificacao;ESCOPO.dadosOperacao={};var valor=$("#quanto").val();var de=$("#de").val();var tipo="levantamento";var onde="App";if(valor<1){notificacao.sms("Verifica o valor a levantar",1);return}
 if(de.length<9){notificacao.sms("Verifique o número da conta a debitar",1);return}else{ESCOPO.dadosOperacao.para=de}
-ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao="Levantamento de numerario";ESCOPO.acao=`Levantamento de ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;var tipoo=``;$("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
-            <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
-            <p>De:  ${ESCOPO.dadosOperacao.para}</p> 
-            ${tipoo}
-            <p>Descrição: Levantamento</p>
-            `)
-this.modalConfirmar();ESCOPO.confirmarFinal="codigoCliente";ESCOPO.callback=this.novoEnvio;ESCOPO.parametro=this}
+var settings={"url":(this.apiUrl)+"/config/verificanumero","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"telefone":de}),};var result=null;var esse=this;$.ajax(settings).done(function(res){if(res.ok){result=(res.payload);ESCOPO.outraConta=result}else{esse.notificacao.sms(res.payload,1)}}).always(function(a){var nomeReceptor=ESCOPO.outraConta.nome;var nomeNumeroEmissor=localStorage.getItem("telefone")+", "+localStorage.getItem("nome");ESCOPO.dadosOperacao.valor=valor;ESCOPO.dadosOperacao.tipo=tipo;ESCOPO.dadosOperacao.onde=onde;ESCOPO.dadosOperacao.descricao="Levantamento de numerario";ESCOPO.dadosOperacao.acao=`Levantamento de ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())}. \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz. \nVindo de ${(nomeNumeroEmissor.toUpperCase())}.`;ESCOPO.acao=`Levantamento de ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())}. \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz. \nVindo de ${(nomeNumeroEmissor.toUpperCase())}.`;var tipoo=``;$("#detalhes-transacao").html(`
+                <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
+                <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
+                <p>De:  ${ESCOPO.dadosOperacao.para} <br> <b>${(nomeReceptor.toUpperCase())}</b></p> 
+                ${tipoo}
+                <p>Descrição: Levantamento</p>
+                `)
+esse.modalConfirmar();ESCOPO.confirmarFinal="codigoCliente";ESCOPO.callback=esse.novoEnvio;ESCOPO.parametro=esse})}
 novoEnvio(esse){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
 var headers={"token":db.getToken(),"codigo":ESCOPO.codigo,"Content-Type":"application/json"}
 if(ESCOPO.confirmarFinal=="pin"){headers={"token":db.getToken(),"pin":ESCOPO.pin,"Content-Type":"application/json"}}
@@ -538,68 +542,71 @@ var esse=this;esse.loader.abrir();var settings={"url":(this.apiUrl)+"/transacao/
 if(element[anoAtual]){element[anoAtual].forEach(month=>{if(month!=mesAtual){mes.push({text:String(month),value:String(month)})}})}})
 let m=(Object.values(mes.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));let a=(Object.values(ano.reduce((acc,cur)=>Object.assign(acc,{[cur.text]:cur}),{})));ESCOPO.selectAno=new SlimSelect({select:'#ano',settings:{showSearch:!1}})
 ESCOPO.selectMes=new SlimSelect({select:'#mes',settings:{showSearch:!1}})
-a.sort((a,b)=>b.text-a.text);m.sort((a,b)=>b.text-a.text);a.unshift({text:String(anoAtual),value:String(anoAtual)});m.unshift({text:String(mesAtual),value:String(mesAtual)});esse.controllerData();ESCOPO.selectAno.setData(a);ESCOPO.selectMes.setData(m);var itens=``;var obj=d.payload.atual.res;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";if(element.enviar){fechar="assets/fechar-saida-icon.svg";quem=`<p>Para: ${(element.para)}</p>`;classe="saida";cor="#BF0003";titulo="SAIDA";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>De: ${(element.de)}</p>`;classe="entrada";cor="#00BF00";titulo="ENTRADA";sinal="+"}
+a.sort((a,b)=>b.text-a.text);m.sort((a,b)=>b.text-a.text);a.unshift({text:String(anoAtual),value:String(anoAtual)});m.unshift({text:String(mesAtual),value:String(mesAtual)});esse.controllerData();ESCOPO.selectAno.setData(a);ESCOPO.selectMes.setData(m);var itens=``;var obj=d.payload.atual.res;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";var eu="";if(element.enviar){fechar="assets/fechar-saida-icon.svg";quem=`<p>Para: ${(element.para)} <br> <b>${((String(element.para_nome)).toUpperCase())}</b></p>`;eu=`<p>De: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="saida";cor="#BF0003";titulo="SAIDA";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>De: ${(element.de)} <br> <b>${((String(element.de_nome)).toUpperCase())}</b></p>`;eu=`<p>Para: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="entrada";cor="#00BF00";titulo="ENTRADA";sinal="+"}
 itens+=`
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#tr${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.valor, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                     <p class="descricao">${(element.descricao)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
+                <div class="modal fade" id="tr${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="width: 300px;margin:auto;">
+                            <div class="OPDF">
+                                <div class="modal-header"
                                 style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DA ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.valor, 2, ".", " ")))}</p>
-                                <div class="detalhes-transacao">
+                                    <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DA  ${titulo}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
+                                
+                                </div>
+                                <div class="modal-body">
+                                    <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.valor, 2, ".", " ")))}</p>
+                                    <div class="detalhes-transacao">
 
-                                    <p>Quando: ${(element.quando)}</p>
-                                    <p>Onde: ${(element.onde)}</p>
-                                    ${quem}
-                                    <p>Tipo: ${(element.tipo)}</p>
-                                    <p>Descrição: ${(element.descricao)}</p>
+                                        <p>Quando: ${(element.quando)}</p>
+                                        <p>Onde: ${(element.onde)}</p>
+                                        ${quem}
+                                        ${eu}
+                                        <p>Tipo: ${(element.tipo)}</p>
+                                        <p>Descrição : ${(element.descricao)}</p>
+
+                                    </div>
+                                    <br>
+                                    <div class="id-transacao">
+                                        <p>Id transação</p>
+                                        <p><b>${(element.identificador)}</b></p>
+                                    </div>
 
                                 </div>
-                                <br>
-                                <div class="id-transacao">
-                                    <p>Id transação</p>
-                                    <p><b>${(element.identificador)}</b></p>
-                                </div>
-
-                            </div>
-                            
+    
+                            </div>    
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("tr${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>                 
                         </div>
                     </div>
                 </div>`});setTimeout(function(){$("#qtd").html(obj.length+" transacoes");ESCOPO.init=!1},1500);$(".render-aqui").append(itens)}).always(function(a){esse.loader.fechar()})}
 transacoes(mes,ano){var ver=db.verificaSessao();if(ver){db.verificaToken();return}
-$(".render-aqui").html("");var esse=this;this.loader.abrir();var settings={"url":(this.apiUrl)+"/transacao/ver","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"mes":mes,"ano":ano}),};ESCOPO.init=!0;(this.jquery).ajax(settings).done(function(dados){var itens=``;var obj=dados.payload;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";if(element.enviar){fechar="assets/fechar-saida-icon.svg";quem=`<p>Para: ${(element.para)}</p>`;classe="saida";cor="#BF0003";titulo="SAIDA";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>De: ${(element.de)}</p>`;classe="entrada";cor="#00BF00";titulo="ENTRADA";sinal="+"}
+$(".render-aqui").html("");var esse=this;this.loader.abrir();var settings={"url":(this.apiUrl)+"/transacao/ver","method":"POST","timeout":0,"headers":{"token":db.getToken(),"Content-Type":"application/json"},"data":JSON.stringify({"mes":mes,"ano":ano}),};ESCOPO.init=!0;(this.jquery).ajax(settings).done(function(dados){var itens=``;var obj=dados.payload;obj.forEach(element=>{var fechar="";var classe="";var cor="";var titulo="";var sinal="";var quem="";var eu="";if(element.enviar){fechar="assets/fechar-saida-icon.svg";quem=`<p>Para: ${(element.para)} <br><b>${((String(element.para_nome)).toUpperCase())}</b></p>`;eu=`<p>De: ${((localStorage.getItem("telefone")))} <br><b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="saida";cor="#BF0003";titulo="SAIDA";sinal="-"}else{fechar="assets/fechar-entrada-icon.svg";quem=`<p>De: ${(element.de)} <br><b>${((String(element.de_nome)).toUpperCase())}</b></p>`;eu=`<p>Para: ${((localStorage.getItem("telefone")))} <br><b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;classe="entrada";cor="#00BF00";titulo="ENTRADA";sinal="+"}
 itens+=`
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#tr${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.valor, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                     <p class="descricao">${(element.descricao)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
+                <div class="modal fade" id="tr${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
+                            style="width: 300px;margin:auto;">
+                            <div class="OPDF">
                             <div class="modal-header"
                                 style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DA ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
+                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DA ${titulo}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
                             </div>
                             <div class="modal-body">
                                 <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.valor, 2, ".", " ")))}</p>
@@ -608,6 +615,7 @@ itens+=`
                                     <p>Quando: ${(element.quando)}</p>
                                     <p>Onde: ${(element.onde)}</p>
                                     ${quem}
+                                    ${eu}
                                     <p>Tipo: ${(element.tipo)}</p>
                                     <p>Descrição: ${(element.descricao)}</p>
 
@@ -619,8 +627,12 @@ itens+=`
                                 </div>
 
                             </div>
-                            
+                            </div>    
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("tr${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>  
                         </div>
+
                     </div>
                 </div>`});$(".render-aqui").append(itens);$("#qtd").html(obj.length+" transacoes")}).always(function(){esse.loader.fechar()})
 setTimeout(function(){ESCOPO.init=!1},1500)}

@@ -45,35 +45,59 @@ class DepositarReq {
             ESCOPO.dadosOperacao.para = para;
         }
         //--------------------------------------------------------
+        //VERIFICAÇÃO DO destinário-------------------------------
+        var settings = {
+            "url": (this.apiUrl) + "/config/verificanumero",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "telefone": para
+            }),
+        };
+        var result = null;
+        var esse = this;
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                result = (res.payload);
+                ESCOPO.outraConta = result;
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            //console.log(res);
+        }).always(function (a) {
+            var nomeReceptor = ESCOPO.outraConta.nome;
+            var nomeNumeroEmissor = localStorage.getItem("telefone") + ", " + localStorage.getItem("nome");
 
+            ESCOPO.dadosOperacao.valor = valor;
+            ESCOPO.dadosOperacao.tipo = tipo;
+            ESCOPO.dadosOperacao.onde = onde; 
+            ESCOPO.dadosOperacao.descricao = "Deposito de numerario";
+            ESCOPO.dadosOperacao.acao = `Deposito para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())}. \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${(nomeNumeroEmissor).toUpperCase()}.`;
+            ESCOPO.acao = `Deposito para ${(ESCOPO.dadosOperacao.para)}, ${(nomeReceptor.toUpperCase())} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))} kz.\nVindo de ${(nomeNumeroEmissor).toUpperCase()}.`;
+            var tipoo = ``;
+            $("#detalhes-transacao").html(`
+                <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
+                <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
+                <p>para:  ${ESCOPO.dadosOperacao.para} <br> <b>${(nomeReceptor.toUpperCase())}</b></p> 
+                ${tipoo}
+                <p>Descrição: Deposito</p>
+                `)
 
+            esse.modalConfirmar();
+            //console.log(ESCOPO.dadosOperacao);
+            if(valor > 99999){
+                ESCOPO.confirmarFinal = "codigo";
+            }else{
+                ESCOPO.confirmarFinal = "pin";
+            }
 
-        ESCOPO.dadosOperacao.valor = valor;
-        ESCOPO.dadosOperacao.tipo = tipo;
-        ESCOPO.dadosOperacao.onde = onde;
-        ESCOPO.dadosOperacao.descricao = "Deposito de numerario";
-        ESCOPO.acao = `Deposito para ${(ESCOPO.dadosOperacao.para)} \nde ${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}.`;
-        var tipoo = ``;
-        $("#detalhes-transacao").html(`
-            <p>Quanto:  <b>${(MONEY(ESCOPO.dadosOperacao.valor, 2, ".", " "))}</b></p>
-            <p>Onde:  ${(ESCOPO.dadosOperacao.onde)}</p>
-            <p>para:  ${ESCOPO.dadosOperacao.para}</p> 
-            ${tipoo}
-            <p>Descrição: Deposito</p>
-            `)
-
-        this.modalConfirmar();
-        //console.log(ESCOPO.dadosOperacao);
-        if(valor > 99999){
-            ESCOPO.confirmarFinal = "codigo";
-        }else{
-            ESCOPO.confirmarFinal = "pin";
-        }
-
-        ESCOPO.callback = this.novoEnvio;
-        ESCOPO.parametro = this;
-      
-            
+            ESCOPO.callback = esse.novoEnvio;
+            ESCOPO.parametro = esse;
+        })          
 
     }
     novoEnvio(esse) {

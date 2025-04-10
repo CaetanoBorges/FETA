@@ -1,4 +1,25 @@
-var corrida = false;
+const MONEY = function(number, decimals, dec_point, thousands_sep) {
+    
+    var n = !isFinite(+number) ? 0 : +number, 
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        toFixedFix = function (n, prec) {
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            var k = Math.pow(10, prec);
+            return Math.round(n * k) / k;
+        },
+        s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+}
+ 
 const route = (event) => {
     event = event || window.event;
     event.preventDefault();
@@ -67,8 +88,10 @@ const routes = {
     "/qrcode": "/pages/qrcode.html",
     "/depositar": "/pages/depositar.html",
     "/levantar": "/pages/levantar.html",
-    "/consultardepositarlevantar": "/pages/consultardepositarlevantar.html"
+    "/consultardepositarlevantar": "/pages/consultardepositarlevantar.html",
 
+    
+    "/fazerlevnoagente": "/pages/fazerlevnoagente.html"
 
 }
 
@@ -82,6 +105,8 @@ const handleLocation = async () => {
     const html = await fetch(route).then(function (data) {
         var res = data.text();
         res.then(function (ui) {
+            window.intervalAceito = setInterval(function () {}, 100);
+            clearInterval(window.intervalAceito);
             document.querySelectorAll(".modal-backdrop").forEach(function (i) { $(i).hide() });
             document.querySelectorAll(".modal").forEach(function (i) { $(i).hide() });
             document.querySelector(".corpo").innerHTML = ui;
@@ -423,6 +448,23 @@ const handleLocation = async () => {
                             showSearch: false
                         }
                     });
+                    
+                    var aceitaTermos = setInterval(function(){
+                        try {
+                            var aceitotp = document.querySelector('#aceito-tp').checked;
+                            if(aceitotp){
+                                document.querySelector('.label-tp').style.color = "#640564";
+                                document.querySelector(".criar-conta").style.display = "block";
+                            }else{
+                                document.querySelector('.label-tp').style.color = "red";
+                                document.querySelector(".criar-conta").style.display = "none";
+                            }
+                        } catch (error) {
+                            clearInterval(aceitaTermos);
+                        }
+                        
+                        
+                    },100);
                     /* const calendario = dobDatepicker('#nascimento', {
                         display_mode: 'inline',
                         year_range: 120,
@@ -588,12 +630,18 @@ const handleLocation = async () => {
             if (path == "/fazerlevsemcartao") {
                 loader.abrir();
                 setTimeout(function () {
-                    new SlimSelect({
-                        select: '#quanto',
-                        settings: {
-                            showSearch: false
-                        }
-                    });
+                    
+                    loader.fechar();
+                }, 1000);
+
+
+
+
+            }
+            if (path == "/levsemcartao") {
+                loader.abrir();
+                setTimeout(function () {
+                    
                     loader.fechar();
                 }, 1000);
 

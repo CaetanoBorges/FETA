@@ -1,0 +1,122 @@
+<div id="render">
+
+    <debliwui-voltar></debliwui-voltar>
+    <br><br>
+    <debliwui-saldo></debliwui-saldo>
+
+    <div class="titulo">
+        <h1>LEVANTAR NO AGENTE</h1>
+    </div>
+
+    <div class="container-div">
+        <div class="mb-4">
+            <label class="form-label">Quanto?</label>
+            <input type="number" placeholder="" id="quanto" class="form-control">
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Número do agente</label>
+            <div class="input-group">      
+                <span class="input-group-text" for="telefone"><b>+244</b></span>
+                <input type="number" class="form-control" placeholder id="para" autocomplete="off" inputmode="numeric" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="9">
+            </div>
+        </div>
+    </div>
+
+    
+    <br>
+    <img src="assets/btn/btn-levantamento-lg.svg"
+        class="btn-lg-svg hvr-bounce-out"
+        onclick="LevantarSemCartaoRequests.pegaDadosOperacao()">
+    <br>
+    <!-- MODAL CONFIRMAR NORMAL -->
+    <div class="modal fade" id="confirmar-modal" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="exampleModalToggleLabel">CONFIRMAR LEVANTAMENTO</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detalhes-transacao" id="detalhes-transacao">
+                        
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-primary form-control btn-lg hvr-bounce-out"
+                        onclick="InicioRequests.pedirNumeroOuPin()">Confirmar</button>
+                    <button
+                        class="btn btn-danger form-control btn-lg hvr-bounce-out"
+                        data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR NORMAL -->
+    <div class="modal fade" id="concluir-levantamento" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="width: 100%;height: 97vh;">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="exampleModalToggleLabel"></h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detalhes-transacao" id="detalhes-levantamento" style="display: flex;height: 85%;flex-direction: row;align-content: center;align-items: center;">
+                        
+                    </div>
+                    <img src="assets/btn/copiar.svg" style="width: 60px;display: block;margin: 10px auto;" class=" hvr-bounce-out" onclick="LevantarSemCartaoRequests.copiarParaClipboard()">
+                </div>
+                <div class="modal-footer">
+                    
+                    <button
+                        class="btn btn-primary form-control btn-lg hvr-bounce-out"
+                        onclick='vaiTela("/home")'>Continuar</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<style>
+
+.detalhes-info{text-align: center;font-size: 16px !important;margin: 0;}
+.detalhes-info span{font-size: 13px;margin-top: -4px !important;line-height: 14px;color: blueviolet;}
+.detalhes-info p{font-size: 13px;margin:0;line-height: 14px !important;}
+.opcoes-operacao{text-align: center;width: 100%;font-weight: lighter;margin: 0;}
+.btn-lg-svg{display: block;width: 99%;margin: 0 auto;}
+
+
+.radio {
+  appearance: none;
+
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+
+  position: relative;
+  top: 4px;
+}
+
+.radio:checked {
+  border: 10px solid rgba(100, 5, 100, .5);
+}
+
+.opcoes{font-size: 20px;}
+.opcoes p{margin:5px 0}
+.obs span{color: #EB9900}
+.detalhes-transacao p{margin: 0;line-height: 25px;font-size: 15px;}
+
+</style>
+

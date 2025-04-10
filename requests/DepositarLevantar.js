@@ -99,55 +99,60 @@ class DepositarLevantarReq {
                 var titulo = "";
                 var sinal = "";
                 var quem = "";
+                var eu = "";
+                console.error(element);
                 if (element.tipo == "levantamento") {
                     fechar = "assets/fechar-saida-icon.svg";
-                    quem = `<p>Cliente: ${(element.cliente)}</p>`;
+                    quem = `<p>Cliente: ${(element.cliente)}<br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;
+                    eu = `<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;
                     classe = "saida";
                     cor = "#BF0003";
                     titulo = "LEVANTAMENTO";
                     sinal = "-";
                 } else {
                     fechar = "assets/fechar-entrada-icon.svg";
-                    quem = `<p>Cliente: ${(element.cliente)}</p>`;
+                    quem = `<p>Cliente: ${(element.cliente)} <br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;
+                    eu = `<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;
                     classe = "entrada";
                     cor = "#00BF00";
                     titulo = "DEPOSITO";
                     sinal = "+";
                 }
                 itens += `
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#dl${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="dl${(element.identificador)}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
-                                style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DO ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
-                                <div class="detalhes-transacao">
+                        <div class="modal-content" style="width: 300px;margin:auto;margin-top: 100px;">
+                            <div class="OPDF">
+                                <div class="modal-header"
+                                    style="border-bottom: 1px solid ${cor};">
+                                    <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DO ${titulo}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
+                                    <div class="detalhes-transacao">
 
-                                    <p>Quando: ${(element.quando)}</p>
-                                    ${quem}
+                                        <p>Quando: ${(element.quando)}</p>
+                                        ${quem}
+                                        ${eu}
+                                    </div>
+                                    <br>
+                                    <div class="id-transacao">
+                                        <p>Id transação</p>
+                                        <p><b>${(element.transacao_pid)}</b></p>
+                                    </div>
 
                                 </div>
-                                <br>
-                                <div class="id-transacao">
-                                    <p>Id transação</p>
-                                    <p><b>${(element.transacao_pid)}</b></p>
-                                </div>
-
                             </div>
-                            
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("dl${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>      
                         </div>
                     </div>
                 </div>`;
@@ -203,55 +208,61 @@ class DepositarLevantarReq {
                 var titulo = "";
                 var sinal = "";
                 var quem = "";
+                var eu = "";
                 if (element.tipo == "levantamento") {
                     fechar = "assets/fechar-saida-icon.svg";
-                    quem = `<p>Cliente: ${(element.cliente)}</p>`;
+                    
+                    quem = `<p>Cliente: ${(element.cliente)}<br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;
+                    eu = `<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;
                     classe = "saida";
                     cor = "#BF0003";
                     titulo = "LEVANTAMENTO";
                     sinal = "-";
                 } else {
                     fechar = "assets/fechar-entrada-icon.svg";
-                    quem = `<p>Cliente: ${(element.cliente)}</p>`;
+                    quem = `<p>Cliente: ${(element.cliente)} <br> <b>${((String(element.cliente_nome)).toUpperCase())}</b></p>`;
+                    eu = `<p>Agente: ${((localStorage.getItem("telefone")))} <br> <b>${((localStorage.getItem("nome")).toUpperCase())}</b></p>`;
                     classe = "entrada";
                     cor = "#00BF00";
                     titulo = "DEPOSITO";
                     sinal = "+";
                 }
                 itens += `
-                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#exampleModal${(element.identificador)}">
+                <div class="transacao ${classe}" data-bs-toggle="modal" data-bs-target="#dl${(element.identificador)}">
                     <p class="valor">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
                     <p class="data">${(element.quando)}</p>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal${(element.identificador)}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="dl${(element.identificador)}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content"
-                            style="width: 300px;margin:auto;margin-top: 100px;">
-                            <div class="modal-header"
-                                style="border-bottom: 1px solid ${cor};">
-                                <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES DO ${titulo}</h5>
-                                <img src="${fechar}"
-                                    data-bs-dismiss="modal" aria-label="Close"
-                                    style="width: 15px;">
-                            </div>
-                            <div class="modal-body">
-                                <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
-                                <div class="detalhes-transacao">
+                        <div class="modal-content" style="width: 300px;margin:auto;margin-top: 100px;">
+                            <div class="OPDF">
+                                <div class="modal-header"
+                                    style="border-bottom: 1px solid ${cor};">
+                                    <h5 class="modal-title" style="text-align: center;font-size: 15px;color: ${cor};">DETALHES &nbsp; DO ${titulo}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background:${cor};"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="pendente-valor" style="color:${cor}">${sinal} ${((MONEY(element.total, 2, ".", " ")))}</p>
+                                    <div class="detalhes-transacao">
 
-                                    <p>Quando: ${(element.quando)}</p>
-                                    ${quem}
+                                        <p>Quando: ${(element.quando)}</p>
+                                        ${quem}
+                                        ${eu}
+
+                                    </div>
+                                    <br>
+                                    <div class="id-transacao">
+                                        <p>Id transação</p>
+                                        <p><b>${(element.transacao_pid)}</b></p>
+                                    </div>
 
                                 </div>
-                                <br>
-                                <div class="id-transacao">
-                                    <p>Id transação</p>
-                                    <p><b>${(element.transacao_pid)}</b></p>
-                                </div>
-
                             </div>
-                            
+                            <div class="modal-footer" style="border-top: 1px solid ${cor};">
+                                <button type="button" class="btn form-control" onclick='savePDF("dl${(element.identificador)}")' style="background:${cor};">COMPROVATIVO</button>
+                            </div>
                         </div>
                     </div>
                 </div>`;

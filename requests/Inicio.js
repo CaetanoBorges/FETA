@@ -298,6 +298,33 @@ class InicioReq {
 
         });
     }
+    
+    verificaExistenciaDeConta(telefone) {
+        var esse = this;
+        var settings = {
+            "url": (this.apiUrl) + "/config/verificanumero",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "token": esse.db.getToken(),
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "telefone": telefone
+            }),
+        };
+        var result = null;
+        $.ajax(settings).done(function (res) {
+            if (res.ok) {
+                result = (res.payload);
+                ESCOPO.outraConta = result;
+            } else {
+                esse.notificacao.sms(res.payload, 1);
+            }
+            //console.log(res);
+        }).always(function (a) {
+        });
+    }
     pedirNumeroCliente() {
         this.loader.abrir();
         var esse = this;
@@ -311,7 +338,8 @@ class InicioReq {
                 "Content-Type": "application/json"
             },
             "data": JSON.stringify({
-                "acao": ESCOPO.acao
+                "acao": ESCOPO.acao,
+                "numero": ESCOPO.dadosOperacao.para
             }),
         };
 
@@ -382,32 +410,11 @@ class InicioReq {
 
 
     pedirNumeroNovo() {
-        this.loader.abrir();
-        var esse = this;
-
-        var settings = {
-            "url": (this.apiUrl) + "/pedecodigo",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "token": esse.db.getToken(),
-                "Content-Type": "application/json"
-            },
-            "data": JSON.stringify({
-                "acao": ESCOPO.acao
-            }),
-        };
-
-        $.ajax(settings).done(function (res) {
-            if (res.ok) {
-                esse.notificacao.sms("Código de confirmação enviado com sucesso", 1);
-            } else {
-                esse.notificacao.sms(res.payload, 1);
-            }
-            //console.log(res);
-        }).always(function (a) {
-            esse.loader.fechar();
-        });
+        if(ESCOPO.confirmarFinal == "codigo"){ 
+            this.pedirNumero();
+        } else if(ESCOPO.confirmarFinal == "codigoCliente"){
+            this.pedirNumeroCliente();
+        }
     }
 
     confirmarNumero() {

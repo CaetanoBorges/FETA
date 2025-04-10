@@ -17,6 +17,12 @@
         src=assets/polyfill/custom-elements.min.js></script><script
         src=assets/polyfill/qrcode.js></script>
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.5/purify.min.js" integrity="sha512-/CUtA84sWWqWEBejNrrtWa7Yc4cth3Ome2ymvCKOo9YcZ4sh98tndUy4LutE2xGcAgD4fyz16y+gSyJdGCB5ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/polyfills.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.7/base64.min.js"></script>
+
         <script src=components.js></script>
 
         <script>const api = 'http://127.0.0.1/fetaapi';</script>
@@ -113,7 +119,47 @@
     const LevantarSemCartaoRequests = new LevantarSemCartaoReq($,api,loader,notificacao,db); 
     
     </script><script src=paginas.js></script><script
-                src=router.js></script><script>var pin = '';
+                src=router.js></script>
+                
+<script>
+
+ function savePDF(div) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'px',
+        format: [320,550],
+        putOnlyUsedFonts: false,
+        precision:2,
+        compress: true
+    });
+    var html = document.querySelector("#"+div+" .OPDF");
+    doc.html(html, {
+        callback: function (doc) {
+            doc.setLanguage("pt-PT");
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+            const img = new Image();
+            img.src = 'assets/logo.png';
+            img.onload = () => {
+                // await for the image to be fully loaded
+                
+                doc.addImage(img,'png', 10, 420, 300, 150);
+                //...
+                doc.save(div + '.pdf');
+            };
+            
+        },
+        x: 10,
+        y: 10,
+        //width: 190, //target width in the PDF document
+
+        
+    });
+}                
+                
+var pin = '';
 
 function inputPin(num) {
     if (pin.length < 6) {
